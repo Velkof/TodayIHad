@@ -1,0 +1,69 @@
+﻿@model IEnumerable<TodayIHad.Domain.Entities.Food>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<div id="foodSearchDiv" class="input-group">
+    <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-search"></span></span>
+
+
+    <input type="text" class="form-control" id="foodSearchBox" placeholder="Search for food" name="SearchFoodString" />
+</div>
+
+<ul id="foodSearchUL"></ul>
+
+<h2>Dashboard</h2>
+
+
+
+@Html.Partial("_SearchFood")
+
+    @section Scripts {
+
+
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+
+                $("#foodSearchBox").on("input", function () {
+
+                    var food = $('#foodSearchBox').val();
+
+                    alert("Success1" + food);
+
+                    $.ajax({
+                        type: 'POST',
+                        //url: 'Url.Action("SearchFood", "Dashboard")',
+                        url: '/Dashboard/SearchFood',
+                        data: { searchFoodString: food },
+                        success: function (data) {
+
+                            alert("2ff");
+                            $("#foodSearchUL").empty();
+
+                            for (var i in data) {
+                                for (var j in data[i]) {
+                                    $("#foodSearchUL").append('<li class="list-group-item">' + data[i][j].Name + '</li>');
+
+                                }
+                            }
+
+                        },
+                        error: function () {
+                            alert("Failed");
+                        }
+
+                    });
+
+                });
+
+
+            });
+
+
+        </script>
+
+    }

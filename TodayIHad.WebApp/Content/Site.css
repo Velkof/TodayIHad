@@ -1,0 +1,134 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/*Bootstrap overrides*/
+
+.navbar-inverse {
+    background-color: #00915C;
+    border-color: #00915C;
+}
+
+.navbar-inverse .navbar-nav > li:hover{
+    background-color: #007349;
+
+}
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a {
+    color: #fff;
+}
+
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus, 
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    /*color: #EFFF5C;*/
+    background-color: transparent;
+}
+
+
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+    background-color: #007349;
+
+}
+
+.navbar-inverse .navbar-toggle {
+    border-color: #fff;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    /*color: #EFFF5C;*/
+    background-color: #007349;
+}
+
+.form-control:focus {
+    border-color: #00915C;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+/*Custom CSS-----------------------------------------------------------------------------------------------------------*/
+
+#foodSearchDiv {
+    margin-top: 30px;
+    /*border: 1px solid red;*/
+}
+
+#foodSearchBox {
+    /*margin-top: 1px;*/
+    /*border: 3px solid #00915C;*/
+    -moz-min-width: 100%;
+    -ms-min-width: 100%;
+    -o-min-width: 100%;
+    -webkit-min-width: 100%;
+    min-width: 100%;
+}
+
+#foodList {
+    /*border: 1px solid red;*/
+
+
+}
+
+#foodSearchUL {
+    list-style-type: none;
+}
+
+#foodSearchUL li {
+    padding: 2px 0px 2px 10px;
+}
+
+
+
+/* Extra small devices (phones, up to 480px) */
+@media screen and (max-width: 767px) {
+    /*Bootstrap override*/
+    .navbar-inverse .navbar-nav .open .dropdown-menu {
+            background-color: #00915C;
+
+    }
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li:hover {
+            background-color: #007349;
+
+    }
+
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+        color: #fff;
+
+    }
+.navbar-inverse .navbar-nav .open .dropdown-menu .divider,
+.navbar-inverse .navbar-nav .open .dropdown-menu .divider:hover
+ {
+    background-color: transparent;
+}
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px) {
+}
+/* tablets/desktops and up ----------- */
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+/* large desktops and up ----------- */
+@media screen and (min-width: 1200px) {
+}

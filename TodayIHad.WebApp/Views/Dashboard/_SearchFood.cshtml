@@ -1,0 +1,10 @@
+﻿@*@model System.Collections.Generic.List<TodayIHad.Domain.Entities.Food>*@
+@model IEnumerable<TodayIHad.Domain.Entities.Food>
+@if (Model != null)
+{
+ foreach (var food in Model)
+ {
+    <li>@food.Name</li>
+ }
+
+}
