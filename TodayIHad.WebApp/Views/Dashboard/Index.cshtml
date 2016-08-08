@@ -10,13 +10,47 @@
     <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-search"></span></span>
 
 
-    <input type="text" class="form-control" id="foodSearchBox" placeholder="Search for food" name="SearchFoodString" />
+    <input type="text" class="form-control" id="foodSearchBox" placeholder="Search for food" autocomplete="off" name="SearchFoodString" />
 </div>
 
 <ul id="foodSearchUL"></ul>
 
-<h2>Dashboard</h2>
 
+
+<div id="scoreInfoDiv"></div>
+<div id="calorieInfoDiv"></div>
+
+<div id="foodEditDiv" class="col-xs-10 ">jij</div>
+
+@*<div id="dialog" title="Basic dialog">
+    <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+</div>*@
+
+
+<div id="tabs" style="display: none;">
+    <ul>
+        <li><a href="#tabs-1">Today's Food</a></li>
+        <li><a href="#tabs-2">Calendar</a></li>
+        <li><a href="#tabs-3">Stats</a></li>
+    </ul>
+
+
+    <div id="tabs-1">
+        <table class="table table-responsive table-condensed table-hover">
+            <thead>
+                <tr><th>Food Name</th> <th>Amount</th><th>Unit</th><th>Edit</th></tr>
+            </thead>
+            <tr><td>Pork chop, raw, lean only</td><td>100</td><td>gr</td><td> <span class="glyphicon glyphicon-pencil"></span></td></tr>
+            <tr><td>Strawberries, raw</td><td>100</td><td>gr</td><td><span class="glyphicon glyphicon-pencil"></span></td></tr>
+            <tr><td>Cheese, cottage, nonfat, uncreamed, dry, large or small curd</td><td>5</td><td>oz</td><td><span class="glyphicon glyphicon-pencil"></span></td></tr>
+            <tr><td>Dessert topping, powdered, 1.5 ounce prepared with 1/2 cup milk </td><td>2</td><td>cups</td><td><span class="glyphicon glyphicon-pencil"></span></td></tr>
+        </table>
+
+    </div>
+
+     <div id="tabs-2">caca</div>
+     <div id="tabs-3">Stats will be here...</div>
+</div>
 
 
 @Html.Partial("_SearchFood")
@@ -26,44 +60,76 @@
 
         <script type="text/javascript">
 
-            $(document).ready(function () {
+            $(document)
+                .ready(function() {
 
-                $("#foodSearchBox").on("input", function () {
+                    $("#foodSearchBox")
+                        .on("input",
+                            function() {
 
-                    var food = $('#foodSearchBox').val();
+                                var food = $('#foodSearchBox').val();
 
-                    alert("Success1" + food);
 
-                    $.ajax({
-                        type: 'POST',
-                        //url: 'Url.Action("SearchFood", "Dashboard")',
-                        url: '/Dashboard/SearchFood',
-                        data: { searchFoodString: food },
-                        success: function (data) {
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/Dashboard/SearchFood',
+                                    data: { searchFoodString: food },
+                                    success: function(data) {
 
-                            alert("2ff");
-                            $("#foodSearchUL").empty();
+                                        $("#foodSearchUL").empty();
 
-                            for (var i in data) {
-                                for (var j in data[i]) {
-                                    $("#foodSearchUL").append('<li class="list-group-item">' + data[i][j].Name + '</li>');
+                                        for (var i in data) {
+                                            for (var j in data[i]) {
+                                                $("#foodSearchUL")
+                                                    .append('<li class="foodSearchResultsLI list-group-item">' +
+                                                        data[i][j].Name +
+                                                        '</li>');
+
+                                            }
+                                        }
+
+                                    },
+                                    error: function() {
+                                        alert("Failed");
+                                    }
+
+                                });
+                            });
+
+                    $("#foodSearchUL").on("click", "li", function() {
+                            var selectedFoodName = $(this).html();
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '/Dashboard/EditFood',
+                            data: {selectedFoodName: selectedFoodName},
+                            success: function (data) {
+
+                                for (var i in data) {
+                                    $("#foodEditDiv").html("<p>" + data[i].Name + "<p>");
 
                                 }
-                            }
 
-                        },
-                        error: function () {
-                            alert("Failed");
-                        }
+                                $("#foodSearchUL").empty();
+                            },
+                            error: function() {
+                                alert("Food has not been added");
+                            }
+                        });
 
                     });
 
                 });
 
+            //$("#dialog").dialog({
+            //    //closeText: "hide",
+            //    my: "center", at: "center", of: window,
 
-            });
+            //});
 
 
+            $("#tabs").tabs();
+            $("#tabs").css("display", "block");
         </script>
 
     }

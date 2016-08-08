@@ -34,5 +34,22 @@ namespace TodayIHad.WebApp.Controllers
             return Json(new { data = false });
 
         }
+
+        [HttpPost]
+        public JsonResult EditFood(string selectedFoodName)
+        {
+                var newFood = db.Foods.FirstOrDefault(n => n.Name == selectedFoodName);
+
+            if (newFood != null)
+            {
+                newFood.Calories = 21;
+            
+
+                return Json(new {data = newFood});
+            }
+
+            return Json(data: false);
+        }
+
     }
 }
