@@ -10,7 +10,7 @@ namespace TodayIHad.WebApp.Controllers
     public class DashboardController : Controller
     {
         Database db = new Database();
-        IUserFoodRepository _foodRepository = new FoodRepository();
+        private IFoodRepository _foodRepository = new FoodRepository();
 
         // GET: Dashboard
         public ActionResult Index()

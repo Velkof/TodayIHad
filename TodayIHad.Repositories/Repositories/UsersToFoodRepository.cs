@@ -3,32 +3,31 @@ using System.Collections.Generic;
 using TodayIHad.Domain.Entities;
 using TodayIHad.Domain.Interfaces;
 
-
 namespace TodayIHad.Repositories.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UsersToFoodRepository : IUsersToFoodRepository
     {
-        public bool Create(User user)
+        public bool Create(UsersToFood usersToFood)
         {
             throw new NotImplementedException();
         }
 
-        public bool Delete(string id)
+        public bool Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<User> GetAll()
+        public List<UsersToFood> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public User GetById(string id)
+        public UsersToFood GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public bool Update(User user)
+        public bool Update(UsersToFood usersToFood)
         {
             throw new NotImplementedException();
         }
