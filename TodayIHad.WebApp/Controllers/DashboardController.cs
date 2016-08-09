@@ -10,7 +10,7 @@ namespace TodayIHad.WebApp.Controllers
     public class DashboardController : Controller
     {
         Database db = new Database();
-        IFoodRepository _foodRepository = new FoodRepository();
+        IUserFoodRepository _foodRepository = new FoodRepository();
 
         // GET: Dashboard
         public ActionResult Index()
@@ -42,7 +42,7 @@ namespace TodayIHad.WebApp.Controllers
 
             if (newFood != null)
             {
-                newFood.Calories = 21;
+                newFood.Calories_kcal = 21;
             
 
                 return Json(new {data = newFood});

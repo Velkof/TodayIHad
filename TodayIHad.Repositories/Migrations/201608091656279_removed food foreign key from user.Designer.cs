@@ -7,13 +7,13 @@ namespace TodayIHad.Repositories.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class InitialMigration : IMigrationMetadata
+    public sealed partial class removedfoodforeignkeyfromuser : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(removedfoodforeignkeyfromuser));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608041242542_InitialMigration"; }
+            get { return "201608091656279_removed food foreign key from user"; }
         }
         
         string IMigrationMetadata.Source

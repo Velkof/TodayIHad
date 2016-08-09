@@ -3,7 +3,7 @@ using TodayIHad.Domain.Entities;
 
 namespace TodayIHad.Domain.Interfaces
 {
-    public interface IFoodRepository
+    public interface IUserFoodRepository
     {
         List<Food> GetAll();
         Food GetById(int id);

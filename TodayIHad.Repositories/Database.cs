@@ -13,6 +13,5 @@ namespace TodayIHad.Repositories
 
 
         public DbSet<Food> Foods { get; set; }
-        public DbSet<CustomFood> CustomFoods { get; set; }
     }
 }

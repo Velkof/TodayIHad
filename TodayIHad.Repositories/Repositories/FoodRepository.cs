@@ -5,7 +5,7 @@ using TodayIHad.Domain.Interfaces;
 
 namespace TodayIHad.Repositories.Repositories
 {
-    public class FoodRepository : IFoodRepository
+    public class FoodRepository : IUserFoodRepository
     {
         public bool Create(Food food)
         {

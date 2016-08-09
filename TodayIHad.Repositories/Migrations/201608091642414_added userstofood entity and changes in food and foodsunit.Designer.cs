@@ -7,13 +7,13 @@ namespace TodayIHad.Repositories.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UpdatedCustomFood : IMigrationMetadata
+    public sealed partial class addeduserstofoodentityandchangesinfoodandfoodsunit : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdatedCustomFood));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addeduserstofoodentityandchangesinfoodandfoodsunit));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608041254319_UpdatedCustomFood"; }
+            get { return "201608091642414_added userstofood entity and changes in food and foodsunit"; }
         }
         
         string IMigrationMetadata.Source
