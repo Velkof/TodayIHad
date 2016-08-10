@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using TodayIHad.Domain.Entities;
 using TodayIHad.Domain.Interfaces;
 
@@ -7,34 +7,74 @@ namespace TodayIHad.Repositories.Repositories
 {
     public class FoodsUnitRepository : IFoodsUnitRepository
     {
+        private Database db = new Database();
+
         public bool Create(List<FoodsUnit> foodsUnitsList)
         {
-            throw new NotImplementedException();
+            
+            foreach (var foodsUnit in foodsUnitsList)
+            {
+                db.FoodsUnits.Add(foodsUnit);
+            }
+
+            db.SaveChanges();
+
+            return true;
+
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            var dbFoodsUnit = GetById(id);
+
+            if (dbFoodsUnit != null)
+            {
+                db.FoodsUnits.Remove(dbFoodsUnit);
+                db.SaveChanges();
+
+                return true;
+            }
+
+            return false;
         }
 
         public List<FoodsUnit> GetAll()
         {
-            throw new NotImplementedException();
+            return db.FoodsUnits.ToList();
         }
 
-        public List<FoodsUnit> GetAllForCurrentFood()
+        public List<FoodsUnit> GetAllForCurrentFood(int foodId)
         {
-            throw new NotImplementedException();
+            return GetAll().Where(x => x.FoodId == foodId).ToList();
         }
 
         public FoodsUnit GetById(int id)
         {
-            throw new NotImplementedException();
+            return GetAll().FirstOrDefault(x => x.Id == id);
         }
 
         public bool Update(List<FoodsUnit> foodsUnitsList)
         {
-            throw new NotImplementedException();
+            
+
+            foreach (var foodsUnit in foodsUnitsList)
+            {
+                var dbFoodsUnit = GetById(foodsUnit.Id);
+
+                if (dbFoodsUnit != null)
+                {
+                    dbFoodsUnit.Name = foodsUnit.Name;
+                    dbFoodsUnit.Amount = foodsUnit.Amount;
+                    dbFoodsUnit.GramWeight = foodsUnit.GramWeight;
+                    
+
+                    db.SaveChanges();
+                    return true;
+                }
+
+            }
+            return false;
+
         }
     }
 }

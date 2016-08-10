@@ -1,0 +1,105 @@
+﻿@model IEnumerable<TodayIHad.Domain.Entities.Food>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Calories_kcal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Protein_gr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fat_gr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Carbs_gr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fiber_gr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sugar_gr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sodium_mg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fat_Sat_gr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fat_Mono_gr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fat_Poly_gr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cholesterol_mg)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDefault)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Calories_kcal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Protein_gr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fat_gr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Carbs_gr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fiber_gr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sugar_gr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sodium_mg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fat_Sat_gr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fat_Mono_gr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fat_Poly_gr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cholesterol_mg)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsDefault)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

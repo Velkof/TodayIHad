@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using TodayIHad.Domain.Entities;
 using TodayIHad.Domain.Interfaces;
 
@@ -40,10 +42,11 @@ namespace TodayIHad.Repositories.Repositories
             return db.EnteredFoods.ToList();
         }
 
-        //public List<EnteredFood> GetAllForCurrentUser(string userid)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public List<EnteredFood> GetAllForCurrentUser()
+        {
+            string  userId = HttpContext.Current.User.Identity.GetUserId();
+            return GetAll().Where(x => x.UserId == userId).ToList();
+        }
 
         public EnteredFood GetById(int id)
         {

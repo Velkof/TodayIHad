@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TodayIHad.Domain.Entities;
 using TodayIHad.Domain.Interfaces;
 
@@ -8,24 +9,35 @@ namespace TodayIHad.Repositories.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        public bool Create(User user)
-        {
-            throw new NotImplementedException();
-        }
+        private Database db = new Database();
+
+        //public bool Create(User user)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public bool Delete(string id)
         {
-            throw new NotImplementedException();
+            var dbUser = GetById(id);
+
+            if (dbUser != null)
+            {
+                db.Users.Remove(dbUser);
+
+                db.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
         public List<User> GetAll()
         {
-            throw new NotImplementedException();
+            return db.Users.ToList();
         }
 
         public User GetById(string id)
         {
-            throw new NotImplementedException();
+            return GetAll().FirstOrDefault(x => x.Id == id);
         }
 
         public bool Update(User user)

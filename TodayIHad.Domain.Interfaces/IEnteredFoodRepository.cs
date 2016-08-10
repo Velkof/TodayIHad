@@ -7,7 +7,7 @@ namespace TodayIHad.Domain.Interfaces
     {
         List<EnteredFood> GetAll();
         EnteredFood GetById(int id);
-        //List<EnteredFood> GetAllForCurrentUser(string userid);
+        List<EnteredFood> GetAllForCurrentUser();
 
         bool Create(EnteredFood enteredFood);
         bool Update(EnteredFood enteredFood);

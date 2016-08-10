@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TodayIHad.Domain.Entities;
 using TodayIHad.Domain.Interfaces;
@@ -9,25 +8,11 @@ namespace TodayIHad.Repositories.Repositories
     public class FoodRepository : IFoodRepository
     {
         private Database db = new Database();
-        private IUsersToFoodRepository _usersToFoodRepository = new UsersToFoodRepository();
 
 
         public bool Create(Food food)
         {
             food.IsDefault = 1;
-
-            //var userId = HttpContext.Current.User.Identity.GetUserId();
-
-
-            //var dbUsersToFood = new UsersToFood
-            //{
-            //    FoodId = food.Id,
-            //    DateCreated = DateTime.Now,
-            //    DateUpdated = DateTime.Now,
-            //    UserId = userId,
-            //};
-
-            //db.UsersToFoods.Add(dbUsersToFood);
 
             db.Foods.Add(food);
             db.SaveChanges();
@@ -63,12 +48,10 @@ namespace TodayIHad.Repositories.Repositories
         public bool Update(Food food)
         {
             var dbFood = GetById(food.Id);
-            var dbUsersToFood = db.UsersToFoods.FirstOrDefault(x => x.FoodId == dbFood.Id);
 
-            if (dbFood != null && dbUsersToFood != null)
+            if (dbFood != null)
             {
 
-                dbUsersToFood.DateUpdated = DateTime.Now;
 
                 dbFood.Name = food.Name;
                 dbFood.Calories_kcal = food.Calories_kcal;

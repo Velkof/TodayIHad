@@ -1,0 +1,122 @@
+﻿@model TodayIHad.Domain.Entities.Food
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Food</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Calories_kcal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Calories_kcal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Protein_gr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Protein_gr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fat_gr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fat_gr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Carbs_gr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Carbs_gr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fiber_gr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fiber_gr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sugar_gr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sugar_gr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sodium_mg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sodium_mg)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fat_Sat_gr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fat_Sat_gr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fat_Mono_gr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fat_Mono_gr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fat_Poly_gr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fat_Poly_gr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cholesterol_mg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cholesterol_mg)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDefault)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDefault)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

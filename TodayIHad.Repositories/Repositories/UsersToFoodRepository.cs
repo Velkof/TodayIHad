@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using TodayIHad.Domain.Entities;
 using TodayIHad.Domain.Interfaces;
 
@@ -7,29 +8,56 @@ namespace TodayIHad.Repositories.Repositories
 {
     public class UsersToFoodRepository : IUsersToFoodRepository
     {
+        private Database db = new Database();
+
         public bool Create(UsersToFood usersToFood)
         {
-            throw new NotImplementedException();
+            usersToFood.DateCreated = DateTime.Now;
+            usersToFood.DateUpdated = DateTime.Now;
+
+            db.UsersToFoods.Add(usersToFood);
+
+            return true;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            var dbUsersToFood = GetById(id);
+
+            if (dbUsersToFood != null)
+            {
+
+                db.UsersToFoods.Remove(dbUsersToFood);
+                db.SaveChanges();
+                return true;
+            }
+
+            return false;
         }
 
         public List<UsersToFood> GetAll()
         {
-            throw new NotImplementedException();
+            return db.UsersToFoods.ToList();
         }
 
         public UsersToFood GetById(int id)
         {
-            throw new NotImplementedException();
+            return GetAll().FirstOrDefault(x => x.Id == id);
         }
 
         public bool Update(UsersToFood usersToFood)
         {
-            throw new NotImplementedException();
+            var dbUsersToFood = GetById(usersToFood.Id);
+
+            if (dbUsersToFood != null)
+            {
+                dbUsersToFood.DateUpdated = DateTime.Now;
+
+                db.SaveChanges();
+                return true;
+            }
+
+            return false;
         }
     }
 }
