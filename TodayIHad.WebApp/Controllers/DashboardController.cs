@@ -51,5 +51,11 @@ namespace TodayIHad.WebApp.Controllers
             return Json(data: false);
         }
 
+        //[HttpPost]
+        //public JsonResult AddFood(string food)
+        //{
+            
+        //}
+
     }
 }

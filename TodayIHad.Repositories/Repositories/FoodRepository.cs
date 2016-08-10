@@ -16,8 +16,19 @@ namespace TodayIHad.Repositories.Repositories
         {
             food.IsDefault = 1;
 
-           
-            
+            //var userId = HttpContext.Current.User.Identity.GetUserId();
+
+
+            //var dbUsersToFood = new UsersToFood
+            //{
+            //    FoodId = food.Id,
+            //    DateCreated = DateTime.Now,
+            //    DateUpdated = DateTime.Now,
+            //    UserId = userId,
+            //};
+
+            //db.UsersToFoods.Add(dbUsersToFood);
+
             db.Foods.Add(food);
             db.SaveChanges();
 
@@ -47,12 +58,37 @@ namespace TodayIHad.Repositories.Repositories
         {
             return GetAll().FirstOrDefault(x => x.Id == id);
 
-            throw new NotImplementedException();
         }
 
         public bool Update(Food food)
         {
-            throw new NotImplementedException();
+            var dbFood = GetById(food.Id);
+            var dbUsersToFood = db.UsersToFoods.FirstOrDefault(x => x.FoodId == dbFood.Id);
+
+            if (dbFood != null && dbUsersToFood != null)
+            {
+
+                dbUsersToFood.DateUpdated = DateTime.Now;
+
+                dbFood.Name = food.Name;
+                dbFood.Calories_kcal = food.Calories_kcal;
+                dbFood.Protein_gr = food.Protein_gr;
+                dbFood.Fat_gr = food.Fat_gr;
+                dbFood.Carbs_gr = food.Carbs_gr;
+                dbFood.Fiber_gr = food.Fiber_gr;
+                dbFood.Sugar_gr = food.Sugar_gr;
+                dbFood.Sodium_mg = food.Sodium_mg;
+                dbFood.Fat_Sat_gr = food.Fat_Sat_gr;
+                dbFood.Fat_Mono_gr = food.Fat_Mono_gr;
+                dbFood.Fat_Poly_gr = food.Fat_Poly_gr;
+                dbFood.Cholesterol_mg = food.Cholesterol_mg;
+                
+                
+                db.SaveChanges();
+                return true;
+            }
+
+            return false;
         }
     }
 }

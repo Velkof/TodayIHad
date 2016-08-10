@@ -20,11 +20,20 @@
 <div id="scoreInfoDiv"></div>
 <div id="calorieInfoDiv"></div>
 
-<div id="foodEditDiv" class="col-xs-10 ">jij</div>
+@*<div id="foodEditDiv" class="col-xs-10 ">jij</div>*@
 
-@*<div id="dialog" title="Basic dialog">
-    <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
-</div>*@
+<div id="foodEntryDialog" title="Food Entry">
+
+    <div>
+        <label></label>
+
+        <label>Calories</label>
+        <input id="foodCaloriesInput" type="number"/>
+
+        <label></label>
+    </div>
+
+</div>
 
 
 <div id="tabs" style="display: none;">
@@ -48,88 +57,88 @@
 
     </div>
 
-     <div id="tabs-2">caca</div>
-     <div id="tabs-3">Stats will be here...</div>
+    <div id="tabs-2">caca</div>
+    <div id="tabs-3">Stats will be here...</div>
 </div>
 
 
 @Html.Partial("_SearchFood")
 
-    @section Scripts {
+@section Scripts {
 
 
-        <script type="text/javascript">
+    <script type="text/javascript">
 
-            $(document)
-                .ready(function() {
+        $(document)
+            .ready(function () {
 
-                    $("#foodSearchBox")
-                        .on("input",
-                            function() {
+                $("#foodSearchBox")
+                    .on("input",
+                        function () {
 
-                                var food = $('#foodSearchBox').val();
+                            var food = $('#foodSearchBox').val();
 
 
-                                $.ajax({
-                                    type: 'POST',
-                                    url: '/Dashboard/SearchFood',
-                                    data: { searchFoodString: food },
-                                    success: function(data) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '/Dashboard/SearchFood',
+                                data: { searchFoodString: food },
+                                success: function (data) {
 
-                                        $("#foodSearchUL").empty();
+                                    $("#foodSearchUL").empty();
 
-                                        for (var i in data) {
-                                            for (var j in data[i]) {
-                                                $("#foodSearchUL")
-                                                    .append('<li class="foodSearchResultsLI list-group-item">' +
-                                                        data[i][j].Name +
-                                                        '</li>');
+                                    for (var i in data) {
+                                        for (var j in data[i]) {
+                                            $("#foodSearchUL")
+                                                .append('<li class="foodSearchResultsLI list-group-item">' +
+                                                    data[i][j].Name +
+                                                    '</li>');
 
-                                            }
                                         }
-
-                                    },
-                                    error: function() {
-                                        alert("Failed");
                                     }
 
-                                });
-                            });
-
-                    $("#foodSearchUL").on("click", "li", function() {
-                            var selectedFoodName = $(this).html();
-
-                        $.ajax({
-                            type: 'POST',
-                            url: '/Dashboard/EditFood',
-                            data: {selectedFoodName: selectedFoodName},
-                            success: function (data) {
-
-                                for (var i in data) {
-                                    $("#foodEditDiv").html("<p>" + data[i].Name + "<p>");
-
+                                },
+                                error: function () {
+                                    alert("Failed");
                                 }
 
-                                $("#foodSearchUL").empty();
-                            },
-                            error: function() {
-                                alert("Food has not been added");
-                            }
+                            });
                         });
 
+                $("#foodSearchUL").on("click", "li", function () {
+                    var selectedFoodName = $(this).html();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Dashboard/EditFood',
+                        data: { selectedFoodName: selectedFoodName },
+                        success: function (data) {
+
+                            for (var i in data) {
+                                $("#foodEditDiv").html("<p>" + data[i].Name + "<p>");
+
+                            }
+
+                            $("#foodSearchUL").empty();
+                        },
+                        error: function () {
+                            alert("Food has not been added");
+                        }
                     });
 
                 });
 
-            //$("#dialog").dialog({
-            //    //closeText: "hide",
-            //    my: "center", at: "center", of: window,
+            });
 
-            //});
+        $("#foodEntryDialog").dialog({
+            //closeText: "hide",
+            my: "center", at: "center", of: window,
+
+        });
 
 
-            $("#tabs").tabs();
-            $("#tabs").css("display", "block");
-        </script>
+        $("#tabs").tabs();
+        $("#tabs").css("display", "block");
+    </script>
 
-    }
+}
