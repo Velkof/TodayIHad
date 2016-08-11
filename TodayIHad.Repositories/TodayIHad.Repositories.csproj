@@ -76,11 +76,23 @@
     <Compile Include="Migrations\201608101135038_AddTableUsersToFoods.Designer.cs">
       <DependentUpon>201608101135038_AddTableUsersToFoods.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608101954375_UpdateFoodEntity.cs" />
+    <Compile Include="Migrations\201608101954375_UpdateFoodEntity.Designer.cs">
+      <DependentUpon>201608101954375_UpdateFoodEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608110107293_UpdatedEnteredFoodsEntity.cs" />
+    <Compile Include="Migrations\201608110107293_UpdatedEnteredFoodsEntity.Designer.cs">
+      <DependentUpon>201608110107293_UpdatedEnteredFoodsEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608110855017_RenameFoodsUnitEntity.cs" />
+    <Compile Include="Migrations\201608110855017_RenameFoodsUnitEntity.Designer.cs">
+      <DependentUpon>201608110855017_RenameFoodsUnitEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EnteredFoodRepository.cs" />
     <Compile Include="Repositories\FoodRepository.cs" />
-    <Compile Include="Repositories\FoodsUnitRepository.cs" />
+    <Compile Include="Repositories\FoodUnitRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\UsersToFoodRepository.cs" />
   </ItemGroup>
@@ -110,6 +122,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608101135038_AddTableUsersToFoods.resx">
       <DependentUpon>201608101135038_AddTableUsersToFoods.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608101954375_UpdateFoodEntity.resx">
+      <DependentUpon>201608101954375_UpdateFoodEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608110107293_UpdatedEnteredFoodsEntity.resx">
+      <DependentUpon>201608110107293_UpdatedEnteredFoodsEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608110855017_RenameFoodsUnitEntity.resx">
+      <DependentUpon>201608110855017_RenameFoodsUnitEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

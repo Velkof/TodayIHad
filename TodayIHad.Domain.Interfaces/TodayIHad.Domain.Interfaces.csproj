@@ -59,7 +59,7 @@
   <ItemGroup>
     <Compile Include="IEnteredFoodRepository.cs" />
     <Compile Include="IFoodRepository.cs" />
-    <Compile Include="IFoodsUnitRepository.cs" />
+    <Compile Include="IFoodUnitRepository.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="IUsersToFoodRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

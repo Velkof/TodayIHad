@@ -1,6 +1,6 @@
 ﻿namespace TodayIHad.Domain.Entities
 {
-    public class FoodsUnit
+    public class FoodUnit
     {
         public int Id { get; set; }
         public string Name { get; set; }

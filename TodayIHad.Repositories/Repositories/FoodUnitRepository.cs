@@ -5,11 +5,11 @@ using TodayIHad.Domain.Interfaces;
 
 namespace TodayIHad.Repositories.Repositories
 {
-    public class FoodsUnitRepository : IFoodsUnitRepository
+    public class FoodUnitRepository : IFoodUnitRepository
     {
         private Database db = new Database();
 
-        public bool Create(List<FoodsUnit> foodsUnitsList)
+        public bool Create(List<FoodUnit> foodsUnitsList)
         {
             
             foreach (var foodsUnit in foodsUnitsList)
@@ -38,22 +38,22 @@ namespace TodayIHad.Repositories.Repositories
             return false;
         }
 
-        public List<FoodsUnit> GetAll()
+        public List<FoodUnit> GetAll()
         {
             return db.FoodsUnits.ToList();
         }
 
-        public List<FoodsUnit> GetAllForCurrentFood(int foodId)
+        public List<FoodUnit> GetAllForCurrentFood(int foodId)
         {
             return GetAll().Where(x => x.FoodId == foodId).ToList();
         }
 
-        public FoodsUnit GetById(int id)
+        public FoodUnit GetById(int id)
         {
             return GetAll().FirstOrDefault(x => x.Id == id);
         }
 
-        public bool Update(List<FoodsUnit> foodsUnitsList)
+        public bool Update(List<FoodUnit> foodsUnitsList)
         {
             
 

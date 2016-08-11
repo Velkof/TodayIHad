@@ -3,6 +3,8 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using TodayIHad.Domain.Entities;
+using TodayIHad.Domain.Interfaces;
+using TodayIHad.Repositories.Repositories;
 using Database = TodayIHad.Repositories.Database;
 
 namespace TodayIHad.WebApp.Controllers
@@ -10,6 +12,8 @@ namespace TodayIHad.WebApp.Controllers
     public class FoodsController : Controller
     {
         private Database db = new Database();
+        private IUsersToFoodRepository _usersToFoodRepository = new UsersToFoodRepository();
+        private IFoodRepository _foodRepository = new FoodRepository();
 
         // GET: Foods
         public ActionResult Index()
@@ -43,12 +47,17 @@ namespace TodayIHad.WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Calories_kcal,Protein_gr,Fat_gr,Carbs_gr,Fiber_gr,Sugar_gr,Sodium_mg,Fat_Sat_gr,Fat_Mono_gr,Fat_Poly_gr,Cholesterol_mg,IsDefault")] Food food)
+        public ActionResult Create([Bind(Include = "Id,Name,CaloriesKcal,ProteinGr,FatGr,CarbsGr," +
+                                                   "FiberGr,SugarGr,SodiumMg,FatSatGr,FatMonoGr," +
+                                                   "FatPolyGr,CholesterolMg")] Food food)
         {
             if (ModelState.IsValid)
             {
-                db.Foods.Add(food);
-                db.SaveChanges();
+                _foodRepository.Create(food);
+                _usersToFoodRepository.Create(food.Id);
+
+               
+
                 return RedirectToAction("Index");
             }
 

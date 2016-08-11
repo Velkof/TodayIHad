@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using TodayIHad.Domain.Entities;
 using TodayIHad.Domain.Interfaces;
 
@@ -10,12 +12,18 @@ namespace TodayIHad.Repositories.Repositories
     {
         private Database db = new Database();
 
-        public bool Create(UsersToFood usersToFood)
+        public bool Create(int foodId)
         {
-            usersToFood.DateCreated = DateTime.Now;
-            usersToFood.DateUpdated = DateTime.Now;
+            var usersToFood = new UsersToFood
+            {
+                FoodId = foodId,
+                UserId = HttpContext.Current.User.Identity.GetUserId(),
+                DateCreated = DateTime.Now,
+                DateUpdated = DateTime.Now
+            };
 
             db.UsersToFoods.Add(usersToFood);
+            db.SaveChanges();
 
             return true;
         }

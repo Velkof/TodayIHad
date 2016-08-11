@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
+using TodayIHad.Domain.Entities;
 using TodayIHad.Domain.Interfaces;
 using TodayIHad.Repositories;
 using TodayIHad.Repositories.Repositories;
@@ -11,6 +13,8 @@ namespace TodayIHad.WebApp.Controllers
     {
         Database db = new Database();
         private IFoodRepository _foodRepository = new FoodRepository();
+        private IFoodUnitRepository _foodUnitRepository = new FoodUnitRepository();
+        private IEnteredFoodRepository _enteredFoodRepository = new EnteredFoodRepository();
 
         // GET: Dashboard
         public ActionResult Index()
@@ -42,7 +46,7 @@ namespace TodayIHad.WebApp.Controllers
 
             if (newFood != null)
             {
-                newFood.Calories_kcal = 21;
+                newFood.CaloriesKcal = 21;
             
 
                 return Json(new {data = newFood});
@@ -51,11 +55,41 @@ namespace TodayIHad.WebApp.Controllers
             return Json(data: false);
         }
 
-        //[HttpPost]
-        //public JsonResult AddFood(string food)
-        //{
-            
-        //}
+        [HttpPost]
+        public JsonResult AddFood(string foodName, string foodAmount, string foodUnit)
+        {
+            var selectedFood = db.Foods.FirstOrDefault(n => n.Name == foodName);
+            var newEnteredFood = new EnteredFood();
+
+
+            if (selectedFood != null)
+            {
+                var foodUnitsForSelectedFood =
+                    _foodUnitRepository.GetAllForCurrentFood(selectedFood.Id);
+
+                
+                if (foodUnitsForSelectedFood != null)
+                {
+                    var foodUnitGramWeight = foodUnitsForSelectedFood.FirstOrDefault(x => x.Name == foodUnit).GramWeight;
+
+                    var calories = Convert.ToInt32(foodUnitGramWeight)*selectedFood.CaloriesKcal;
+
+                    newEnteredFood.Calories = calories;
+                    
+                }
+
+                newEnteredFood.Name = foodName;
+                newEnteredFood.Amount = Int32.Parse(foodAmount);
+                newEnteredFood.Unit = foodUnit;
+
+                _enteredFoodRepository.Create(newEnteredFood);
+
+
+            }
+
+            return Json(new { success = true });
+
+        }
 
     }
 }

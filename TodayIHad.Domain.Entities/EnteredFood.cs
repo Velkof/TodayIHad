@@ -9,6 +9,7 @@ namespace TodayIHad.Domain.Entities
         public int FoodId { get; set; }
         public int Amount { get; set; }
         public string Unit { get; set; }
+        public int Calories { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
 

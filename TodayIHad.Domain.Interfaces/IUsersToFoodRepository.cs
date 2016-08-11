@@ -8,7 +8,7 @@ namespace TodayIHad.Domain.Interfaces
         List<UsersToFood> GetAll();
         UsersToFood GetById(int id);
 
-        bool Create(UsersToFood usersToFood);
+        bool Create(int userId);
         bool Update(UsersToFood usersToFood);
         bool Delete(int id);
 

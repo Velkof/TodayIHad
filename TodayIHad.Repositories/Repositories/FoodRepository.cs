@@ -54,17 +54,17 @@ namespace TodayIHad.Repositories.Repositories
 
 
                 dbFood.Name = food.Name;
-                dbFood.Calories_kcal = food.Calories_kcal;
-                dbFood.Protein_gr = food.Protein_gr;
-                dbFood.Fat_gr = food.Fat_gr;
-                dbFood.Carbs_gr = food.Carbs_gr;
-                dbFood.Fiber_gr = food.Fiber_gr;
-                dbFood.Sugar_gr = food.Sugar_gr;
-                dbFood.Sodium_mg = food.Sodium_mg;
-                dbFood.Fat_Sat_gr = food.Fat_Sat_gr;
-                dbFood.Fat_Mono_gr = food.Fat_Mono_gr;
-                dbFood.Fat_Poly_gr = food.Fat_Poly_gr;
-                dbFood.Cholesterol_mg = food.Cholesterol_mg;
+                dbFood.CaloriesKcal = food.CaloriesKcal;
+                dbFood.ProteinGr = food.ProteinGr;
+                dbFood.FatGr = food.FatGr;
+                dbFood.CarbsGr = food.CarbsGr;
+                dbFood.FiberGr = food.FiberGr;
+                dbFood.SugarGr = food.SugarGr;
+                dbFood.SodiumMg = food.SodiumMg;
+                dbFood.FatSatGr = food.FatSatGr;
+                dbFood.FatMonoGr = food.FatMonoGr;
+                dbFood.FatPolyGr = food.FatPolyGr;
+                dbFood.CholesterolMg = food.CholesterolMg;
                 
                 
                 db.SaveChanges();
