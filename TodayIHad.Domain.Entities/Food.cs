@@ -1,11 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace TodayIHad.Domain.Entities
 {
     public class Food
     {
         public int Id { get; set; }
+
+        [MaxLength(200)]
         public string Name { get; set; }
+
         public int CaloriesKcal { get; set; }
         public float? ProteinGr { get; set; }
         public float? FatGr { get; set; }
@@ -17,8 +20,9 @@ namespace TodayIHad.Domain.Entities
         public float? FatMonoGr { get; set; }
         public float? FatPolyGr { get; set; }
         public int? CholesterolMg { get; set; }
+
         public int IsDefault { get; set; }
-        
-        public virtual ICollection<FoodUnit> FoodsUnits { get; set; }
+
+        //public virtual ICollection<FoodUnit> FoodUnits { get; set; }
     }
 }

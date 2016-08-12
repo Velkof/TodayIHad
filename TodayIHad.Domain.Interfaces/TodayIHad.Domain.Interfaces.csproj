@@ -57,7 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IEnteredFoodRepository.cs" />
+    <Compile Include="ILoggedFoodRepository.cs" />
     <Compile Include="IFoodRepository.cs" />
     <Compile Include="IFoodUnitRepository.cs" />
     <Compile Include="IUserRepository.cs" />

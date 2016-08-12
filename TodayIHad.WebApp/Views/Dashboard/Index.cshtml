@@ -20,21 +20,16 @@
 <div id="scoreInfoDiv"></div>
 <div id="calorieInfoDiv"></div>
 
-@*<div id="foodEditDiv" class="col-xs-10 ">jij</div>*@
+<div id="foodLogDialog" title="Food Entry">
 
-<div id="foodEntryDialog" title="Food Entry">
-
-    <div>
-        <label></label>
-
-        <label>Calories</label>
-        <input id="foodCaloriesInput" type="number"/>
-
-        <label></label>
-    </div>
+    <p id="foodLogDialogCalories">Calories: </p>
+        <label>Amount</label>
+        <input id="foodLogDialogAmountInput" type="number" value="100">
+        <select id="foodLogDialogUnitSelect"></select>
+        <input type="hidden" id="hiddenFieldfoodLogDialog" name="foodId" value="">
+        <input type="button" id="logFoodSaveBtn" value="Save" />
 
 </div>
-
 
 <div id="tabs" style="display: none;">
     <ul>
@@ -61,83 +56,90 @@
 </div>
 
 
-@Html.Partial("_SearchFood")
 
 @section Scripts {
 
-
     <script type="text/javascript">
 
-        $(document)
-            .ready(function () {
+        //$(document)
+        //    .ready(function () {
+        //        $("#foodSearchBox")
+        //            .on("input",
+        //                function () {
+        //                    var food = $('#foodSearchBox').val();
+        //                    $.ajax({
+        //                        type: 'POST',
+        //                        url: '/Dashboard/SearchFood',
+        //                        data: { searchFoodString: food },
+        //                        success: function (data) {
+        //                            $("#foodSearchUL").empty();
+        //                            for (var i in data) {
+        //                                for (var j in data[i]) {
+        //                                    $("#foodSearchUL")
+        //                                        .append('<li class="foodSearchResultsLI list-group-item">' +
+        //                                            data[i][j].Name +
+        //                                            '</li>');
+        //                                }
+        //                            }
+        //                        },
+        //                        error: function () {
+        //                            alert("Failed");
+        //                        }
+        //                    });
+        //                });
+        //        $("#foodSearchUL")
+        //            .on("click",
+        //                "li",
+        //                function () {
+        //                    var selectedFoodName = $(this).html();
+        //                    $.ajax({
+        //                        type: 'POST',
+        //                        url: '/Dashboard/GetSelectedFood',
+        //                        data: { foodName: selectedFoodName },
+        //                        success: function (data) {
+        //                            $("#foodSearchUL").empty();
+        //                            $("#foodLogDialog").dialog("open");
+        //                            for (var i in data) {
+        //                                $("#foodLogDialog").dialog('option', 'title', data[i].food.Name);
+        //                                $("#foodLogDialog").prepend("<p>Calories per 100g: " +
+        //                                    data[i].food.CaloriesKcal + "</p>");
+        //                                $("#hiddenFieldfoodLogDialog").val(data[i].food.Id);
+        //                                for (var j in data[i].foodUnits) {
+        //                                    $("#foodLogDialogAmountInput").val(100);
+        //                                    if (data[i].foodUnits[j].Name == "gr") {
+        //                                        $("#foodLogDialogUnitSelect")
+        //                                            .append("<option value=\'" +
+        //                                                data[i].foodUnits[j].Name +
+        //                                                "\'  selected='selected'>" +
+        //                                                data[i].foodUnits[j].Name +
+        //                                                "</option>");
+        //                                    } else {
+        //                                        $("#foodLogDialogUnitSelect")
+        //                                            .append("<option value=\'" +
+        //                                                data[i].foodUnits[j].Name + "\'>" +
+        //                                                data[i].foodUnits[j].Name + "</option>");
+        //                                    }
+        //                                }
+        //                            }
+        //                        },
+        //                        error: function () {
+        //                            alert("fail");
+        //                        }
+        //                    });
+        //                });
+        //    });
+        //$("#foodLogDialog")
+        //    .dialog({
+        //        //closeText: "hide",
+        //        my: "center",
+        //        at: "center",
+        //        of: window,
+        //        autoOpen: false,
+        //    });
+        //$("#tabs").tabs();
+        //$("#tabs").css("display", "block");
 
-                $("#foodSearchBox")
-                    .on("input",
-                        function () {
 
-                            var food = $('#foodSearchBox').val();
-
-
-                            $.ajax({
-                                type: 'POST',
-                                url: '/Dashboard/SearchFood',
-                                data: { searchFoodString: food },
-                                success: function (data) {
-
-                                    $("#foodSearchUL").empty();
-
-                                    for (var i in data) {
-                                        for (var j in data[i]) {
-                                            $("#foodSearchUL")
-                                                .append('<li class="foodSearchResultsLI list-group-item">' +
-                                                    data[i][j].Name +
-                                                    '</li>');
-
-                                        }
-                                    }
-
-                                },
-                                error: function () {
-                                    alert("Failed");
-                                }
-
-                            });
-                        });
-
-                $("#foodSearchUL").on("click", "li", function () {
-                    var selectedFoodName = $(this).html();
-
-                    $.ajax({
-                        type: 'POST',
-                        url: '/Dashboard/EditFood',
-                        data: { selectedFoodName: selectedFoodName },
-                        success: function (data) {
-
-                            for (var i in data) {
-                                $("#foodEditDiv").html("<p>" + data[i].Name + "<p>");
-
-                            }
-
-                            $("#foodSearchUL").empty();
-                        },
-                        error: function () {
-                            alert("Food has not been added");
-                        }
-                    });
-
-                });
-
-            });
-
-        $("#foodEntryDialog").dialog({
-            //closeText: "hide",
-            my: "center", at: "center", of: window,
-
-        });
-
-
-        $("#tabs").tabs();
-        $("#tabs").css("display", "block");
     </script>
 
 }

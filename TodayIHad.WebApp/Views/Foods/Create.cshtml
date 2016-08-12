@@ -9,7 +9,8 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
     <div class="form-horizontal">
         <h4>Food</h4>
         <hr />

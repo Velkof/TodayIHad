@@ -8,16 +8,18 @@ using TodayIHad.Domain.Interfaces;
 
 namespace TodayIHad.Repositories.Repositories
 {
-    public class EnteredFoodRepository : IEnteredFoodRepository
+    public class LoggedFoodRepository : ILoggedFoodRepository
     {
         private Database db = new Database();
 
-        public bool Create(EnteredFood enteredFood)
+        public bool Create(LoggedFood loggedFood)
         {
-            enteredFood.DateCreated = DateTime.Now;
-            enteredFood.DateUpdated = DateTime.Now;
+            loggedFood.UserId = HttpContext.Current.User.Identity.GetUserId();
+            loggedFood.DateCreated = DateTime.Now;
+            loggedFood.DateUpdated = DateTime.Now;
 
-            db.EnteredFoods.Add(enteredFood);
+
+            db.LoggedFoods.Add(loggedFood);
             db.SaveChanges();
 
             return true;
@@ -26,42 +28,42 @@ namespace TodayIHad.Repositories.Repositories
 
         public bool Delete(int id)
         {
-            var dbEnteredFood = GetById(id);
+            var dbLoggedFood = GetById(id);
 
-            if (dbEnteredFood != null)
+            if (dbLoggedFood != null)
             {
-                db.EnteredFoods.Remove(dbEnteredFood);
+                db.LoggedFoods.Remove(dbLoggedFood);
                 db.SaveChanges();
                 return true;
             }
             return false;
         }
 
-        public List<EnteredFood> GetAll()
+        public List<LoggedFood> GetAll()
         {
-            return db.EnteredFoods.ToList();
+            return db.LoggedFoods.ToList();
         }
 
-        public List<EnteredFood> GetAllForCurrentUser()
+        public List<LoggedFood> GetAllForCurrentUser()
         {
             string  userId = HttpContext.Current.User.Identity.GetUserId();
             return GetAll().Where(x => x.UserId == userId).ToList();
         }
 
-        public EnteredFood GetById(int id)
+        public LoggedFood GetById(int id)
         {
             return GetAll().FirstOrDefault(x => x.Id == id);
         }
 
-        public bool Update(EnteredFood enteredFood)
+        public bool Update(LoggedFood loggedFood)
         {
-            var dbEnteredFood = GetById(enteredFood.Id);
+            var dbLoggedFood = GetById(loggedFood.Id);
 
-            if (dbEnteredFood != null)
+            if (dbLoggedFood != null)
             {
-                dbEnteredFood.Amount = enteredFood.Amount;
-                dbEnteredFood.Unit = enteredFood.Unit;
-                dbEnteredFood.DateUpdated = DateTime.Now;
+                dbLoggedFood.Amount = loggedFood.Amount;
+                dbLoggedFood.Unit = loggedFood.Unit;
+                dbLoggedFood.DateUpdated = DateTime.Now;
 
                 db.SaveChanges();
                 return true;

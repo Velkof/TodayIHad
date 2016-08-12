@@ -9,12 +9,12 @@ namespace TodayIHad.Repositories.Repositories
     {
         private Database db = new Database();
 
-        public bool Create(List<FoodUnit> foodsUnitsList)
+        public bool Create(List<FoodUnit> foodUnitsList)
         {
             
-            foreach (var foodsUnit in foodsUnitsList)
+            foreach (var foodUnit in foodUnitsList)
             {
-                db.FoodsUnits.Add(foodsUnit);
+                db.FoodUnits.Add(foodUnit);
             }
 
             db.SaveChanges();
@@ -25,11 +25,11 @@ namespace TodayIHad.Repositories.Repositories
 
         public bool Delete(int id)
         {
-            var dbFoodsUnit = GetById(id);
+            var dbFoodUnit = GetById(id);
 
-            if (dbFoodsUnit != null)
+            if (dbFoodUnit != null)
             {
-                db.FoodsUnits.Remove(dbFoodsUnit);
+                db.FoodUnits.Remove(dbFoodUnit);
                 db.SaveChanges();
 
                 return true;
@@ -40,7 +40,7 @@ namespace TodayIHad.Repositories.Repositories
 
         public List<FoodUnit> GetAll()
         {
-            return db.FoodsUnits.ToList();
+            return db.FoodUnits.ToList();
         }
 
         public List<FoodUnit> GetAllForCurrentFood(int foodId)
@@ -53,19 +53,18 @@ namespace TodayIHad.Repositories.Repositories
             return GetAll().FirstOrDefault(x => x.Id == id);
         }
 
-        public bool Update(List<FoodUnit> foodsUnitsList)
+        public bool Update(List<FoodUnit> foodUnitsList)
         {
             
 
-            foreach (var foodsUnit in foodsUnitsList)
+            foreach (var foodUnit in foodUnitsList)
             {
-                var dbFoodsUnit = GetById(foodsUnit.Id);
+                var dbFoodUnit = GetById(foodUnit.Id);
 
-                if (dbFoodsUnit != null)
+                if (dbFoodUnit != null)
                 {
-                    dbFoodsUnit.Name = foodsUnit.Name;
-                    dbFoodsUnit.Amount = foodsUnit.Amount;
-                    dbFoodsUnit.GramWeight = foodsUnit.GramWeight;
+                    dbFoodUnit.Name = foodUnit.Name;
+                    dbFoodUnit.GramWeight = foodUnit.GramWeight;
                     
 
                     db.SaveChanges();

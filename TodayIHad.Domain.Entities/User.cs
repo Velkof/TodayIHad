@@ -12,7 +12,7 @@ namespace TodayIHad.Domain.Entities
         public virtual DateTime DateCreated { get; set; }
         public virtual bool IsActive { get; set; }
 
-        public virtual ICollection<EnteredFood> EnteredFoods { get; set; }
+        public virtual ICollection<LoggedFood> EnteredFoods { get; set; }
 
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)

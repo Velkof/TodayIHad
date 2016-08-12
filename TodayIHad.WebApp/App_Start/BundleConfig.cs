@@ -17,6 +17,9 @@ namespace TodayIHad.WebApp
             bundles.Add(new ScriptBundle("~/bundles/jquery-ui").Include(
                         "~/Scripts/jquery-ui-1.12.0.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
+                        "~/Scripts/Script.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(

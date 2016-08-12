@@ -88,9 +88,17 @@
     <Compile Include="Migrations\201608110855017_RenameFoodsUnitEntity.Designer.cs">
       <DependentUpon>201608110855017_RenameFoodsUnitEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608111036080_AddMaxLengthProperties.cs" />
+    <Compile Include="Migrations\201608111036080_AddMaxLengthProperties.Designer.cs">
+      <DependentUpon>201608111036080_AddMaxLengthProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608121359254_RemoveAmountPropFromFoodUnitModel.cs" />
+    <Compile Include="Migrations\201608121359254_RemoveAmountPropFromFoodUnitModel.Designer.cs">
+      <DependentUpon>201608121359254_RemoveAmountPropFromFoodUnitModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\EnteredFoodRepository.cs" />
+    <Compile Include="Repositories\LoggedFoodRepository.cs" />
     <Compile Include="Repositories\FoodRepository.cs" />
     <Compile Include="Repositories\FoodUnitRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
@@ -131,6 +139,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608110855017_RenameFoodsUnitEntity.resx">
       <DependentUpon>201608110855017_RenameFoodsUnitEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608111036080_AddMaxLengthProperties.resx">
+      <DependentUpon>201608111036080_AddMaxLengthProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608121359254_RemoveAmountPropFromFoodUnitModel.resx">
+      <DependentUpon>201608121359254_RemoveAmountPropFromFoodUnitModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
