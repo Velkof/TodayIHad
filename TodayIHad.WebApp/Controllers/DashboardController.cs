@@ -90,6 +90,24 @@ namespace TodayIHad.WebApp.Controllers
 
         }
 
+
+        [HttpPost]
+        public JsonResult UpdateLoggedFood(int amount, string unit, int loggedFoodId)
+        {
+            var dbLoggedFood = _loggedFoodRepository.GetById(loggedFoodId);
+
+            if (ModelState.IsValid)
+            {
+                dbLoggedFood.Amount = amount;
+                dbLoggedFood.Unit = unit;
+
+                _loggedFoodRepository.Update(dbLoggedFood);
+                return Json(new {success = true});
+            }
+
+            return Json(new {error = true});
+        }
+
         [HttpPost]
         public JsonResult DeleteLoggedFood(int loggedFoodId)
         {

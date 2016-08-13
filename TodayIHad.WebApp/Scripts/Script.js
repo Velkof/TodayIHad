@@ -160,9 +160,9 @@
 				$("#loggedFoodEditDialogUnitSelect").empty();
 
 				for (var i in data) {
-				    $("#hiddenFieldloggedFoodEditDialog").val(data[i].loggedFood.FoodId);
-				    $("#hiddenLoggedFoodIdEditDialog").val(data[i].loggedFood.Id);
-				    $("#hiddenTableRowNumber").val(rowNumber);
+					$("#hiddenFieldloggedFoodEditDialog").val(data[i].loggedFood.FoodId);
+					$("#hiddenLoggedFoodIdEditDialog").val(data[i].loggedFood.Id);
+					$("#hiddenTableRowNumber").val(rowNumber);
 
 					$("#loggedFoodEditDialog").dialog("option", "title", data[i].loggedFood.Name);
 					$("#loggedFoodEditDialogCalories").text("Calories: " + data[i].loggedFood.Calories);
@@ -193,6 +193,34 @@
 
 	});
 
+	//update logged food
+    $("#loggedFoodEditDialogUpdateBtn").on("click", function() {
+        var loggedFoodId = $("#hiddenLoggedFoodIdEditDialog").val();
+        var amount = $("#loggedFoodEditDialogAmountInput").val();
+        var unit = $("#loggedFoodEditDialogUnitSelect").val();
+
+        $.ajax({
+            type: 'POST',
+            url: '/Dashboard/UpdateLoggedFood',
+            data: {
+                loggedFoodId: loggedFoodId,
+                amount: amount,
+                unit: unit
+            },
+            success: function(data) {
+                $("#loggedFoodEditDialog").dialog("close");
+
+                var rowNumber = $("#hiddenTableRowNumber").val();
+
+                $("#loggedFoodTable tbody tr").eq(rowNumber).children().eq(4).text(amount + " " + unit);
+
+
+            },
+            error: function() {
+                alert("food has not been updated");
+            }
+        });
+    });
 
 	//delete logged food
 	$("#loggedFoodEditDialogDeleteBtn").on("click", function () {
@@ -209,7 +237,7 @@
 
 				var rowNumber = $("#hiddenTableRowNumber").val();
 
-			    $("#loggedFoodTable tbody tr").eq(rowNumber).remove();
+				$("#loggedFoodTable tbody tr").eq(rowNumber).remove();
 
 			},
 			error: function() {
