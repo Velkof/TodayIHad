@@ -17,6 +17,9 @@ namespace TodayIHad.WebApp
             bundles.Add(new ScriptBundle("~/bundles/jquery-ui").Include(
                         "~/Scripts/jquery-ui-1.12.0.min.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/moment").Include(
+                        "~/Scripts/moment-with-locales.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
                         "~/Scripts/Script.js"));
 

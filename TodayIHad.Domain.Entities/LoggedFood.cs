@@ -24,11 +24,11 @@ namespace TodayIHad.Domain.Entities
 
 
         public virtual int FoodId { get; set; }
-        public virtual Food Food { get; set; }
+        //public virtual Food Food { get; set; }
 
         [MaxLength(128)]
         public virtual string UserId { get; set; }
-        public virtual User User { get; set; }
+        //public virtual User User { get; set; }
           
 
     }

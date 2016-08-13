@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using TodayIHad.Domain.Entities;
 using TodayIHad.Domain.Interfaces;
@@ -18,7 +19,9 @@ namespace TodayIHad.WebApp.Controllers
         // GET: Dashboard
         public ActionResult Index()
         {
-            return View();
+            var loggedFoodsForUser = _loggedFoodRepository.GetAllForCurrentUser();
+
+            return View(loggedFoodsForUser);
         }
 
         [HttpPost]
@@ -38,21 +41,25 @@ namespace TodayIHad.WebApp.Controllers
 
         }
 
-        //[HttpPost]
-        //public JsonResult EditFood(string selectedFoodName)
-        //{
-        //        var newFood = db.Foods.FirstOrDefault(n => n.Name == selectedFoodName);
+        [HttpPost] //napravi json object i go zemi celio
+        public JsonResult GetLoggedFood (int loggedFoodId, DateTime dateCreated)
+        {
+            var loggedFood = db.LoggedFoods.Where(x => x.DateCreated == dateCreated).FirstOrDefault(n => n.FoodId == loggedFoodId);
+            var foodUnits = _foodUnitRepository.GetAllForCurrentFood(loggedFoodId);
 
-        //    if (newFood != null)
-        //    {
-        //        newFood.CaloriesKcal = 21;
-            
+            if (loggedFood != null && foodUnits != null)
+            {
 
-        //        return Json(new {data = newFood});
-        //    }
 
-        //    return Json(data: false);
-        //}
+
+                var data = new {loggedFood, foodUnits};
+
+                return Json(new { data = data });
+            }
+
+            return Json(new {error = true});
+        }
+
 
         [HttpPost]
         public JsonResult GetSelectedFood(string foodName)
@@ -71,44 +78,9 @@ namespace TodayIHad.WebApp.Controllers
             return Json(new {error = true});
         }
 
-        //[HttpPost]
-        //public JsonResult AddLoggedFood(string foodName, string foodAmount, string foodUnit)
-        //{
-        //    var selectedFood = db.Foods.FirstOrDefault(n => n.Name == foodName);
-        //    var newLoggedFood = new LoggedFood();
-
-
-        //    if (selectedFood != null)
-        //    {
-        //        var foodUnitsForSelectedFood =
-        //            _foodUnitRepository.GetAllForCurrentFood(selectedFood.Id);
-
-
-        //        if (foodUnitsForSelectedFood != null)
-        //        {
-        //            var foodUnitGramWeight = foodUnitsForSelectedFood.FirstOrDefault(x => x.Name == foodUnit).GramWeight;
-
-        //            var calories = Convert.ToInt32(foodUnitGramWeight)*selectedFood.CaloriesKcal;
-
-        //            newLoggedFood.Calories = calories;
-
-        //        }
-
-        //        newLoggedFood.Name = foodName;
-        //        newLoggedFood.Amount = Int32.Parse(foodAmount);
-        //        newLoggedFood.Unit = foodUnit;
-
-        //        _loggedFoodRepository.Create(newLoggedFood);
-
-
-        //    }
-
-        //    return Json(new { success = true });
-
-        //}
 
         [HttpPost]
-        public JsonResult LogFood(string name, int amount, string unit, int foodId, int calories)
+        public JsonResult LogFood(string name, int amount, string unit, int foodId, int calories, DateTime dateCreated)
         {
             var newLoggedFood = new LoggedFood();
 
@@ -119,6 +91,7 @@ namespace TodayIHad.WebApp.Controllers
                 newLoggedFood.Unit = unit;
                 newLoggedFood.Calories = calories;
                 newLoggedFood.FoodId = foodId;
+                newLoggedFood.DateCreated = dateCreated;
 
                 _loggedFoodRepository.Create(newLoggedFood);
 

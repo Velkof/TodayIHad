@@ -161,7 +161,7 @@ textarea {
     background-color: yellow;
 }
 
-#foodLogDialog { display: none; }
+#foodLogDialog, #loggedFoodEditDialog { display: none; }
 
 
 
