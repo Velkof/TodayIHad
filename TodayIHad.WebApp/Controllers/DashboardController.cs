@@ -17,7 +17,7 @@ namespace TodayIHad.WebApp.Controllers
         private ILoggedFoodRepository _loggedFoodRepository = new LoggedFoodRepository();
 
         // GET: Dashboard
-        public ActionResult Index()
+        public ActionResult Index() //List logged foods for current user
         {
             var loggedFoodsForUser = _loggedFoodRepository.GetAllForCurrentUser();
 
@@ -27,51 +27,40 @@ namespace TodayIHad.WebApp.Controllers
         [HttpPost]
         public JsonResult SearchFood(string searchFoodString)
         {
-
             if (searchFoodString != "")
             {
                  var model = db.Foods.Where(n => n.Name.Contains(searchFoodString)).ToList();
-
                  return Json(new { data = model });
-
-
             }
-
             return Json(new { data = false });
-
         }
 
+
         [HttpPost] //napravi json object i go zemi celio
-        public JsonResult GetLoggedFood (int loggedFoodId, DateTime dateCreated)
+        public JsonResult GetLoggedFood (int loggedFoodFoodId, DateTime dateCreated)
         {
-            var loggedFood = db.LoggedFoods.Where(x => x.DateCreated == dateCreated).FirstOrDefault(n => n.FoodId == loggedFoodId);
-            var foodUnits = _foodUnitRepository.GetAllForCurrentFood(loggedFoodId);
+            var loggedFood = _loggedFoodRepository.GetAllForCurrentUser().Where(x => x.DateCreated == dateCreated).FirstOrDefault(n => n.FoodId == loggedFoodFoodId);
+            //var loggedFood = db.LoggedFoods.Where(x => x.DateCreated == dateCreated).FirstOrDefault(n => n.FoodId == loggedFoodFoodId);
+            var foodUnits = _foodUnitRepository.GetAllForCurrentFood(loggedFoodFoodId);
 
             if (loggedFood != null && foodUnits != null)
             {
-
-
-
                 var data = new {loggedFood, foodUnits};
-
                 return Json(new { data = data });
             }
-
             return Json(new {error = true});
         }
 
 
         [HttpPost]
-        public JsonResult GetSelectedFood(string foodName)
+        public JsonResult GetSelectedFood(string foodName) //Retrieves food that was clicked on dropdown search
         {
             var selectedFood = foodName;
 
             if (selectedFood != null)
             {
                 var food = _foodRepository.GetAll().FirstOrDefault(x => x.Name == foodName);
-
-                var foodUnits = _foodUnitRepository.GetAllForCurrentFood(food.Id);
-                
+                var foodUnits = _foodUnitRepository.GetAllForCurrentFood(food.Id);                
                 var data = new  {food, foodUnits};
                 return Json(new {data = data });
             }
@@ -98,6 +87,22 @@ namespace TodayIHad.WebApp.Controllers
                 return Json(new {success = true });
             }
             return Json(new { error = true });
+
+        }
+
+        [HttpPost]
+        public JsonResult DeleteLoggedFood(int loggedFoodId)
+        {
+            var loggedFood = _loggedFoodRepository.GetById(loggedFoodId);
+
+            if (ModelState.IsValid && loggedFood != null)
+            {
+                _loggedFoodRepository.Delete(loggedFoodId);
+
+                return Json(new {success = true});
+            }
+
+            return Json(new {error = true });
 
         }
 

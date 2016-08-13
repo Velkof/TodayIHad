@@ -163,6 +163,11 @@ textarea {
 
 #foodLogDialog, #loggedFoodEditDialog { display: none; }
 
+#foodLogDialog {
+
+    border: 1px solid red;
+}
+
 
 
 /* Extra small devices (phones, up to 480px) */
