@@ -1,4 +1,5 @@
-﻿body {
+﻿
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -27,12 +28,12 @@ textarea {
 /*Bootstrap overrides*/
 
 .navbar-inverse {
-    background-color: #00915C;
-    border-color: #00915C;
+    background-color: #3AA637;
+    border-color: #3A8C37;
 }
 
 .navbar-inverse .navbar-nav > li:hover{
-    background-color: #007349;
+    background-color: #3A8C37;
 
 }
 
@@ -48,7 +49,7 @@ textarea {
 
 
 .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
-    background-color: #007349;
+    background-color: #3A8C37;
 
 }
 
@@ -58,14 +59,19 @@ textarea {
 
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
     /*color: #EFFF5C;*/
-    background-color: #007349;
+    background-color: #3A8C37;
 }
 
 .form-control:focus {
-    border-color: #00915C;
+    border-color: #3AA637;
     outline: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
+}
+
+#foodSearchDiv > span {
+ background-color:#fafafa;
+ 
 }
 
 #tabs-1 > table {
@@ -78,17 +84,21 @@ textarea {
 
 #tabs {
     border: 0px;
+    padding: 0px;
+    background-color: #fff;
 }
 
 .ui-widget-header {
     background-color: #fff;
     border: 0px;
+    margin: 0px;
+    padding: 0px;
     border-bottom: 1px solid #d3d3d3;
 }
 
 
 .ui-tabs-tab.ui-corner-top.ui-state-default.ui-tab {
-    background-color: #eee;
+    background-color: #fafafa;
 }
 
 .ui-tabs-tab.ui-corner-top.ui-state-active.ui-tab {
@@ -133,6 +143,8 @@ textarea {
     -o-min-width: 100%;
     -webkit-min-width: 100%;
     min-width: 100%;
+    height: 40px;
+    font-size: 1.5em;
    
 }
 
@@ -170,6 +182,41 @@ textarea {
 
 
 
+#loggedFoodsContainer{
+    /*border: 1px solid red;*/
+}
+
+.loggedFoodCompact{
+
+    background-color: #fff;
+    -moz-min-height: 70px;
+    -ms-min-height: 70px;
+    -o-min-height: 70px;
+    -webkit-min-height: 70px;
+    min-height: 70px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 4px 5px 1px rgba(219,219,219,1);
+    -moz-box-shadow: 0px 4px 5px 1px rgba(219,219,219,1);
+    box-shadow: 0px 1px 1px 1px rgba(214,214,214,1);
+
+    margin-top: 10px;
+}
+
+.loggedFoodNameCompact {
+    color:#3A8C37;
+    padding-top: .3em;
+    padding-left: .5em;
+    font-size: 1.3em;
+}
+
+.loggedFoodInfoCompact {
+    padding-top: 7px;
+    padding-left:10px;
+    padding-bottom:10px;
+    font-size: 1em;
+}
+
+
 /* Extra small devices (phones, up to 480px) */
 @media screen and (max-width: 767px) {
     /*Bootstrap override*/
@@ -186,11 +233,25 @@ textarea {
         color: #fff;
 
     }
-.navbar-inverse .navbar-nav .open .dropdown-menu .divider,
-.navbar-inverse .navbar-nav .open .dropdown-menu .divider:hover
- {
-    background-color: transparent;
-}
+    .navbar-inverse .navbar-nav .open .dropdown-menu .divider,
+    .navbar-inverse .navbar-nav .open .dropdown-menu .divider:hover
+     {
+        background-color: transparent;
+    }
+
+    /*Custom CSS-----------max-width-767px---*/
+    .loggedFoodNameCompact {
+        /*color:green;*/
+        padding-top: .3em;
+        padding-left: 10px;
+        font-size: 1.2em;
+    }
+
+    .loggedFoodInfoCompact {
+        padding-top: 10px;
+        padding-left:10px;
+        font-size: .86em;
+    }
 }
 
 /* Small devices (tablets, 768px and up) */

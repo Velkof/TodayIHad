@@ -115,9 +115,14 @@ namespace TodayIHad.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Food food = db.Foods.Find(id);
-            db.Foods.Remove(food);
-            db.SaveChanges();
+            UsersToFood usersToFood = db.UsersToFoods.FirstOrDefault(x => x.FoodId == id);
+
+            //Food food = db.Foods.Find(id);
+            Food food = _foodRepository.GetById(id);
+
+
+            //db.Foods.Remove(food);
+            //db.SaveChanges();
             return RedirectToAction("Index");
         }
 

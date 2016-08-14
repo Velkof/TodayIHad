@@ -10,7 +10,7 @@
     <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-search"></span></span>
 
 
-    <input type="text" class="form-control" id="foodSearchBox" placeholder="Search for food" autocomplete="off" name="SearchFoodString" />
+    <input type="text" class="form-control" id="foodSearchBox" placeholder="Search for food..." autocomplete="off" name="SearchFoodString" />
 </div>
 
 <ul id="foodSearchUL"></ul>
@@ -27,7 +27,7 @@
     <input id="foodLogDialogAmountInput" type="number" value="100">
     <select id="foodLogDialogUnitSelect"></select>
     <input type="hidden" id="hiddenFieldfoodLogDialog" name="foodId" value="">
-    <input type="button" id="logFoodSaveBtn" value="Save"/>
+    <input type="button" id="logFoodSaveBtn" value="Save" />
 
 </div>
 
@@ -41,7 +41,7 @@
     <input type="hidden" id="hiddenTableRowNumber" name="loggedFoodId" value="">
 
     <input type="button" id="loggedFoodEditDialogDeleteBtn" value="Delete" />
-    <input type="button" id="loggedFoodEditDialogUpdateBtn" value="Update"/>
+    <input type="button" id="loggedFoodEditDialogUpdateBtn" value="Update" />
 
 </div>
 
@@ -56,9 +56,43 @@
     <div id="tabs-1">
 
 
-        <table id="loggedFoodTable" class="table table-responsive table-condensed table-hover">
+
+
+        <div id="loggedFoodsContainer">
+        @foreach (var item in Model.OrderByDescending(x => x.DateCreated))
+        {
+            <div class="loggedFoodCompact">
+                <span class='hiddenFoodIdCompact' style='display:none;'>@item.FoodId</span>
+                <span class='hiddenDateCreatedCompact' style='display:none;'>@item.DateCreated </span>
+                <div class="loggedFoodNameCompact">@item.Name	</div>
+                <div class="loggedFoodInfoCompact">
+                    Calories: <span class="loggedFoodCaloriesCompact">@item.Calories</span>
+                    | Quantity: <span class="loggedFoodQuantityCompact">@item.Amount</span>
+                    | Unit: <span class="loggedFoodUnitCompact">@item.Unit</span>
+                </div>
+            </div>
+
+
+        }
+            <div class="loggedFoodCompact">
+                <div class="loggedFoodNameCompact">Cream substitute, liquid, with hydrogenated vegetable oil and soy protein and soy protein...	</div>
+                <div class="loggedFoodInfoCompact">
+                    Calories: <span class="loggedFoodCaloriesCompact">343</span>
+                    | Quantity: <span class="loggedFoodQuantityCompact">2</span>
+                    | Unit: <span class="loggedFoodUnitCompact">oz</span>
+                </div>
+
+            </div>
+
+
+            <div class="loggedFoodFull"></div>
+
+        </div>
+
+
+        @*<table id="loggedFoodTable" class="table table-responsive table-condensed table-hover">
             <thead>
-            <tr><th>Food Name</th> <th>Calories</th><th>Amount</th><th>Edit</th></tr>
+                <tr><th>Food Name</th> <th>Calories</th><th>Amount</th><th>Edit</th></tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.OrderByDescending(x => x.DateCreated))
@@ -87,7 +121,7 @@
 
                 }
             </tbody>
-        </table>
+        </table>*@
     </div>
 
     <div id="tabs-2">
