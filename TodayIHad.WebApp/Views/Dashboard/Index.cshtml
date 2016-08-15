@@ -47,9 +47,9 @@
 
 <div id="tabs" style="display: none;">
     <ul>
-        <li><a href="#tabs-1">Today's Food</a></li>
-        <li><a href="#tabs-2">Calendar</a></li>
-        <li><a href="#tabs-3">Stats</a></li>
+        <li><a href="#tabs-1">Food Log</a></li>
+        <li><a href="#tabs-2">Statistics</a></li>
+        <li><a href="#tabs-3">Leaderboards</a></li>
     </ul>
 
 
@@ -58,7 +58,7 @@
 
 
 
-        <div id="loggedFoodsContainer">
+        <div id="loggedFoodsContainer" class="col-xs-12 col-md-8">
         @foreach (var item in Model.OrderByDescending(x => x.DateCreated))
         {
             <div class="loggedFoodCompact">
@@ -83,9 +83,88 @@
                 </div>
 
             </div>
+            <div class="loggedFoodCompact">
+                <div class="loggedFoodNameCompact">
+                    Cream substitute, liquid, with hydrogenated vegetable oil and soy protein and soy protein...<br/><br />
+                    <div class="caloriesFull">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calories: <span class="loggedFoodCaloriesFull">343</span></div>
+                </div><br/>
+                <div class="loggedFoodFull container">
+                    <div class="loggedFoodFullLeftDiv col-xs-12 col-sm-6">
+                            <table class="col-xs-12">
+                                <tr>
+                                    <td>
+                                        Fat: <span>231</span>
+                                    </td>
+                                    <td>
+                                        Carbs: <span>231</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        &nbsp;Sat. Fat: <span>23</span>
+                                    </td>
+                                    <td>
 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        &nbsp;&nbsp;Mono. Fat: <span>d3</span>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                            </table>
+                        <div class="col-xs-6">
+
+                            Fat: <span>231</span><br />
+                            &nbsp;&nbsp;Sat. Fat: <span>23</span><br />
+                            &nbsp;&nbsp;Mono. Fat: <span>d3</span><br />
+                            &nbsp;&nbsp;Poly. Fat: <span>213</span><br />
+                            Protein: <span>343</span>
+
+                        </div>
+                        <div class="col-xs-6">
+                            Carbs: <span>231</span><br/>
+                            &nbsp;&nbsp;Fiber: <span>23</span><br />
+                            &nbsp;&nbsp;Sugar: <span>d3</span><br />
+                            Cholesterol: <span>213</span><br />
+                            Sodium: <span>213</span><br />
+
+                        </div>
+
+                    </div>
+                    <div class="loggedFoodFullRightDiv col-xs-12 col-sm-6">
+                        <label>Quantity</label>
+                        <input type="number" class="text-box" value=""/><br/><br/>
+                        @*Quantity: <span class="loggedFoodQuantityCompact">2</span>*@
+                        @*Unit: <span class="loggedFoodUnitCompact">oz</span>*@
+                        <label >Unit</label>
+                        <select class="input-sm">
+                            <option>dqwdqwdwqdqwdqwdqwdqwdqwdqwdqwdqwdqwd</option>
+                        </select>
+                        <button class="btn btn-danger">Delete</button>
+
+                        <button class="btn btn-success">Update</button>
+                    </div>
+
+                </div>
+
+            </div>
 
             <div class="loggedFoodFull"></div>
+
+        </div>
+        <div id="calendarContainer" class="col-xs-12 col-md-4">
+            <div id="datepicker"></div>
 
         </div>
 
@@ -125,7 +204,6 @@
     </div>
 
     <div id="tabs-2">
-        <div id="datepicker"></div>
 
     </div>
     <div id="tabs-3">Stats will be here...</div>

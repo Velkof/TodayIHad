@@ -129,7 +129,7 @@
 				$("#foodLogDialog").dialog("close");
 
 
-                
+				
 				//$("#loggedFoodTable").prepend("<tr><td style='display:none;'>" + foodId + "</td>" +
 				//							   "<td style='display:none;'>"+ dateCreated +"</td> <td>" + name +
 				//							  "</td><td>" + calories + "</td><td>" + amount + " " +
@@ -138,14 +138,14 @@
 
 
 				$("#loggedFoodsContainer").prepend("<div class='loggedFoodCompact'>" +
-                                                   "<span class='hiddenFoodIdCompact' style='display:none;'>" + foodId + "</span>" + 
-                                                   "<span class='hiddenDateCreatedCompact' style='display:none;'>" + dateCreated + "</span>" + 
-                                                   "<div class='loggedFoodNameCompact'>" + name + "</div>" +
-                                                   "<div class='loggedFoodInfoCompact'>" +
-                                                   "Calories: <span class='loggedFoodCaloriesCompact'>" + calories + "</span>" +
-                                                   " | Quantity: <span class='loggedFoodQuantityCompact'>"+amount+"</span>" +
-                                                   " | Unit: <span class='loggedFoodUnitCompact'>"+ unit + "</span></div></div>"
-                                                   );
+												   "<span class='hiddenFoodIdCompact' style='display:none;'>" + foodId + "</span>" + 
+												   "<span class='hiddenDateCreatedCompact' style='display:none;'>" + dateCreated + "</span>" + 
+												   "<div class='loggedFoodNameCompact'>" + name + "</div>" +
+												   "<div class='loggedFoodInfoCompact'>" +
+												   "Calories: <span class='loggedFoodCaloriesCompact'>" + calories + "</span>" +
+												   " | Quantity: <span class='loggedFoodQuantityCompact'>"+amount+"</span>" +
+												   " | Unit: <span class='loggedFoodUnitCompact'>"+ unit + "</span></div></div>"
+												   );
 
 			},
 			error: function() {
@@ -155,58 +155,63 @@
 
 	});
 
-        //open edit dialog and retrieve logged food
+		//open edit dialog and retrieve logged food
 
 	$("#loggedFoodsContainer").on("click", ".loggedFoodCompact", function () {
-	    //var loggedFoodFoodId = $(this).siblings(':first-child').html();
-	    //var loggedFoodDateCreated = $(this).siblings(':first-child').next().html();
-	    //var loggedFoodName = $(this).siblings(':first-child').next().next().html();
-	    //var rowNumber = $(this).parent().parent().children().index($(this).parent());
+		//var loggedFoodFoodId = $(this).siblings(':first-child').html();
+		//var loggedFoodDateCreated = $(this).siblings(':first-child').next().html();
+		//var loggedFoodName = $(this).siblings(':first-child').next().next().html();
+		//var rowNumber = $(this).parent().parent().children().index($(this).parent());
 
-	    alert("click");
-	    var loggedFoodFoodId = $(this).find(".hiddenFoodIdCompact").html();
-	    var loggedFoodDateCreated = $(this).find(".hiddenDateCreatedCompact").html();
-	    var loggedFoodName = $(this).find(".loggedFoodNameCompact").html();
-	    var rowNumber = $(this).parent().children().index($(this).parent());
+		var loggedFoodFoodId = $(this).find(".hiddenFoodIdCompact").html();
+		var loggedFoodDateCreated = $(this).find(".hiddenDateCreatedCompact").html();
+		var loggedFoodName = $(this).find(".loggedFoodNameCompact").html();
+		var rowNumber = $(this).parent().children().index($(this).parent());
 
-	    $.ajax({
-	        type: "POST",
-	        url: "/Dashboard/GetLoggedFood",
-	        data: {
-	            loggedFoodFoodId: loggedFoodFoodId,
-	            dateCreated: loggedFoodDateCreated
-	        },
-	        success: function (data) {
-	            $("#loggedFoodEditDialogUnitSelect").empty();
-	            for (var i in data) {
-	                $("#hiddenFieldloggedFoodEditDialog").val(data[i].loggedFood.FoodId);
-	                $("#hiddenLoggedFoodIdEditDialog").val(data[i].loggedFood.Id);
-	                $("#hiddenTableRowNumber").val(rowNumber);
-	                $("#loggedFoodEditDialog").dialog("option", "title", data[i].loggedFood.Name);
-	                $("#loggedFoodEditDialogCalories").text("Calories: " + data[i].loggedFood.Calories);
-	                for (var j in data[i].foodUnits) {
-	                    $("#loggedFoodEditDialogAmountInput").val(data[i].loggedFood.Amount);
-	                    if (data[i].foodUnits[j].Name == data[i].loggedFood.Unit) {
-	                        $("#loggedFoodEditDialogUnitSelect").append("<option value=\'" +
+		var clickedLoggedFoodCompact = this;
+
+		$.ajax({
+			type: "POST",
+			url: "/Dashboard/GetLoggedFood",
+			data: {
+				loggedFoodFoodId: loggedFoodFoodId,
+				dateCreated: loggedFoodDateCreated
+			},
+			success: function (data) {
+
+				$(clickedLoggedFoodCompact).append("<p>test</p>");
+
+
+				$("#loggedFoodEditDialogUnitSelect").empty();
+				for (var i in data) {
+					$("#hiddenFieldloggedFoodEditDialog").val(data[i].loggedFood.FoodId);
+					$("#hiddenLoggedFoodIdEditDialog").val(data[i].loggedFood.Id);
+					$("#hiddenTableRowNumber").val(rowNumber);
+					$("#loggedFoodEditDialog").dialog("option", "title", data[i].loggedFood.Name);
+					$("#loggedFoodEditDialogCalories").text("Calories: " + data[i].loggedFood.Calories);
+					for (var j in data[i].foodUnits) {
+						$("#loggedFoodEditDialogAmountInput").val(data[i].loggedFood.Amount);
+						if (data[i].foodUnits[j].Name == data[i].loggedFood.Unit) {
+							$("#loggedFoodEditDialogUnitSelect").append("<option value=\'" +
 									data[i].foodUnits[j].Name + "\'  selected='selected'>" +
 									data[i].foodUnits[j].Name + "</option>");
-	                    } else {
-	                        $("#loggedFoodEditDialogUnitSelect").append("<option value=\'" +
+						} else {
+							$("#loggedFoodEditDialogUnitSelect").append("<option value=\'" +
 									data[i].foodUnits[j].Name + "\'>" +
 									data[i].foodUnits[j].Name + "</option>");
-	                    }
-	                }
-	            }
-	            $("#loggedFoodEditDialog").dialog("open");
-	        },
-	        error: function () {
-	            alert("failed");
-	        }
-	    });
+						}
+					}
+				}
+				$("#loggedFoodEditDialog").dialog("open");
+			},
+			error: function () {
+				alert("failed");
+			}
+		});
 	});
 
 
-    //open edit dialog and retrieve logged food
+	//open edit dialog and retrieve logged food
 
 	//$("#loggedFoodTable").on("click", "td.editLoggedFoodTd", function () {
 	//	var loggedFoodFoodId = $(this).siblings(':first-child').html();
@@ -247,38 +252,38 @@
 	//			alert("failed");
 	//		}
 	//	});
-    //});
+	//});
 
 
 
 	//update logged food
-    $("#loggedFoodEditDialogUpdateBtn").on("click", function() {
-        var loggedFoodId = $("#hiddenLoggedFoodIdEditDialog").val();
-        var amount = $("#loggedFoodEditDialogAmountInput").val();
-        var unit = $("#loggedFoodEditDialogUnitSelect").val();
+	$("#loggedFoodEditDialogUpdateBtn").on("click", function() {
+		var loggedFoodId = $("#hiddenLoggedFoodIdEditDialog").val();
+		var amount = $("#loggedFoodEditDialogAmountInput").val();
+		var unit = $("#loggedFoodEditDialogUnitSelect").val();
 
-        $.ajax({
-            type: 'POST',
-            url: '/Dashboard/UpdateLoggedFood',
-            data: {
-                loggedFoodId: loggedFoodId,
-                amount: amount,
-                unit: unit
-            },
-            success: function(data) {
-                $("#loggedFoodEditDialog").dialog("close");
+		$.ajax({
+			type: 'POST',
+			url: '/Dashboard/UpdateLoggedFood',
+			data: {
+				loggedFoodId: loggedFoodId,
+				amount: amount,
+				unit: unit
+			},
+			success: function(data) {
+				$("#loggedFoodEditDialog").dialog("close");
 
-                var rowNumber = $("#hiddenTableRowNumber").val();
+				var rowNumber = $("#hiddenTableRowNumber").val();
 
-                $("#loggedFoodTable tbody tr").eq(rowNumber).children().eq(4).text(amount + " " + unit);
+				$("#loggedFoodTable tbody tr").eq(rowNumber).children().eq(4).text(amount + " " + unit);
 
 
-            },
-            error: function() {
-                alert("food has not been updated");
-            }
-        });
-    });
+			},
+			error: function() {
+				alert("food has not been updated");
+			}
+		});
+	});
 
 	//delete logged food
 	$("#loggedFoodEditDialogDeleteBtn").on("click", function () {

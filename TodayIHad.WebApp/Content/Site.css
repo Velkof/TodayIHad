@@ -27,6 +27,15 @@ textarea {
 
 /*Bootstrap overrides*/
 
+.navbar .nav > li > .dropdown-menu.pull-center:after {
+  left: 50%;
+  margin-left: -6px;
+}
+.navbar .nav > li > .dropdown-menu.pull-center:before {
+  left: 50%;
+  margin-left: -7px;
+}
+
 .navbar-inverse {
     background-color: #3AA637;
     border-color: #3A8C37;
@@ -74,6 +83,12 @@ textarea {
  
 }
 
+.foodSearchResultsLI.list-group-item {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+
+}
+
 #tabs-1 > table {
     border: 0px;
 }
@@ -89,7 +104,8 @@ textarea {
 }
 
 .ui-widget-header {
-    background-color: #fff;
+    background-color:#fff;
+
     border: 0px;
     margin: 0px;
     padding: 0px;
@@ -102,7 +118,7 @@ textarea {
 }
 
 .ui-tabs-tab.ui-corner-top.ui-state-active.ui-tab {
-    background-color: #fff;
+    background-color:#fff;
     border-color: #ddd;
     border-bottom: 0px;
     color: black;
@@ -110,6 +126,10 @@ textarea {
 .ui-tabs-tab.ui-corner-top.ui-state-active.ui-tab a {
     color: black;
 }
+
+/*.ui-tabs-panel.ui-corner-bottom.ui-widget-content {
+    background-color:#fefefe;
+}*/
 
 #tabs li a:focus {
     outline: none;
@@ -126,6 +146,68 @@ textarea {
     outline: none;
 }
 
+.hasDatepicker{
+    height: 300px;
+    /*width: 353px;*/
+    border-radius: 2px;
+    margin-top: 10px;
+        box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+        
+
+}
+
+.hasDatepicker:hover {
+    /*-webkit-box-shadow: 1px 1px 1px 1.5px rgba(140,160,120, 1);
+    -moz-box-shadow: 1px 1px 1px 1.5px rgba(140,160,120, 1);
+        box-shadow: 1px 1px 1px 1.5px rgba(140,160,120, 1);*/
+
+    -webkit-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
+    -moz-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
+        box-shadow: 0px 1px 1px 1.5px #c3c3c3;
+}
+
+.ui-datepicker-inline.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all {
+    
+    border: 0px dotted green;
+    width: 100%;
+    height: 100%;
+    padding:7px;
+   
+}
+
+
+ 
+.ui-datepicker-calendar{
+    /*border: 1px solid red;*/
+    width: 100%;
+    height: 90%;
+   
+
+}
+
+#datepicker a.ui-state-default {
+    background-color: white;
+    border-color: #e5e5e5;
+    height:100%;
+    border-radius: 2px;
+}
+
+#datepicker a.ui-state-default:hover {
+    border: 1px solid green;
+    color: green;
+}
+
+#datepicker a.ui-state-default.ui-state-active {
+    border: 1px solid green;
+    color: green;
+    font-weight:bold;
+}
+
+#datepicker a.ui-state-default.ui-state-highlight {
+    border: 1px solid #a8a518;
+    color: #a8a518;
+    font-weight:bold;
+}
 
 
 /*Custom CSS-----------------------------------------------------------------------------------------------------------*/
@@ -183,6 +265,8 @@ textarea {
 
 
 #loggedFoodsContainer{
+    padding-left: 0px;
+    padding-right: 0px;
     /*border: 1px solid red;*/
 }
 
@@ -194,13 +278,24 @@ textarea {
     -o-min-height: 70px;
     -webkit-min-height: 70px;
     min-height: 70px;
-    border-radius: 3px;
-    -webkit-box-shadow: 0px 4px 5px 1px rgba(219,219,219,1);
-    -moz-box-shadow: 0px 4px 5px 1px rgba(219,219,219,1);
-    box-shadow: 0px 1px 1px 1px rgba(214,214,214,1);
+    border-radius: 2px;
+    -webkit-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+    -moz-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+    box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
 
     margin-top: 10px;
 }
+
+.loggedFoodCompact:hover {
+    /*-webkit-box-shadow: 0px 1px 1px 1.5px rgba(140,160,120, 1);
+    -moz-box-shadow: 0px 1px 1px 1.5px rgba(140,160,120, 1);
+        box-shadow: 0px 1px 1px 1.5px rgba(140,160,120, 1);*/
+
+    -webkit-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
+    -moz-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
+        box-shadow: 0px 1px 1px 1.5px #c3c3c3;
+}
+
 
 .loggedFoodNameCompact {
     color:#3A8C37;
@@ -212,20 +307,28 @@ textarea {
 .loggedFoodInfoCompact {
     padding-top: 7px;
     padding-left:10px;
-    padding-bottom:10px;
+    padding-bottom:15px;
     font-size: 1em;
 }
 
+#calendarContainer {
+    padding-left: 10px;
+}
+
+footer{
+    padding-top: 100px;
+    clear:left;
+}
 
 /* Extra small devices (phones, up to 480px) */
 @media screen and (max-width: 767px) {
     /*Bootstrap override*/
     .navbar-inverse .navbar-nav .open .dropdown-menu {
-            background-color: #00915C;
+            background-color: #3AA637;
 
     }
     .navbar-inverse .navbar-nav .open .dropdown-menu > li:hover {
-            background-color: #007349;
+            background-color: #3A8C37;
 
     }
 
@@ -252,14 +355,31 @@ textarea {
         padding-left:10px;
         font-size: .86em;
     }
+    #calendarContainer{
+        padding-left: 0px;
+        padding-right:0px;
+    }
 }
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991px) {
+
+    #calendarContainer{
+        padding-left: 0px;
+        padding-right:0px;
+    }
 }
 /* tablets/desktops and up ----------- */
 @media (min-width: 992px) and (max-width: 1199px) {
+
+#calendarContainer {
+    padding-right:0px;
+}
 }
 /* large desktops and up ----------- */
 @media screen and (min-width: 1200px) {
+    #calendarContainer {
+        padding-left: 15px;
+        padding-right:0px;
+    }
 }
