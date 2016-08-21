@@ -54,6 +54,47 @@
 	});
 
 
+	////Get clicked food from search list in the logfood dialog
+	//$("#foodSearchUL").on("click", "li", function () {
+	//				var selectedFoodName = $(this).html();
+	//				$.ajax({
+	//					type: "POST",
+	//					url: "/Dashboard/GetSelectedFood",
+	//					data: { foodName: selectedFoodName },
+	//					success: function (data) {
+	//						$("#foodSearchUL").empty();
+	//						$("#foodLogDialog").dialog("open");
+	//						$("#foodLogDialogUnitSelect").empty();
+	//						for (var i in data) {
+	//							$("#foodLogDialog").dialog("option", "title", data[i].food.Name);
+	//							$("#foodLogDialogCalories").text(
+	//								data[i].food.CaloriesKcal);
+	//							$("#hiddenFieldfoodLogDialog").val(data[i].food.Id);
+	//							for (var j in data[i].foodUnits) {
+	//								$("#foodLogDialogAmountInput").val(100);
+	//								if (data[i].foodUnits[j].Name == "gr") {
+	//									$("#foodLogDialogUnitSelect")
+	//										.append("<option value=\'" +
+	//											data[i].foodUnits[j].Name +
+	//											"\'  selected='selected'>" +
+	//											data[i].foodUnits[j].Name +
+	//											"</option>");
+	//								} else {
+	//									$("#foodLogDialogUnitSelect")
+	//										.append("<option value=\'" +
+	//											data[i].foodUnits[j].Name + "\'>" +
+	//											data[i].foodUnits[j].Name + "</option>");
+	//								}
+	//							}
+	//						}
+	//					},
+	//					error: function () {
+	//						alert("fail");
+	//					}
+	//				});
+	//			});
+
+
 	//Get clicked food from search list in the logfood dialog
 	$("#foodSearchUL").on("click", "li", function () {
 					var selectedFoodName = $(this).html();
@@ -64,41 +105,102 @@
 						data: { foodName: selectedFoodName },
 						success: function (data) {
 							$("#foodSearchUL").empty();
-							$("#foodLogDialog").dialog("open");
-
-							$("#foodLogDialogUnitSelect").empty();
-
+							$("#logFood").show();
 
 							for (var i in data) {
-								$("#foodLogDialog").dialog("option", "title", data[i].food.Name);
-								$("#foodLogDialogCalories").text(
-									data[i].food.CaloriesKcal);
-								$("#hiddenFieldfoodLogDialog").val(data[i].food.Id);
+							    $("#hiddenIdLogFood").text(data[i].food.Id);
+								$("#nameLogFood").text(data[i].food.Name);
+
+								$("#fatAmountLogFood").text(data[i].food.FatGr);
+								$("#fatAmountLogFood").data("fatAmountLogFood", data[i].food.FatGr);
+								$("#satFatAmountLogFood").text(data[i].food.FatSatGr);
+								$("#satFatAmountLogFood").data("satFatAmountLogFood", data[i].food.FatSatGr);
+								$("#monoFatAmountLogFood").text(data[i].food.FatMonoGr);
+								$("#monoFatAmountLogFood").data("monoFatAmountLogFood" , data[i].food.FatMonoGr);
+								$("#polyFatAmountLogFood").text(data[i].food.FatPolyGr);
+								$("#polyFatAmountLogFood").data("polyFatAmountLogFood", data[i].food.FatPolyGr);
+								$("#carbsAmountLogFood").text(data[i].food.CarbsGr);
+								$("#carbsAmountLogFood").data("carbsAmountLogFood", data[i].food.CarbsGr);
+								$("#fiberAmountLogFood").text(data[i].food.FiberGr);
+								$("#fiberAmountLogFood").data("fiberAmountLogFood" , data[i].food.FiberGr);
+								$("#sugarAmountLogFood").text(data[i].food.SugarGr);
+								$("#sugarAmountLogFood").data("sugarAmountLogFood" , data[i].food.SugarGr);
+								$("#sodiumAmountLogFood").text(data[i].food.SodiumMg);
+								$("#sodiumAmountLogFood").data("sodiumAmountLogFood", data[i].food.SodiumMg);
+								$("#cholesAmountLogFood").text(data[i].food.CholesterolMg);
+								$("#cholesAmountLogFood").data("cholesAmountLogFood", data[i].food.CholesterolMg);
+								$("#protAmountLogFood").text(data[i].food.ProteinGr);
+								$("#protAmountLogFood").data("protAmountLogFood", data[i].food.ProteinGr);
 
 								for (var j in data[i].foodUnits) {
-									$("#foodLogDialogAmountInput").val(100);
+								    $("#quantityLogFood").val(100);
 
 									if (data[i].foodUnits[j].Name == "gr") {
-										$("#foodLogDialogUnitSelect")
+									    $("#unitsLogFood")
 											.append("<option value=\'" +
-												data[i].foodUnits[j].Name +
+												data[i].foodUnits[j].GramWeight +
 												"\'  selected='selected'>" +
 												data[i].foodUnits[j].Name +
 												"</option>");
 									} else {
-										$("#foodLogDialogUnitSelect")
+									    $("#unitsLogFood")
 											.append("<option value=\'" +
-												data[i].foodUnits[j].Name + "\'>" +
+												data[i].foodUnits[j].GramWeight + "\'>" +
 												data[i].foodUnits[j].Name + "</option>");
 									}
 								}
+
 							}
+
+							var calories = $("#unitsLogFood option:selected").val()
+								  * $("#quantityLogFood").val() * data[i].food.CaloriesKcal / 100;
+
+							$("#calsAmountLogFood").text(calories);
+							$("#calsAmountLogFood").data("calsAmountLogFood", calories);
+
 						},
 						error: function () {
 							alert("fail");
 						}
 					});
 				});
+
+
+	$("#unitsLogFood, #quantityLogFood").on("change", function () {
+
+	    var caloriesAmount = $("#calsAmountLogFood").data("calsAmountLogFood");
+	    var fatAmount = $("#fatAmountLogFood").data("fatAmountLogFood");
+	    var satFatAmount = $("#satFatAmountLogFood").data("satFatAmountLogFood");
+	    var monoFatAmount = $("#monoFatAmountLogFood").data("monoFatAmountLogFood");
+	    var polyFatAmount = $("#polyFatAmountLogFood").data("polyFatAmountLogFood");
+	    var carbsAmount = $("#carbsAmountLogFood").data("carbsAmountLogFood");
+	    var fiberAmount = $("#fiberAmountLogFood").data("fiberAmountLogFood");
+	    var sugarAmount = $("#sugarAmountLogFood").data("sugarAmountLogFood");
+	    var sodiumAmount = $("#sodiumAmountLogFood").data("sodiumAmountLogFood");
+	    var cholesAmount = $("#cholesAmountLogFood").data("cholesAmountLogFood");
+	    var protAmount = $("#protAmountLogFood").data("protAmountLogFood");
+
+	    var grams = $("#unitsLogFood option:selected").val()
+								  * $("#quantityLogFood").val() / 100;
+
+	    //$("#actionContainerLogFood").append("<button class='btn btn-danger deleteBtn'>Delete</button>");
+
+	    $("#calsAmountLogFood").text(Math.round(grams * caloriesAmount));
+	    $("#fatAmountLogFood").text((grams * fatAmount).toFixed(1));
+	    $("#satFatAmountLogFood").text((grams * satFatAmount).toFixed(1));
+	    $("#monoFatAmountLogFood").text((grams * monoFatAmount).toFixed(1));
+	    $("#polyFatAmountLogFood").text((grams * polyFatAmount).toFixed(1));
+	    $("#carbsAmountLogFood").text((grams * carbsAmount).toFixed(1));
+	    $("#fiberAmountLogFood").text((grams * fiberAmount).toFixed(1));
+	    $("#sugarAmountLogFood").text((grams * sugarAmount).toFixed(1));
+	    $("#sodiumAmountLogFood").text((grams * sodiumAmount).toFixed(1));
+	    $("#cholesAmountLogFood").text((grams * cholesAmount).toFixed(1));
+	    $("#protAmountLogFood").text((grams * protAmount).toFixed(1));
+
+
+
+
+	});
 
 
 	//Log Food
@@ -127,14 +229,6 @@
 			},
 			success: function(data) {
 				$("#foodLogDialog").dialog("close");
-
-
-				
-				//$("#loggedFoodTable").prepend("<tr><td style='display:none;'>" + foodId + "</td>" +
-				//							   "<td style='display:none;'>"+ dateCreated +"</td> <td>" + name +
-				//							  "</td><td>" + calories + "</td><td>" + amount + " " +
-				//							  unit + "</td><td class='editLoggedFoodTd'>" +
-				//							  "<span class='glyphicon glyphicon-pencil'></td></tr>");
 
 
 				$("#loggedFoodsContainer").prepend("<div class='loggedFoodCompact'>" +
@@ -308,7 +402,7 @@
 			}
 		});
 
-	});
+	});	
 
 
 });

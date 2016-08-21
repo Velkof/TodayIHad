@@ -5,15 +5,22 @@
 }
 
 
+<div id="searchContainer">
+    <div id="foodSearchBoxContainer" class="input-group">
+        <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-search"></span></span>
 
-<div id="foodSearchDiv" class="input-group">
-    <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-search"></span></span>
+
+        <input type="text" class="form-control" id="foodSearchBox" placeholder="Search for food..." autocomplete="off" name="SearchFoodString" />
 
 
-    <input type="text" class="form-control" id="foodSearchBox" placeholder="Search for food..." autocomplete="off" name="SearchFoodString" />
+    </div>
+
+    <div id="foodSearchResultsContainer">
+        <ul id="foodSearchUL"></ul>
+
+    </div>
+
 </div>
-
-<ul id="foodSearchUL"></ul>
 
 
 
@@ -55,112 +62,146 @@
 
     <div id="tabs-1">
 
-
-
-
         <div id="loggedFoodsContainer" class="col-xs-12 col-md-8">
-        @foreach (var item in Model.OrderByDescending(x => x.DateCreated))
-        {
-            <div class="loggedFoodCompact">
-                <span class='hiddenFoodIdCompact' style='display:none;'>@item.FoodId</span>
-                <span class='hiddenDateCreatedCompact' style='display:none;'>@item.DateCreated </span>
-                <div class="loggedFoodNameCompact">@item.Name	</div>
-                <div class="loggedFoodInfoCompact">
-                    Calories: <span class="loggedFoodCaloriesCompact">@item.Calories</span>
-                    | Quantity: <span class="loggedFoodQuantityCompact">@item.Amount</span>
-                    | Unit: <span class="loggedFoodUnitCompact">@item.Unit</span>
+            <div id="logFood">
+                <span id='hiddenIdLogFood' style='display:none;'></span>
+
+                <div id="nameLogFood">
+                    <br/><br />
                 </div>
+                <div id="infoContainerLogFood" class="col-xs-12 col-sm-7">
+                    <table id="infoTableLogFood">
+                        <tr><th>Info</th></tr>
+                        <tr>
+                            <td class="labelPrimLogFoodInfo">Fat: </td>
+                            <td><span id="fatAmountLogFood" data-fatAmountLogFood=""></span> g</td>
+                            <td class="labelPrimLogFoodInfo"> Prot: </td>
+                            <td><span id="protAmountLogFood" data-protAmountLogFood=""></span> g</td>
+                        </tr>
+                        <tr>
+                            <td class="labelSecLogFoodInfo">Sat. </td>
+                            <td><span id="satFatAmountLogFood" data-satFatAmountLogFood=""></span> g</td>
+                            <td class="labelPrimLogFoodInfo"> Carb: </td>
+                            <td><span id="carbsAmountLogFood" data-carbsAmountLogFood=""></span> g</td>
+                        </tr>
+                        <tr>
+                            <td class="labelSecLogFoodInfo">Mono. </td>
+                            <td> <span id="monoFatAmountLogFood" data-monoFatAmountLogFood=""></span> g</td>
+                            <td class="labelSecLogFoodInfo">Fiber: </td>
+                            <td><span id="fiberAmountLogFood" data-fiberAmountLogFood=""></span> g</td>
+                        </tr>
+                        <tr>
+                            <td class="labelSecLogFoodInfo">Poly.</td>
+                            <td><span id="polyFatAmountLogFood" data-polyFatAmountLogFood=""></span> g</td>
+                            <td class="labelSecLogFoodInfo">Sugar:</td>
+                            <td><span id="sugarAmountLogFood" data-sugarAmountLogFood=""></span> g</td>
+                        </tr>
+                        <tr>
+                            <td class="labelPrimLogFoodInfo">Choles:</td>
+                            <td><span id="cholesAmountLogFood" data-cholesAmountLogFood=""></span> mg</td>
+                            <td class="labelPrimLogFoodInfo">Sodium:</td>
+                            <td><span id="sodiumAmountLogFood" data-sodiumAmountLogFood=""></span> mg</td>
+                        </tr>
+                    </table>
+                    <div id="calsLogFood"><span id="calsAmountLogFood" data-calsAmountLogFood=""></span> calories</div>
+                </div>
+                <div id="actionContainerLogFood" class="col-xs-12 col-sm-5">
+                    <label>Unit</label>
+                    <select class="form-control" id="unitsLogFood">
+
+                    </select> <br />
+                    <label>Quantity</label>
+                    <input type="number" class="form-control" id="quantityLogFood" value="" /><br /><br />
+
+                    <button class="btn btn-success saveBtn">Save</button>
+                    <button class="btn btn-default cancelBtn">Cancel</button>
+                </div>
+
             </div>
 
+            @*<div class="loggedFoodFull">
+                <span class='hiddenFoodIdFull' style='display:none;'></span>
+                @*<span class='hiddenDateCreatedFull' style='display:none;'></span>*@
 
-        }
-            <div class="loggedFoodCompact">
-                <div class="loggedFoodNameCompact">Cream substitute, liquid, with hydrogenated vegetable oil and soy protein and soy protein...	</div>
-                <div class="loggedFoodInfoCompact">
-                    Calories: <span class="loggedFoodCaloriesCompact">343</span>
-                    | Quantity: <span class="loggedFoodQuantityCompact">2</span>
-                    | Unit: <span class="loggedFoodUnitCompact">oz</span>
+                @*<div class="loggedFoodNameFull">
+                    <br /><br />
+                </div>
+                <div class="loggedFoodInfoFull col-xs-12 col-sm-7">
+                    <label>Info</label>
+                    <table class="loggedFoodInfoTable ">
+                        <tr>
+                            <td class="loggedFoodInfoLabelPrim">Fat: </td>
+                            <td><span class="fatAmount"></span>g</td>
+                            <td><span class="fatPercent"></span>%</td>
+                            <td class="loggedFoodInfoLabelPrim"> Prot: </td>
+                            <td><span class="protAmount"></span>g</td>
+                            <td><span class="protPercent"></span>%</td>
+                        </tr>
+                        <tr>
+                            <td class="loggedFoodInfoLabelSec">Sat. </td>
+                            <td><span class="satFatAmount"></span>g</td>
+                            <td></td>
+                            <td class="loggedFoodInfoLabelPrim"> Carb: </td>
+                            <td><span class="carbsAmount"></span>g</td>
+                            <td><span class="carbsPercent"></span>%</td>
+
+                        </tr>
+                        <tr>
+                            <td class="loggedFoodInfoLabelSec">Mono. </td>
+                            <td> <span class="monoFatAmount"></span> g</td>
+                            <td></td>
+                            <td class="loggedFoodInfoLabelSec">Fiber: </td>
+                            <td><span class="fiberAmount"></span>g</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="loggedFoodInfoLabelSec">Poly.</td>
+                            <td><span class="polyFatAmount"></span> g</td>
+                            <td></td>
+                            <td class="loggedFoodInfoLabelSec">Sugar:</td>
+                            <td><span class="sugarAmount"></span>g</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="loggedFoodInfoLabelPrim">Choles:</td>
+                            <td><span class="cholesAmount"></span>mg</td>
+                            <td></td>
+                            <td class="loggedFoodInfoLabelPrim">Sodium:</td>
+                            <td><span class="sodiumAmount"></span>mg</td>
+                            <td></td>
+                        </tr>
+                    </table>
+
+                    <div class="loggedFoodCaloriesDivFull"><span class="loggedFoodCaloriesFull"></span> calories</div>
+
+
+                </div>
+                <div class="loggedFoodActionFull col-xs-12 col-sm-5">
+                    <label>Unit</label>
+                    <select class="form-control loggedFoodUnitSelect"></select> <br />
+                    <label>Quantity</label>
+                    <input type="number" class="form-control loggedFoodQuantityInput" value="" /><br /><br />
+
+                    <button class="btn btn-success saveLoggedFoodBtn">Save</button>
+                    <button class="btn btn-default cancelLoggedFoodBtn">Cancel</button>
                 </div>
 
-            </div>
-            <div class="loggedFoodCompact">
-                <div class="loggedFoodNameCompact">
-                    Cream substitute, liquid, with hydrogenated vegetable oil and soy protein and soy protein...<br/><br />
-                    <div class="caloriesFull">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Calories: <span class="loggedFoodCaloriesFull">343</span></div>
-                </div><br/>
-                <div class="loggedFoodFull container">
-                    <div class="loggedFoodFullLeftDiv col-xs-12 col-sm-6">
-                            <table class="col-xs-12">
-                                <tr>
-                                    <td>
-                                        Fat: <span>231</span>
-                                    </td>
-                                    <td>
-                                        Carbs: <span>231</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        &nbsp;Sat. Fat: <span>23</span>
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        &nbsp;&nbsp;Mono. Fat: <span>d3</span>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                            </table>
-                        <div class="col-xs-6">
-
-                            Fat: <span>231</span><br />
-                            &nbsp;&nbsp;Sat. Fat: <span>23</span><br />
-                            &nbsp;&nbsp;Mono. Fat: <span>d3</span><br />
-                            &nbsp;&nbsp;Poly. Fat: <span>213</span><br />
-                            Protein: <span>343</span>
-
-                        </div>
-                        <div class="col-xs-6">
-                            Carbs: <span>231</span><br/>
-                            &nbsp;&nbsp;Fiber: <span>23</span><br />
-                            &nbsp;&nbsp;Sugar: <span>d3</span><br />
-                            Cholesterol: <span>213</span><br />
-                            Sodium: <span>213</span><br />
-
-                        </div>
-
+            </div>*@
+            @foreach (var item in Model.OrderByDescending(x => x.DateCreated))
+            {
+                <div class="loggedFoodCompact">
+                    <span class='hiddenFoodIdCompact' style='display:none;'>@item.FoodId</span>
+                    <span class='hiddenDateCreatedCompact' style='display:none;'>@item.DateCreated </span>
+                    <div class="loggedFoodNameCompact">@item.Name	</div>
+                    <div class="loggedFoodInfoCompact">
+                        Calories: <span class="loggedFoodCaloriesCompact">@item.Calories</span>
+                        | Quantity: <span class="loggedFoodQuantityCompact">@item.Amount</span>
+                        | Unit: <span class="loggedFoodUnitCompact">@item.Unit</span>
                     </div>
-                    <div class="loggedFoodFullRightDiv col-xs-12 col-sm-6">
-                        <label>Quantity</label>
-                        <input type="number" class="text-box" value=""/><br/><br/>
-                        @*Quantity: <span class="loggedFoodQuantityCompact">2</span>*@
-                        @*Unit: <span class="loggedFoodUnitCompact">oz</span>*@
-                        <label >Unit</label>
-                        <select class="input-sm">
-                            <option>dqwdqwdwqdqwdqwdqwdqwdqwdqwdqwdqwdqwd</option>
-                        </select>
-                        <button class="btn btn-danger">Delete</button>
-
-                        <button class="btn btn-success">Update</button>
-                    </div>
-
                 </div>
+            }
 
-            </div>
 
-            <div class="loggedFoodFull"></div>
 
         </div>
         <div id="calendarContainer" class="col-xs-12 col-md-4">
@@ -168,44 +209,10 @@
 
         </div>
 
-
-        @*<table id="loggedFoodTable" class="table table-responsive table-condensed table-hover">
-            <thead>
-                <tr><th>Food Name</th> <th>Calories</th><th>Amount</th><th>Edit</th></tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.OrderByDescending(x => x.DateCreated))
-                {
-                    <tr>
-                        <td style="display: none;">
-                            @Html.DisplayFor(modelItem => item.FoodId)
-                        </td>
-                        <td style="display: none;">
-                            @Html.DisplayFor(modelItem => item.DateCreated)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Calories)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Amount) @Html.DisplayFor(modelItem => item.Unit)
-                        </td>
-
-                        <td class="editLoggedFoodTd">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                        </td>
-                    </tr>
-
-                }
-            </tbody>
-        </table>*@
     </div>
 
     <div id="tabs-2">
-
+        Stats will be here...
     </div>
-    <div id="tabs-3">Stats will be here...</div>
+    <div id="tabs-3">Leaderboards will be here...</div>
 </div>
-

@@ -100,6 +100,10 @@
     <Compile Include="Migrations\201608131046194_UpdateFoodUnitAndLoggedFoodModels.Designer.cs">
       <DependentUpon>201608131046194_UpdateFoodUnitAndLoggedFoodModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608211304039_UpdateLoggedFoodModel.cs" />
+    <Compile Include="Migrations\201608211304039_UpdateLoggedFoodModel.Designer.cs">
+      <DependentUpon>201608211304039_UpdateLoggedFoodModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\LoggedFoodRepository.cs" />
@@ -152,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608131046194_UpdateFoodUnitAndLoggedFoodModels.resx">
       <DependentUpon>201608131046194_UpdateFoodUnitAndLoggedFoodModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608211304039_UpdateLoggedFoodModel.resx">
+      <DependentUpon>201608211304039_UpdateLoggedFoodModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

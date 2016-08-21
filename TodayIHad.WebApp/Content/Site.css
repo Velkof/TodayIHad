@@ -1,28 +1,28 @@
 ﻿
 body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+	padding-top: 50px;
+	padding-bottom: 20px;
+
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
-    position: relative;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
 .dl-horizontal dt {
-    white-space: normal;
+	white-space: normal;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
-    max-width: 280px;
+	max-width: 280px;
 }
 
 /*Bootstrap overrides*/
@@ -37,45 +37,45 @@ textarea {
 }
 
 .navbar-inverse {
-    background-color: #3AA637;
-    border-color: #3A8C37;
+	background-color: #3AA637;
+	border-color: #3A8C37;
 }
 
 .navbar-inverse .navbar-nav > li:hover{
-    background-color: #3A8C37;
+	background-color: #3A8C37;
 
 }
 
 .navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a {
-    color: #fff;
+	color: #fff;
 }
 
 .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus, 
 .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
-    /*color: #EFFF5C;*/
-    background-color: transparent;
+	/*color: #EFFF5C;*/
+	background-color: transparent;
 }
 
 
 .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
-    background-color: #3A8C37;
+	background-color: #3A8C37;
 
 }
 
 .navbar-inverse .navbar-toggle {
-    border-color: #fff;
+	border-color: #fff;
 }
 
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-    /*color: #EFFF5C;*/
-    background-color: #3A8C37;
+	/*color: #EFFF5C;*/
+	background-color: #3A8C37;
 }
 
 .form-control:focus {
-    border-color: #3AA637;
-    outline: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
+	border-color: #3AA637;
+	outline: 0;
+	-webkit-box-shadow: none;
+	box-shadow: none;
 }
 
 #foodSearchDiv > span {
@@ -84,13 +84,13 @@ textarea {
 }
 
 .foodSearchResultsLI.list-group-item {
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
 
 }
 
 #tabs-1 > table {
-    border: 0px;
+	border: 0px;
 }
 
  
@@ -98,288 +98,351 @@ textarea {
 
 
 #tabs {
-    border: 0px;
-    padding: 0px;
-    background-color: #fff;
+	border: 0px;
+	padding: 0px;
+	background-color: #fff;
 }
 
 .ui-widget-header {
-    background-color:#fff;
+	background-color:#fff;
 
-    border: 0px;
-    margin: 0px;
-    padding: 0px;
-    border-bottom: 1px solid #d3d3d3;
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	border-bottom: 1px solid #d3d3d3;
 }
 
 
 .ui-tabs-tab.ui-corner-top.ui-state-default.ui-tab {
-    background-color: #fafafa;
+	background-color: #fafafa;
+
 }
 
 .ui-tabs-tab.ui-corner-top.ui-state-active.ui-tab {
-    background-color:#fff;
-    border-color: #ddd;
-    border-bottom: 0px;
-    color: black;
+	background-color:#fff;
+	border-color: #ddd;
+	border-bottom: 0px;
+	color: black; 
 }
 .ui-tabs-tab.ui-corner-top.ui-state-active.ui-tab a {
-    color: black;
+	color: black;
 }
 
 /*.ui-tabs-panel.ui-corner-bottom.ui-widget-content {
-    background-color:#fefefe;
+	background-color:#fefefe;
 }*/
 
 #tabs li a:focus {
-    outline: none;
+	outline: none;
 }
 
 #tabs-1 {
-    padding-left: 7px;
-    padding-right: 7px;
-    
+	padding-left: 7px;
+	padding-right: 7px;
+	
 }
 
 .ui-dialog-titlebar-close {
-    color: black;
-    outline: none;
+	color: black;
+	outline: none;
 }
 
 .hasDatepicker{
-    height: 300px;
-    /*width: 353px;*/
-    border-radius: 2px;
-    margin-top: 10px;
-        box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-        
+	height: 300px;
+	/*width: 353px;*/
+	border-radius: 2px;
+	margin-top: 10px;
+		box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+		
 
 }
 
 .hasDatepicker:hover {
-    /*-webkit-box-shadow: 1px 1px 1px 1.5px rgba(140,160,120, 1);
-    -moz-box-shadow: 1px 1px 1px 1.5px rgba(140,160,120, 1);
-        box-shadow: 1px 1px 1px 1.5px rgba(140,160,120, 1);*/
+	/*-webkit-box-shadow: 1px 1px 1px 1.5px rgba(140,160,120, 1);
+	-moz-box-shadow: 1px 1px 1px 1.5px rgba(140,160,120, 1);
+		box-shadow: 1px 1px 1px 1.5px rgba(140,160,120, 1);*/
 
-    -webkit-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
-    -moz-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
-        box-shadow: 0px 1px 1px 1.5px #c3c3c3;
+	-webkit-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
+	-moz-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
+		box-shadow: 0px 1px 1px 1.5px #c3c3c3;
 }
 
 .ui-datepicker-inline.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all {
-    
-    border: 0px dotted green;
-    width: 100%;
-    height: 100%;
-    padding:7px;
+	
+	border: 0px;
+	width: 100%;
+	height: 100%;
+	padding:7px;
    
 }
 
 
  
 .ui-datepicker-calendar{
-    /*border: 1px solid red;*/
-    width: 100%;
-    height: 90%;
+	/*border: 1px solid red;*/
+	width: 100%;
+	height: 90%;
    
 
 }
 
 #datepicker a.ui-state-default {
-    background-color: white;
-    border-color: #e5e5e5;
-    height:100%;
-    border-radius: 2px;
+	background-color: white;
+	border-color: #e5e5e5;
+	height:100%;
+	border-radius: 2px;
 }
 
 #datepicker a.ui-state-default:hover {
-    border: 1px solid green;
-    color: green;
+	border: 1px solid green;
+	color: green;
 }
 
 #datepicker a.ui-state-default.ui-state-active {
-    border: 1px solid green;
-    color: green;
-    font-weight:bold;
+	border: 1px solid green;
+	color: green;
+	font-weight:bold;
 }
 
 #datepicker a.ui-state-default.ui-state-highlight {
-    border: 1px solid #a8a518;
-    color: #a8a518;
-    font-weight:bold;
+	border: 1px solid #a8a518;
+	color: #a8a518;
+	font-weight:bold;
 }
 
 
 /*Custom CSS-----------------------------------------------------------------------------------------------------------*/
 
-#foodSearchDiv {
-    margin-top: 30px;
-    /*border: 1px solid red;*/
+
+#searchContainer{
+	position: relative;
+}
+
+#foodSearchBoxContainer {
+	margin-top: 30px;
 }
 
 #foodSearchBox {
-    /*margin-top: 1px;*/
-    /*border: 3px solid #00915C;*/
-    -moz-min-width: 100%;
-    -ms-min-width: 100%;
-    -o-min-width: 100%;
-    -webkit-min-width: 100%;
-    min-width: 100%;
-    height: 40px;
-    font-size: 1.5em;
+	-moz-min-width: 100%;
+	-ms-min-width: 100%;
+	-o-min-width: 100%;
+	-webkit-min-width: 100%;
+	min-width: 100%;
+	height: 40px;
+	font-size: 1.5em;
    
 }
 
-#foodList {
-    /*border: 1px solid red;*/
 
-
+#foodSearchResultsContainer {
+    position:absolute;
+	max-height:200px;
+	overflow: auto;
+	width: 100%;
+	padding:0px;
 }
 
 #foodSearchUL {
-    list-style-type: none;
+	list-style-type: none;
 }
 
-#foodSearchUL li {
-    padding: 2px 0px 2px 10px;
+#foodSearchUL li { 
+	z-index: 9;
+	position: relative;
+	list-style-type: none;
+	padding: 2px 10px 2px 10px;
+	width: 100%;
 }
+   
 
 #scoreInfoDiv, #calorieInfoDiv {
-    min-height: 100px; 
+	min-height: 100px; 
 }
 
 #foodEditDiv {
-    border: 1px solid red;
-    position: fixed;
-    z-index: 10;
-    background-color: yellow;
+	border: 1px solid red;
+	position: fixed;
+	z-index: 10;
+	background-color: yellow;
 }
 
 #foodLogDialog, #loggedFoodEditDialog { display: none; }
 
 #foodLogDialog {
 
-    border: 1px solid red;
+	border: 1px solid red;
 }
 
 
 
 #loggedFoodsContainer{
-    padding-left: 0px;
-    padding-right: 0px;
-    /*border: 1px solid red;*/
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
-.loggedFoodCompact{
-
-    background-color: #fff;
-    -moz-min-height: 70px;
-    -ms-min-height: 70px;
-    -o-min-height: 70px;
-    -webkit-min-height: 70px;
-    min-height: 70px;
-    border-radius: 2px;
-    -webkit-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-    -moz-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-    box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-
-    margin-top: 10px;
+.loggedFoodCompact, #logFood{
+	-moz-min-height: 70px;
+	-ms-min-height: 70px;
+	-o-min-height: 70px;
+	-webkit-min-height: 70px;
+	min-height: 70px;
+	border-radius: 2px;
+	-webkit-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+	-moz-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+	box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+	margin-top: 10px;
 }
 
-.loggedFoodCompact:hover {
-    /*-webkit-box-shadow: 0px 1px 1px 1.5px rgba(140,160,120, 1);
-    -moz-box-shadow: 0px 1px 1px 1.5px rgba(140,160,120, 1);
-        box-shadow: 0px 1px 1px 1.5px rgba(140,160,120, 1);*/
-
-    -webkit-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
-    -moz-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
-        box-shadow: 0px 1px 1px 1.5px #c3c3c3;
+#logFood{
+    overflow: hidden;
+    display:none;
 }
 
 
-.loggedFoodNameCompact {
-    color:#3A8C37;
-    padding-top: .3em;
-    padding-left: .5em;
-    font-size: 1.3em;
+.loggedFoodCompact:hover, #logFood:hover  {
+	-webkit-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
+	-moz-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
+		box-shadow: 0px 1px 1px 1.5px #c3c3c3;
 }
 
-.loggedFoodInfoCompact {
-    padding-top: 7px;
-    padding-left:10px;
-    padding-bottom:15px;
-    font-size: 1em;
+
+.loggedFoodNameCompact, #nameLogFood {
+	color:#3A8C37;
+
+    padding: .3em 0em 1em .5em;
+	font-size: 1.3em;
 }
+
+
+#infoContainerLogFood {
+	/*padding-top: 7px;*/
+	padding-left:10px;
+	padding-bottom:15px;
+	font-size: 1em;
+}
+
+#actionContainerLogFood{
+    padding-bottom: 20px;
+   
+}
+
+
+#infoTableLogFood {
+	  clear:right;
+      margin-bottom: .5em;
+      margin: 0 auto;
+      width:80%;
+}
+
+#infoTableLogFood td{
+	border-top: 1px solid lightgray;
+	border-bottom: 1px solid lightgray;
+    padding:.2em  1em .2em 0em;
+	font-size: .9em;
+}
+
+.labelSecLogFoodInfo {
+    padding-left: 10px !important;
+}
+
+.labelPrimLogFoodInfo{
+    font-weight: 600;
+}
+
+#calsLogFood {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+#unitsLogFood, #quantityLogFood{
+    max-width: 100%;
+}
+
+#logFood .saveBtn  {
+    float: right;
+    margin-left: .5em;
+}
+
+#logFood .cancelBtn {
+    float: right;
+}
+#logFood .deleteBtn {
+    float: left;
+}
+
+
 
 #calendarContainer {
-    padding-left: 10px;
+	padding-left: 10px;
 }
 
 footer{
-    padding-top: 100px;
-    clear:left;
+	padding-top: 100px;
+	clear:left;
 }
 
 /* Extra small devices (phones, up to 480px) */
 @media screen and (max-width: 767px) {
-    /*Bootstrap override*/
-    .navbar-inverse .navbar-nav .open .dropdown-menu {
-            background-color: #3AA637;
+	/*Bootstrap override*/
+	.navbar-inverse .navbar-nav .open .dropdown-menu {
+			background-color: #3AA637;
 
-    }
-    .navbar-inverse .navbar-nav .open .dropdown-menu > li:hover {
-            background-color: #3A8C37;
+	}
+	.navbar-inverse .navbar-nav .open .dropdown-menu > li:hover {
+			background-color: #3A8C37;
 
-    }
+	}
 
-    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
-        color: #fff;
+	.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+		color: #fff;
 
-    }
-    .navbar-inverse .navbar-nav .open .dropdown-menu .divider,
-    .navbar-inverse .navbar-nav .open .dropdown-menu .divider:hover
-     {
-        background-color: transparent;
-    }
+	}
+	.navbar-inverse .navbar-nav .open .dropdown-menu .divider,
+	.navbar-inverse .navbar-nav .open .dropdown-menu .divider:hover
+	 {
+		background-color: transparent;
+	}
 
-    /*Custom CSS-----------max-width-767px---*/
-    .loggedFoodNameCompact {
-        /*color:green;*/
-        padding-top: .3em;
-        padding-left: 10px;
-        font-size: 1.2em;
-    }
+	/*Custom CSS-----------max-width-767px---*/
+	.loggedFoodNameCompact {
+		/*color:green;*/
+		padding-top: .3em;
+		padding-left: 10px;
+		font-size: 1.2em;
+	}
 
     .loggedFoodInfoCompact {
-        padding-top: 10px;
-        padding-left:10px;
-        font-size: .86em;
-    }
+		padding-left:10px;
+		font-size: .86em;
+	}
+
     #calendarContainer{
-        padding-left: 0px;
-        padding-right:0px;
-    }
+		padding-left: 0px;
+		padding-right:0px;
+	}
 }
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991px) {
 
-    #calendarContainer{
-        padding-left: 0px;
-        padding-right:0px;
-    }
+	#calendarContainer{
+		padding-left: 0px;
+		padding-right:0px;
+	}
 }
 /* tablets/desktops and up ----------- */
 @media (min-width: 992px) and (max-width: 1199px) {
 
-#calendarContainer {
-    padding-right:0px;
-}
+	#calendarContainer {
+		padding-right:0px;
+	}
 }
 /* large desktops and up ----------- */
 @media screen and (min-width: 1200px) {
-    #calendarContainer {
-        padding-left: 15px;
-        padding-right:0px;
-    }
+	#calendarContainer {
+		padding-left: 15px;
+		padding-right:0px;
+	}
 }

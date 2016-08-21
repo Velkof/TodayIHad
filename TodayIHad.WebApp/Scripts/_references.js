@@ -11,6 +11,7 @@
 /// <reference path="modernizr-2.8.3.js" />
 /// <reference path="moment.min.js" />
 /// <reference path="moment-with-locales.min.js" />
+/// <reference path="mustache.js" />
 /// <reference path="respond.matchmedia.addlistener.min.js" />
 /// <reference path="respond.min.js" />
 /// <reference path="script.js" />
