@@ -1,408 +1,387 @@
 ﻿$(document).ready(function () {
 
 
-	$("#foodLogDialog").dialog({
-		my: "center",
-		at: "center",
-		of: window,
-		autoOpen: false,
-		width: $(document).width() - 100,
-	 });
 
-	$("#loggedFoodEditDialog").dialog({
-		my: "center",
-		at: "center",
-		of: window,
-		autoOpen: false
-	 });
-	 
+    $("#tabs").tabs();
+    $("#tabs").css("display", "block");
+
+    $("#datepicker").datepicker();
 
 
-	$("#tabs").tabs();
-	$("#tabs").css("display", "block");
+    //Get list of foods based on user search
+    $("#foodSearchBox").on("input", function () {
 
-	$("#datepicker").datepicker();
+        var food = $("#foodSearchBox").val();
 
+        $.ajax({
+            type: "POST",
+            url: "/Dashboard/SearchFood",
+            data: { searchFoodString: food },
+            success: function (data) {
 
-	//Get list of foods based on user search
-	$("#foodSearchBox").on("input",function () { 
+                $("#foodSearchUL").empty();
 
-				var food = $("#foodSearchBox").val();
+                for (var i in data) {
+                    for (var j in data[i]) {
+                        $("#foodSearchUL")
+                            .append('<li class="foodSearchResultsLI list-group-item">' +
+                                data[i][j].Name + "</li>");
+                    }
+                }
 
-				$.ajax({
-					type: "POST",
-					url: "/Dashboard/SearchFood",
-					data: { searchFoodString: food },
-					success: function (data) {
+            },
+            error: function () {
+                alert("Failed");
+            }
 
-						$("#foodSearchUL").empty();
+        });
+    });
 
-						for (var i in data) {
-							for (var j in data[i]) {
-								$("#foodSearchUL")
-									.append('<li class="foodSearchResultsLI list-group-item">' +
-										data[i][j].Name + "</li>");
-							}
-						}
+    //Get clicked food from search list in the logfood div
+    $("#foodSearchUL").on("click", "li", function () {
+        var selectedFoodName = $(this).html();
 
-					},
-					error: function () {
-						alert("Failed");
-					}
+        $.ajax({
+            type: "POST",
+            url: "/Dashboard/GetSelectedFood",
+            data: { foodName: selectedFoodName },
+            success: function (data) {
+                $("#foodSearchUL").empty();
+                $("#unitsLogFood").empty();
+                //$("#quantityLogFood").empty();
 
-				});
-	});
+                
+                //$("#editLoggedFood #unitsLogFood").empty();
+                //$("#editLoggedFood #quantityLogFood").empty();
 
+                $("#logFood").show();
 
-	////Get clicked food from search list in the logfood dialog
-	//$("#foodSearchUL").on("click", "li", function () {
-	//				var selectedFoodName = $(this).html();
-	//				$.ajax({
-	//					type: "POST",
-	//					url: "/Dashboard/GetSelectedFood",
-	//					data: { foodName: selectedFoodName },
-	//					success: function (data) {
-	//						$("#foodSearchUL").empty();
-	//						$("#foodLogDialog").dialog("open");
-	//						$("#foodLogDialogUnitSelect").empty();
-	//						for (var i in data) {
-	//							$("#foodLogDialog").dialog("option", "title", data[i].food.Name);
-	//							$("#foodLogDialogCalories").text(
-	//								data[i].food.CaloriesKcal);
-	//							$("#hiddenFieldfoodLogDialog").val(data[i].food.Id);
-	//							for (var j in data[i].foodUnits) {
-	//								$("#foodLogDialogAmountInput").val(100);
-	//								if (data[i].foodUnits[j].Name == "gr") {
-	//									$("#foodLogDialogUnitSelect")
-	//										.append("<option value=\'" +
-	//											data[i].foodUnits[j].Name +
-	//											"\'  selected='selected'>" +
-	//											data[i].foodUnits[j].Name +
-	//											"</option>");
-	//								} else {
-	//									$("#foodLogDialogUnitSelect")
-	//										.append("<option value=\'" +
-	//											data[i].foodUnits[j].Name + "\'>" +
-	//											data[i].foodUnits[j].Name + "</option>");
-	//								}
-	//							}
-	//						}
-	//					},
-	//					error: function () {
-	//						alert("fail");
-	//					}
-	//				});
-	//			});
+                $("#btnContainerLogFood").append("<button class='btn btn-success saveBtn'>Save</button>");
+                $("#btnContainerLogFood").append("<button class='btn btn-default cancelBtn'>Cancel</button>");
 
+                for (var i in data) {
+                    $("#hiddenIdLogFood").text(data[i].food.Id);
+                    $("#nameLogFood").text(data[i].food.Name);
 
-	//Get clicked food from search list in the logfood dialog
-	$("#foodSearchUL").on("click", "li", function () {
-					var selectedFoodName = $(this).html();
+                    $("#fatAmountLogFood").text(data[i].food.FatGr);
+                    $("#fatAmountLogFood").data("fatAmountLogFood", data[i].food.FatGr);
+                    $("#satFatAmountLogFood").text(data[i].food.FatSatGr);
+                    $("#satFatAmountLogFood").data("satFatAmountLogFood", data[i].food.FatSatGr);
+                    $("#monoFatAmountLogFood").text(data[i].food.FatMonoGr);
+                    $("#monoFatAmountLogFood").data("monoFatAmountLogFood", data[i].food.FatMonoGr);
+                    $("#polyFatAmountLogFood").text(data[i].food.FatPolyGr);
+                    $("#polyFatAmountLogFood").data("polyFatAmountLogFood", data[i].food.FatPolyGr);
+                    $("#carbsAmountLogFood").text(data[i].food.CarbsGr);
+                    $("#carbsAmountLogFood").data("carbsAmountLogFood", data[i].food.CarbsGr);
+                    $("#fiberAmountLogFood").text(data[i].food.FiberGr);
+                    $("#fiberAmountLogFood").data("fiberAmountLogFood", data[i].food.FiberGr);
+                    $("#sugarAmountLogFood").text(data[i].food.SugarGr);
+                    $("#sugarAmountLogFood").data("sugarAmountLogFood", data[i].food.SugarGr);
+                    $("#sodiumAmountLogFood").text(data[i].food.SodiumMg);
+                    $("#sodiumAmountLogFood").data("sodiumAmountLogFood", data[i].food.SodiumMg);
+                    $("#cholesAmountLogFood").text(data[i].food.CholesterolMg);
+                    $("#cholesAmountLogFood").data("cholesAmountLogFood", data[i].food.CholesterolMg);
+                    $("#protAmountLogFood").text(data[i].food.ProteinGr);
+                    $("#protAmountLogFood").data("protAmountLogFood", data[i].food.ProteinGr);
 
-					$.ajax({
-						type: "POST",
-						url: "/Dashboard/GetSelectedFood",
-						data: { foodName: selectedFoodName },
-						success: function (data) {
-							$("#foodSearchUL").empty();
-							$("#logFood").show();
+                    for (var j in data[i].foodUnits) {
+                        $("#quantityLogFood").val(100);
 
-							for (var i in data) {
-							    $("#hiddenIdLogFood").text(data[i].food.Id);
-								$("#nameLogFood").text(data[i].food.Name);
+                        if (data[i].foodUnits[j].Name == "gr") {
+                            $("#unitsLogFood")
+                                .append("<option value=\'" +
+                                    data[i].foodUnits[j].GramWeight +
+                                    "\'  selected='selected'>" +
+                                    data[i].foodUnits[j].Name +
+                                    "</option>");
+                        } else {
+                            $("#unitsLogFood")
+                                .append("<option value=\'" +
+                                    data[i].foodUnits[j].GramWeight + "\'>" +
+                                    data[i].foodUnits[j].Name + "</option>");
+                        }
+                    }
 
-								$("#fatAmountLogFood").text(data[i].food.FatGr);
-								$("#fatAmountLogFood").data("fatAmountLogFood", data[i].food.FatGr);
-								$("#satFatAmountLogFood").text(data[i].food.FatSatGr);
-								$("#satFatAmountLogFood").data("satFatAmountLogFood", data[i].food.FatSatGr);
-								$("#monoFatAmountLogFood").text(data[i].food.FatMonoGr);
-								$("#monoFatAmountLogFood").data("monoFatAmountLogFood" , data[i].food.FatMonoGr);
-								$("#polyFatAmountLogFood").text(data[i].food.FatPolyGr);
-								$("#polyFatAmountLogFood").data("polyFatAmountLogFood", data[i].food.FatPolyGr);
-								$("#carbsAmountLogFood").text(data[i].food.CarbsGr);
-								$("#carbsAmountLogFood").data("carbsAmountLogFood", data[i].food.CarbsGr);
-								$("#fiberAmountLogFood").text(data[i].food.FiberGr);
-								$("#fiberAmountLogFood").data("fiberAmountLogFood" , data[i].food.FiberGr);
-								$("#sugarAmountLogFood").text(data[i].food.SugarGr);
-								$("#sugarAmountLogFood").data("sugarAmountLogFood" , data[i].food.SugarGr);
-								$("#sodiumAmountLogFood").text(data[i].food.SodiumMg);
-								$("#sodiumAmountLogFood").data("sodiumAmountLogFood", data[i].food.SodiumMg);
-								$("#cholesAmountLogFood").text(data[i].food.CholesterolMg);
-								$("#cholesAmountLogFood").data("cholesAmountLogFood", data[i].food.CholesterolMg);
-								$("#protAmountLogFood").text(data[i].food.ProteinGr);
-								$("#protAmountLogFood").data("protAmountLogFood", data[i].food.ProteinGr);
+                }
 
-								for (var j in data[i].foodUnits) {
-								    $("#quantityLogFood").val(100);
+                var calories = $("#unitsLogFood option:selected").val()
+                      * $("#quantityLogFood").val() * data[i].food.CaloriesKcal / 100;
 
-									if (data[i].foodUnits[j].Name == "gr") {
-									    $("#unitsLogFood")
-											.append("<option value=\'" +
-												data[i].foodUnits[j].GramWeight +
-												"\'  selected='selected'>" +
-												data[i].foodUnits[j].Name +
-												"</option>");
-									} else {
-									    $("#unitsLogFood")
-											.append("<option value=\'" +
-												data[i].foodUnits[j].GramWeight + "\'>" +
-												data[i].foodUnits[j].Name + "</option>");
-									}
-								}
+                $("#calsAmountLogFood").text(calories);
+                $("#calsAmountLogFood").data("calsAmountLogFood", calories);
 
-							}
+            },
+            error: function () {
+                alert("fail");
+            }
+        });
+    });
 
-							var calories = $("#unitsLogFood option:selected").val()
-								  * $("#quantityLogFood").val() * data[i].food.CaloriesKcal / 100;
+    //when units or quantity changes, update all nutrient and calorie values
+    
+    $("#loggedFoodsContainer").on("change", "#unitsLogFood, #quantityLogFood", function () {
 
-							$("#calsAmountLogFood").text(calories);
-							$("#calsAmountLogFood").data("calsAmountLogFood", calories);
+        var divId = "#" + $(this).parent().parent().attr("id");
 
-						},
-						error: function () {
-							alert("fail");
-						}
-					});
-				});
+        var caloriesAmount = $(divId + " #calsAmountLogFood").data("calsAmountLogFood");
+        var fatAmount = $(divId + " #fatAmountLogFood").data("fatAmountLogFood");
+        var satFatAmount = $(divId + " #satFatAmountLogFood").data("satFatAmountLogFood");
+        var monoFatAmount = $(divId + " #monoFatAmountLogFood").data("monoFatAmountLogFood");
+        var polyFatAmount = $(divId + " #polyFatAmountLogFood").data("polyFatAmountLogFood");
+        var carbsAmount = $(divId + " #carbsAmountLogFood").data("carbsAmountLogFood");
+        var fiberAmount = $(divId + " #fiberAmountLogFood").data("fiberAmountLogFood");
+        var sugarAmount = $(divId + " #sugarAmountLogFood").data("sugarAmountLogFood");
+        var sodiumAmount = $(divId + " #sodiumAmountLogFood").data("sodiumAmountLogFood");
+        var cholesAmount = $(divId + " #cholesAmountLogFood").data("cholesAmountLogFood");
+        var protAmount = $(divId + " #protAmountLogFood").data("protAmountLogFood");
+
+        var grams = $(divId + " #unitsLogFood option:selected").val()
+								  * $(divId + " #quantityLogFood").val() / 100;
 
 
-	$("#unitsLogFood, #quantityLogFood").on("change", function () {
+        $(divId + " #calsAmountLogFood").text(Math.round(grams * caloriesAmount));
+        $(divId + " #fatAmountLogFood").text((grams * fatAmount).toFixed(1));
+        $(divId + " #satFatAmountLogFood").text((grams * satFatAmount).toFixed(1));
+        $(divId + " #monoFatAmountLogFood").text((grams * monoFatAmount).toFixed(1));
+        $(divId + " #polyFatAmountLogFood").text((grams * polyFatAmount).toFixed(1));
+        $(divId + " #carbsAmountLogFood").text((grams * carbsAmount).toFixed(1));
+        $(divId + " #fiberAmountLogFood").text((grams * fiberAmount).toFixed(1));
+        $(divId + " #sugarAmountLogFood").text((grams * sugarAmount).toFixed(1));
+        $(divId + " #sodiumAmountLogFood").text((grams * sodiumAmount).toFixed(1));
+        $(divId + " #cholesAmountLogFood").text((grams * cholesAmount).toFixed(1));
+        $(divId + " #protAmountLogFood").text((grams * protAmount).toFixed(1));
 
-	    var caloriesAmount = $("#calsAmountLogFood").data("calsAmountLogFood");
-	    var fatAmount = $("#fatAmountLogFood").data("fatAmountLogFood");
-	    var satFatAmount = $("#satFatAmountLogFood").data("satFatAmountLogFood");
-	    var monoFatAmount = $("#monoFatAmountLogFood").data("monoFatAmountLogFood");
-	    var polyFatAmount = $("#polyFatAmountLogFood").data("polyFatAmountLogFood");
-	    var carbsAmount = $("#carbsAmountLogFood").data("carbsAmountLogFood");
-	    var fiberAmount = $("#fiberAmountLogFood").data("fiberAmountLogFood");
-	    var sugarAmount = $("#sugarAmountLogFood").data("sugarAmountLogFood");
-	    var sodiumAmount = $("#sodiumAmountLogFood").data("sodiumAmountLogFood");
-	    var cholesAmount = $("#cholesAmountLogFood").data("cholesAmountLogFood");
-	    var protAmount = $("#protAmountLogFood").data("protAmountLogFood");
-
-	    var grams = $("#unitsLogFood option:selected").val()
-								  * $("#quantityLogFood").val() / 100;
-
-	    //$("#actionContainerLogFood").append("<button class='btn btn-danger deleteBtn'>Delete</button>");
-
-	    $("#calsAmountLogFood").text(Math.round(grams * caloriesAmount));
-	    $("#fatAmountLogFood").text((grams * fatAmount).toFixed(1));
-	    $("#satFatAmountLogFood").text((grams * satFatAmount).toFixed(1));
-	    $("#monoFatAmountLogFood").text((grams * monoFatAmount).toFixed(1));
-	    $("#polyFatAmountLogFood").text((grams * polyFatAmount).toFixed(1));
-	    $("#carbsAmountLogFood").text((grams * carbsAmount).toFixed(1));
-	    $("#fiberAmountLogFood").text((grams * fiberAmount).toFixed(1));
-	    $("#sugarAmountLogFood").text((grams * sugarAmount).toFixed(1));
-	    $("#sodiumAmountLogFood").text((grams * sodiumAmount).toFixed(1));
-	    $("#cholesAmountLogFood").text((grams * cholesAmount).toFixed(1));
-	    $("#protAmountLogFood").text((grams * protAmount).toFixed(1));
+    });
 
 
 
+    //Log Food or update logged food
+    $("#loggedFoodsContainer").on("click", ".saveBtn, .updateBtn", function () {
+        var thisLogFoodDiv = $(this).parent().parent().parent();
+        var thisLogFoodDivId = "#" + thisLogFoodDiv.attr("id");
 
-	});
+        var amount = $(thisLogFoodDivId + " #quantityLogFood").val();
+        var unit = $(thisLogFoodDivId + " #unitsLogFood option:selected").text();
+        var foodId = $(thisLogFoodDivId + " #hiddenIdLogFood").text();
+        alert("var foodId:" + foodId);
+        var name = $(thisLogFoodDivId + " #nameLogFood").text();
+        var calories = $(thisLogFoodDivId + " #calsAmountLogFood").text();
+        var fat = $(thisLogFoodDivId + " #fatAmountLogFood").text();
+        var satFat = $(thisLogFoodDivId + " #satFatAmountLogFood").text();
+        var monoFat = $(thisLogFoodDivId + " #monoFatAmountLogFood").text();
+        var polyFat = $(thisLogFoodDivId + " #polyFatAmountLogFood").text();
+        var carbs = $(thisLogFoodDivId + " #carbsAmountLogFood").text();
+        var fiber = $(thisLogFoodDivId + " #fiberAmountLogFood").text();
+        var sugar = $(thisLogFoodDivId + " #sugarAmountLogFood").text();
+        var sodium = $(thisLogFoodDivId + " #sodiumAmountLogFood").text();
+        var choles = $(thisLogFoodDivId + " #cholesAmountLogFood").text();
+        var prot = $(thisLogFoodDivId + " #protAmountLogFood").text();
+
+        var LoggedFood = {
+            Name: name,
+            FoodId: foodId,
+            Amount: amount,
+            Unit: unit,
+            Calories: calories,
+            FatGr: fat,
+            FatSatGr: satFat,
+            FatMonoGr: monoFat,
+            FatPolyGr: polyFat,
+            CarbsGr: carbs,
+            FiberGr: fiber,
+            SugarGr: sugar,
+            SodiumMg: sodium,
+            CholesterolMg: choles,
+            ProteinGr: prot,
+        }
+        
+        var dateNow = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
+
+        if (thisLogFoodDivId == "#logFood") {
+            var dateCreated = dateNow;
+            var url = "/Dashboard/LogFood";
+            LoggedFood["DateCreated"] = dateNow;
+            LoggedFood["DateUpdated"] = dateNow;
+        } else {
+            var dateCreated = $("#editLoggedFood #hiddenDateCreatedLoggedFood").text();
+            var loggedFoodId = $("#editLoggedFood .hiddenLoggedFoodIdFull").text();
+                               
+            var url = "/Dashboard/UpdateLoggedFood";
+            alert(loggedFoodId);
 
 
-	//Log Food
-	$("#logFoodSaveBtn").on("click", function() {             
-		var amount = $("#foodLogDialogAmountInput").val();
-		var unit = $("#foodLogDialogUnitSelect").val();
-		var foodId = $("#hiddenFieldfoodLogDialog").val();
-		var name = $("#foodLogDialog").dialog("option", "title");
-		var calories = $("#foodLogDialogCalories").html();
-		//var dateCreated = new Date().toLocaleString();
-		var dateCreated = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
+            LoggedFood["DateCreated"] = dateCreated;
+            LoggedFood["DateUpdated"] = dateNow;
+            LoggedFood["Id"] = loggedFoodId;
 
+            alert(dateCreated);
 
-		$.ajax({
-			type: "POST",
-			url: "/Dashboard/LogFood",
-			dataType: "json",
-			traditional: true,
-			data: {
-				amount: amount,
-				unit: unit,
-				foodId: foodId,
-				name: name,
-				calories: calories,
-				dateCreated: dateCreated
-			},
-			success: function(data) {
-				$("#foodLogDialog").dialog("close");
+        }
+        $.ajax({
+            type: "POST",
+            url: url,
+            contentType: "application/json",
+            traditional: true,
+            data: JSON.stringify(LoggedFood),
+            success: function (data) {
+                //$(".loggedFoodCompact").show();
+                $(thisLogFoodDiv).hide();
+                $(thisLogFoodDiv).prev(".newLoggedFoodCompact").remove();
+                //$(".newLoggedFoodCompact").remove();
+               
+                $("#btnContainerLogFood").empty();
 
-
-				$("#loggedFoodsContainer").prepend("<div class='loggedFoodCompact'>" +
-												   "<span class='hiddenFoodIdCompact' style='display:none;'>" + foodId + "</span>" + 
-												   "<span class='hiddenDateCreatedCompact' style='display:none;'>" + dateCreated + "</span>" + 
-												   "<div class='loggedFoodNameCompact'>" + name + "</div>" +
+                var newLoggedFoodCompact = "<div class='loggedFoodCompact newLoggedFoodCompact'>" +
+												   "<span class='hiddenFoodIdCompact' style='display:none;'>" + foodId + "</span>" +
+												   "<span class='hiddenLoggedFoodIdCompact' style='display:none;'>" + loggedFoodId + "</span>" +
+												   "<span class='hiddenDateCreatedCompact' style='display:none;'>" + dateCreated + "</span>" +
+                                                   "<span id='hiddenRowNumberCompact' style='display:none;'></span>" +
+												   "<div class='loggedFoodNameCompact newLoggedFoodNameCompact'>" + name + "</div>" +
 												   "<div class='loggedFoodInfoCompact'>" +
 												   "Calories: <span class='loggedFoodCaloriesCompact'>" + calories + "</span>" +
-												   " | Quantity: <span class='loggedFoodQuantityCompact'>"+amount+"</span>" +
-												   " | Unit: <span class='loggedFoodUnitCompact'>"+ unit + "</span></div></div>"
-												   );
+												   " | Quantity: <span class='loggedFoodQuantityCompact'>" + amount + "</span>" +
+												   " | Unit: <span class='loggedFoodUnitCompact'>" + unit + "</span></div></div>";
 
-			},
-			error: function() {
-				alert("error1");
-			}
-		});
-
-	});
-
-		//open edit dialog and retrieve logged food
-
-	$("#loggedFoodsContainer").on("click", ".loggedFoodCompact", function () {
-		//var loggedFoodFoodId = $(this).siblings(':first-child').html();
-		//var loggedFoodDateCreated = $(this).siblings(':first-child').next().html();
-		//var loggedFoodName = $(this).siblings(':first-child').next().next().html();
-		//var rowNumber = $(this).parent().parent().children().index($(this).parent());
-
-		var loggedFoodFoodId = $(this).find(".hiddenFoodIdCompact").html();
-		var loggedFoodDateCreated = $(this).find(".hiddenDateCreatedCompact").html();
-		var loggedFoodName = $(this).find(".loggedFoodNameCompact").html();
-		var rowNumber = $(this).parent().children().index($(this).parent());
-
-		var clickedLoggedFoodCompact = this;
-
-		$.ajax({
-			type: "POST",
-			url: "/Dashboard/GetLoggedFood",
-			data: {
-				loggedFoodFoodId: loggedFoodFoodId,
-				dateCreated: loggedFoodDateCreated
-			},
-			success: function (data) {
-
-				$(clickedLoggedFoodCompact).append("<p>test</p>");
+                $(thisLogFoodDiv).after(newLoggedFoodCompact);
 
 
-				$("#loggedFoodEditDialogUnitSelect").empty();
-				for (var i in data) {
-					$("#hiddenFieldloggedFoodEditDialog").val(data[i].loggedFood.FoodId);
-					$("#hiddenLoggedFoodIdEditDialog").val(data[i].loggedFood.Id);
-					$("#hiddenTableRowNumber").val(rowNumber);
-					$("#loggedFoodEditDialog").dialog("option", "title", data[i].loggedFood.Name);
-					$("#loggedFoodEditDialogCalories").text("Calories: " + data[i].loggedFood.Calories);
-					for (var j in data[i].foodUnits) {
-						$("#loggedFoodEditDialogAmountInput").val(data[i].loggedFood.Amount);
-						if (data[i].foodUnits[j].Name == data[i].loggedFood.Unit) {
-							$("#loggedFoodEditDialogUnitSelect").append("<option value=\'" +
-									data[i].foodUnits[j].Name + "\'  selected='selected'>" +
-									data[i].foodUnits[j].Name + "</option>");
-						} else {
-							$("#loggedFoodEditDialogUnitSelect").append("<option value=\'" +
-									data[i].foodUnits[j].Name + "\'>" +
-									data[i].foodUnits[j].Name + "</option>");
-						}
-					}
-				}
-				$("#loggedFoodEditDialog").dialog("open");
-			},
-			error: function () {
-				alert("failed");
-			}
-		});
-	});
+            },
+            error: function () {
+                alert("error1");
+            }
+        });
+
+    });
 
 
-	//open edit dialog and retrieve logged food
+    $("#loggedFoodsContainer").on("click", ".cancelBtn", function () {
+    
+        var thisLogFoodDiv = $(this).parent().parent().parent();
+        $(thisLogFoodDiv).hide();
+        thisLogFoodDiv.prev().addClass("newLoggedFoodCompact").show();
 
-	//$("#loggedFoodTable").on("click", "td.editLoggedFoodTd", function () {
-	//	var loggedFoodFoodId = $(this).siblings(':first-child').html();
-	//	var loggedFoodDateCreated = $(this).siblings(':first-child').next().html();
-	//	var loggedFoodName = $(this).siblings(':first-child').next().next().html();
-	//	var rowNumber = $(this).parent().parent().children().index($(this).parent());
-	//	$.ajax({
-	//		type: "POST",
-	//		url: "/Dashboard/GetLoggedFood",
-	//		data: {
-	//			loggedFoodFoodId: loggedFoodFoodId,
-	//			dateCreated: loggedFoodDateCreated
-	//		},
-	//		success: function (data) {
-	//			$("#loggedFoodEditDialogUnitSelect").empty();
-	//			for (var i in data) {
-	//				$("#hiddenFieldloggedFoodEditDialog").val(data[i].loggedFood.FoodId);
-	//				$("#hiddenLoggedFoodIdEditDialog").val(data[i].loggedFood.Id);
-	//				$("#hiddenTableRowNumber").val(rowNumber);
-	//				$("#loggedFoodEditDialog").dialog("option", "title", data[i].loggedFood.Name);
-	//				$("#loggedFoodEditDialogCalories").text("Calories: " + data[i].loggedFood.Calories);
-	//				for (var j in data[i].foodUnits) {
-	//					$("#loggedFoodEditDialogAmountInput").val(data[i].loggedFood.Amount);
-	//					if (data[i].foodUnits[j].Name == data[i].loggedFood.Unit) {
-	//						$("#loggedFoodEditDialogUnitSelect").append("<option value=\'" +
-	//								data[i].foodUnits[j].Name + "\'  selected='selected'>" +
-	//								data[i].foodUnits[j].Name + "</option>");
-	//					} else {
-	//						$("#loggedFoodEditDialogUnitSelect").append("<option value=\'" +
-	//								data[i].foodUnits[j].Name + "\'>" +
-	//								data[i].foodUnits[j].Name + "</option>");
-	//					}
-	//				}
-	//			}
-	//			$("#loggedFoodEditDialog").dialog("open");
-	//		},
-	//		error: function () {
-	//			alert("failed");
-	//		}
-	//	});
-	//});
+            
+    });
+
+    //open editLoggedFood and retrieve logged food
+    $("#loggedFoodsContainer").on("click", ".loggedFoodCompact", function () {
+
+        var loggedFoodFoodId = $(this).find(".hiddenFoodIdCompact").html();
+        var loggedFoodDateCreated = $(this).find(".hiddenDateCreatedCompact").html();
+
+        var loggedFoodName = $(this).find(".loggedFoodNameCompact").html();
+        var rowNumber = $(this).index();
+        var clickedLoggedFoodCompact = this;
+
+        $.ajax({
+            type: "POST",
+            url: "/Dashboard/GetLoggedFood",
+            data: {
+                loggedFoodFoodId: loggedFoodFoodId,
+                dateCreated: loggedFoodDateCreated
+            },
+            success: function (data) {
+                $(clickedLoggedFoodCompact).hide();
+                $("#editLoggedFood").remove();
+                var logFoodDiv = $("#logFood").html();
+
+                $(clickedLoggedFoodCompact).after("<div id='editLoggedFood'>" + logFoodDiv + "</div>");
+
+                $("hiddenRowNumberCompact").text(rowNumber);
+                $("#editLoggedFood #unitsLogFood").empty();
+                $("#editLoggedFood #btnContainerLogFood").empty();
+
+                $("#editLoggedFood #btnContainerLogFood").append("<span id='hiddenDateCreatedLoggedFood' style='display:none'>" + loggedFoodDateCreated + "</span>");
+                $("#editLoggedFood #btnContainerLogFood").append("<button class='btn btn-success updateBtn'>Update</button>");
+                $("#editLoggedFood #btnContainerLogFood").append("<button class='btn btn-default cancelBtn'>Cancel</button>");
+                $("#editLoggedFood #btnContainerLogFood").append("<button class='btn btn-danger deleteBtn'>Delete</button>");
+                $("#editLoggedFood #btnContainerLogFood").append("<span class='hiddenLoggedFoodIdFull' style='display:none'></span>");
+
+                for (var i in data) {
+
+                    $("#editLoggedFood #hiddenIdLogFood").text(data[i].loggedFood.FoodId);
+                    $("#editLoggedFood .hiddenLoggedFoodIdFull").text(data[i].loggedFood.Id);
+                    
+                    $("#editLoggedFood #nameLogFood").text(data[i].loggedFood.Name);
+
+
+                    $("#editLoggedFood #fatAmountLogFood").text(data[i].loggedFood.FatGr);
+                    $("#editLoggedFood #fatAmountLogFood").data("fatAmountLogFood", data[i].food.FatGr);
+                    $("#editLoggedFood #satFatAmountLogFood").text(data[i].loggedFood.FatSatGr);
+                    $("#editLoggedFood #satFatAmountLogFood").data("satFatAmountLogFood", data[i].food.FatSatGr);
+                    $("#editLoggedFood #monoFatAmountLogFood").text(data[i].loggedFood.FatMonoGr);
+                    $("#editLoggedFood #monoFatAmountLogFood").data("monoFatAmountLogFood", data[i].food.FatMonoGr);
+                    $("#editLoggedFood #polyFatAmountLogFood").text(data[i].loggedFood.FatPolyGr);
+                    $("#editLoggedFood #polyFatAmountLogFood").data("polyFatAmountLogFood", data[i].food.FatPolyGr);
+                    $("#editLoggedFood #carbsAmountLogFood").text(data[i].loggedFood.CarbsGr);
+                    $("#editLoggedFood #carbsAmountLogFood").data("carbsAmountLogFood", data[i].food.CarbsGr);
+                    $("#editLoggedFood #fiberAmountLogFood").text(data[i].loggedFood.FiberGr);
+                    $("#editLoggedFood #fiberAmountLogFood").data("fiberAmountLogFood", data[i].food.FiberGr);
+                    $("#editLoggedFood #sugarAmountLogFood").text(data[i].loggedFood.SugarGr);
+                    $("#editLoggedFood #sugarAmountLogFood").data("sugarAmountLogFood", data[i].food.SugarGr);
+                    $("#editLoggedFood #sodiumAmountLogFood").text(data[i].loggedFood.SodiumMg);
+                    $("#editLoggedFood #sodiumAmountLogFood").data("sodiumAmountLogFood", data[i].food.SodiumMg);
+                    $("#editLoggedFood #cholesAmountLogFood").text(data[i].loggedFood.CholesterolMg);
+                    $("#editLoggedFood #cholesAmountLogFood").data("cholesAmountLogFood", data[i].food.CholesterolMg);
+                    $("#editLoggedFood #protAmountLogFood").text(data[i].loggedFood.ProteinGr);
+                    $("#editLoggedFood #protAmountLogFood").data("protAmountLogFood", data[i].food.ProteinGr);
+
+                    $("#editLoggedFood #quantityLogFood").val(data[i].loggedFood.Amount);
+                    $("#editLoggedFood #calsAmountLogFood").text(data[i].loggedFood.Calories);
+                    $("#editLoggedFood #calsAmountLogFood").data("calsAmountLogFood", data[i].food.CaloriesKcal);
+
+
+                    for (var j in data[i].foodUnits) {
+
+                        if (data[i].foodUnits[j].Name == data[i].loggedFood.Unit) {
+                            $("#editLoggedFood #unitsLogFood")
+                                .append("<option value=\'" +
+                                    data[i].foodUnits[j].GramWeight +
+                                    "\'  selected='selected'>" +
+                                    data[i].foodUnits[j].Name +
+                                    "</option>");
+                        } else {
+                            $("#editLoggedFood #unitsLogFood")
+                                .append("<option value=\'" +
+                                    data[i].foodUnits[j].GramWeight + "\'>" +
+                                    data[i].foodUnits[j].Name + "</option>");
+                        }
+                    }
 
 
 
-	//update logged food
-	$("#loggedFoodEditDialogUpdateBtn").on("click", function() {
-		var loggedFoodId = $("#hiddenLoggedFoodIdEditDialog").val();
-		var amount = $("#loggedFoodEditDialogAmountInput").val();
-		var unit = $("#loggedFoodEditDialogUnitSelect").val();
+                }
 
-		$.ajax({
-			type: 'POST',
-			url: '/Dashboard/UpdateLoggedFood',
-			data: {
-				loggedFoodId: loggedFoodId,
-				amount: amount,
-				unit: unit
-			},
-			success: function(data) {
-				$("#loggedFoodEditDialog").dialog("close");
-
-				var rowNumber = $("#hiddenTableRowNumber").val();
-
-				$("#loggedFoodTable tbody tr").eq(rowNumber).children().eq(4).text(amount + " " + unit);
+            },
+            error: function () {
+                alert("failed");
+            }
+        });
+    });
 
 
-			},
-			error: function() {
-				alert("food has not been updated");
-			}
-		});
-	});
 
-	//delete logged food
-	$("#loggedFoodEditDialogDeleteBtn").on("click", function () {
+    //delete logged food
+    $("#loggedFoodsContainer").on("click", ".deleteBtn", function () {
 
-		var loggedFoodId = $("#hiddenLoggedFoodIdEditDialog").val();
+        var editFoodDiv = $(this).parent().parent().parent();
+        var loggedFoodId = $("#editLoggedFood .hiddenLoggedFoodIdFull").text();
 
-		$.ajax({
-			type: "POST",
-			url: "/Dashboard/DeleteLoggedFood",
-			data:{loggedFoodId: loggedFoodId},
-			success: function(data) {
+        $.ajax({
+            type: "POST",
+            url: "/Dashboard/DeleteLoggedFood",
+            data: { loggedFoodId: loggedFoodId },
+            success: function (data) {
+                $(editFoodDiv).prev(".loggedFoodCompact").remove();
+                $(editFoodDiv).remove();
 
-				$("#loggedFoodEditDialog").dialog("close");
+            },
+            error: function () {
+                alert("error deleting row");
+            }
+        });
 
-				var rowNumber = $("#hiddenTableRowNumber").val();
-
-				$("#loggedFoodTable tbody tr").eq(rowNumber).remove();
-
-			},
-			error: function() {
-				alert("error deleting row");
-			}
-		});
-
-	});	
+    });
 
 
 });

@@ -21,11 +21,11 @@ namespace TodayIHad.Domain.Entities
         public float? CarbsGr { get; set; }
         public float? FiberGr { get; set; }
         public float? SugarGr { get; set; }
-        public int? SodiumMg { get; set; }
+        public float? SodiumMg { get; set; }
         public float? FatSatGr { get; set; }
         public float? FatMonoGr { get; set; }
         public float? FatPolyGr { get; set; }
-        public int? CholesterolMg { get; set; }
+        public float? CholesterolMg { get; set; }
 
         public DateTime DateCreated { get; set; }
 

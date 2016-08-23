@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Identity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,7 +15,7 @@ namespace TodayIHad.Repositories.Repositories
         {
             loggedFood.UserId = HttpContext.Current.User.Identity.GetUserId();
             //loggedFood.DateCreated = DateTime.Now;
-            loggedFood.DateUpdated = DateTime.Now;
+            //loggedFood.DateUpdated = DateTime.Now;
 
 
             db.LoggedFoods.Add(loggedFood);
@@ -61,9 +60,21 @@ namespace TodayIHad.Repositories.Repositories
 
             if (dbLoggedFood != null)
             {
+                dbLoggedFood.Calories = loggedFood.Calories;
                 dbLoggedFood.Amount = loggedFood.Amount;
                 dbLoggedFood.Unit = loggedFood.Unit;
-                dbLoggedFood.DateUpdated = DateTime.Now;
+                dbLoggedFood.FatGr = loggedFood.FatGr;
+                dbLoggedFood.FatSatGr = loggedFood.FatSatGr;
+                dbLoggedFood.FatMonoGr = loggedFood.FatMonoGr;
+                dbLoggedFood.FatPolyGr = loggedFood.FatPolyGr;
+                dbLoggedFood.ProteinGr = loggedFood.ProteinGr;
+                dbLoggedFood.CarbsGr = loggedFood.CarbsGr;
+                dbLoggedFood.SugarGr = loggedFood.SugarGr;
+                dbLoggedFood.FiberGr = loggedFood.FiberGr;
+                dbLoggedFood.CholesterolMg = loggedFood.CholesterolMg;
+                dbLoggedFood.SodiumMg = loggedFood.SodiumMg;
+
+                dbLoggedFood.DateUpdated = loggedFood.DateUpdated;
 
                 db.SaveChanges();
                 return true;

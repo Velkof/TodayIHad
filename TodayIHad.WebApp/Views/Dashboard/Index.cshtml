@@ -27,49 +27,29 @@
 <div id="scoreInfoDiv"></div>
 <div id="calorieInfoDiv"></div>
 
-<div id="foodLogDialog" title="Log Food">
 
-    <p id="foodLogDialogCalories">Calories: </p>
-    <label>Amount</label>
-    <input id="foodLogDialogAmountInput" type="number" value="100">
-    <select id="foodLogDialogUnitSelect"></select>
-    <input type="hidden" id="hiddenFieldfoodLogDialog" name="foodId" value="">
-    <input type="button" id="logFoodSaveBtn" value="Save" />
-
-</div>
-
-<div id="loggedFoodEditDialog" title="Food Edit">
-    <p id="loggedFoodEditDialogCalories">Calories: </p>
-    <label>Amount</label>
-    <input id="loggedFoodEditDialogAmountInput" type="number" value="100">
-    <select id="loggedFoodEditDialogUnitSelect"></select>
-    <input type="hidden" id="hiddenFieldloggedFoodEditDialog" name="foodId" value="">
-    <input type="hidden" id="hiddenLoggedFoodIdEditDialog" name="loggedFoodId" value="">
-    <input type="hidden" id="hiddenTableRowNumber" name="loggedFoodId" value="">
-
-    <input type="button" id="loggedFoodEditDialogDeleteBtn" value="Delete" />
-    <input type="button" id="loggedFoodEditDialogUpdateBtn" value="Update" />
-
-</div>
 
 <div id="tabs" style="display: none;">
     <ul>
         <li><a href="#tabs-1">Food Log</a></li>
-        <li><a href="#tabs-2">Statistics</a></li>
-        <li><a href="#tabs-3">Leaderboards</a></li>
+        <li><a href="#tabs-2">Stats</a></li>
+        <li><a href="#tabs-3">Friends</a></li>
+        <li><a href="#tabs-4">Profile</a></li>
     </ul>
 
 
     <div id="tabs-1">
 
         <div id="loggedFoodsContainer" class="col-xs-12 col-md-8">
-            <div id="logFood">
+
+            <div id="logFood" style="display:none;">
+
                 <span id='hiddenIdLogFood' style='display:none;'></span>
 
                 <div id="nameLogFood">
-                    <br/><br />
+                    <br /><br />
                 </div>
-                <div id="infoContainerLogFood" class="col-xs-12 col-sm-7">
+                <div id="infoContainerLogFood" class="col-xs-12  col-sm-7">
                     <table id="infoTableLogFood">
                         <tr><th>Info</th></tr>
                         <tr>
@@ -107,91 +87,22 @@
                 </div>
                 <div id="actionContainerLogFood" class="col-xs-12 col-sm-5">
                     <label>Unit</label>
-                    <select class="form-control" id="unitsLogFood">
-
-                    </select> <br />
+                    <select class="form-control" id="unitsLogFood"></select> <br />
                     <label>Quantity</label>
                     <input type="number" class="form-control" id="quantityLogFood" value="" /><br /><br />
-
-                    <button class="btn btn-success saveBtn">Save</button>
-                    <button class="btn btn-default cancelBtn">Cancel</button>
+                    <div id="btnContainerLogFood"></div>
                 </div>
 
             </div>
 
-            @*<div class="loggedFoodFull">
-                <span class='hiddenFoodIdFull' style='display:none;'></span>
-                @*<span class='hiddenDateCreatedFull' style='display:none;'></span>*@
 
-                @*<div class="loggedFoodNameFull">
-                    <br /><br />
-                </div>
-                <div class="loggedFoodInfoFull col-xs-12 col-sm-7">
-                    <label>Info</label>
-                    <table class="loggedFoodInfoTable ">
-                        <tr>
-                            <td class="loggedFoodInfoLabelPrim">Fat: </td>
-                            <td><span class="fatAmount"></span>g</td>
-                            <td><span class="fatPercent"></span>%</td>
-                            <td class="loggedFoodInfoLabelPrim"> Prot: </td>
-                            <td><span class="protAmount"></span>g</td>
-                            <td><span class="protPercent"></span>%</td>
-                        </tr>
-                        <tr>
-                            <td class="loggedFoodInfoLabelSec">Sat. </td>
-                            <td><span class="satFatAmount"></span>g</td>
-                            <td></td>
-                            <td class="loggedFoodInfoLabelPrim"> Carb: </td>
-                            <td><span class="carbsAmount"></span>g</td>
-                            <td><span class="carbsPercent"></span>%</td>
-
-                        </tr>
-                        <tr>
-                            <td class="loggedFoodInfoLabelSec">Mono. </td>
-                            <td> <span class="monoFatAmount"></span> g</td>
-                            <td></td>
-                            <td class="loggedFoodInfoLabelSec">Fiber: </td>
-                            <td><span class="fiberAmount"></span>g</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="loggedFoodInfoLabelSec">Poly.</td>
-                            <td><span class="polyFatAmount"></span> g</td>
-                            <td></td>
-                            <td class="loggedFoodInfoLabelSec">Sugar:</td>
-                            <td><span class="sugarAmount"></span>g</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td class="loggedFoodInfoLabelPrim">Choles:</td>
-                            <td><span class="cholesAmount"></span>mg</td>
-                            <td></td>
-                            <td class="loggedFoodInfoLabelPrim">Sodium:</td>
-                            <td><span class="sodiumAmount"></span>mg</td>
-                            <td></td>
-                        </tr>
-                    </table>
-
-                    <div class="loggedFoodCaloriesDivFull"><span class="loggedFoodCaloriesFull"></span> calories</div>
-
-
-                </div>
-                <div class="loggedFoodActionFull col-xs-12 col-sm-5">
-                    <label>Unit</label>
-                    <select class="form-control loggedFoodUnitSelect"></select> <br />
-                    <label>Quantity</label>
-                    <input type="number" class="form-control loggedFoodQuantityInput" value="" /><br /><br />
-
-                    <button class="btn btn-success saveLoggedFoodBtn">Save</button>
-                    <button class="btn btn-default cancelLoggedFoodBtn">Cancel</button>
-                </div>
-
-            </div>*@
             @foreach (var item in Model.OrderByDescending(x => x.DateCreated))
             {
                 <div class="loggedFoodCompact">
                     <span class='hiddenFoodIdCompact' style='display:none;'>@item.FoodId</span>
+                    <span class='hiddenLoggedFoodIdCompact' style='display:none;'>@item.Id</span>
                     <span class='hiddenDateCreatedCompact' style='display:none;'>@item.DateCreated </span>
+                    <span id='hiddenRowNumberCompact' style='display:none;'></span>
                     <div class="loggedFoodNameCompact">@item.Name	</div>
                     <div class="loggedFoodInfoCompact">
                         Calories: <span class="loggedFoodCaloriesCompact">@item.Calories</span>
@@ -204,15 +115,21 @@
 
 
         </div>
-        <div id="calendarContainer" class="col-xs-12 col-md-4">
+        <div id="calendarContainer" class="col-xs-12  col-md-4">
             <div id="datepicker"></div>
 
         </div>
+
+
 
     </div>
 
     <div id="tabs-2">
         Stats will be here...
     </div>
-    <div id="tabs-3">Leaderboards will be here...</div>
+    <div id="tabs-3">Friends leaderboards...Compare points and streaks with friends</div>
+    <div id="tabs-4">
+        Profile...(adjust weight and other measurements)
+    </div>
+
 </div>

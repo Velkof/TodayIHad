@@ -142,7 +142,8 @@ textarea {
 	
 }
 
-.ui-dialog-titlebar-close {
+.ui-
+-titlebar-close {
 	color: black;
 	outline: none;
 }
@@ -235,7 +236,7 @@ textarea {
 
 
 #foodSearchResultsContainer {
-    position:absolute;
+	position:absolute;
 	max-height:200px;
 	overflow: auto;
 	width: 100%;
@@ -266,13 +267,7 @@ textarea {
 	background-color: yellow;
 }
 
-#foodLogDialog, #loggedFoodEditDialog { display: none; }
-
-#foodLogDialog {
-
-	border: 1px solid red;
-}
-
+#loggedFoodEditDialog { display: none; }
 
 
 #loggedFoodsContainer{
@@ -280,7 +275,7 @@ textarea {
 	padding-right: 0px;
 }
 
-.loggedFoodCompact, #logFood{
+.loggedFoodCompact, #logFood, #editLoggedFood{
 	-moz-min-height: 70px;
 	-ms-min-height: 70px;
 	-o-min-height: 70px;
@@ -294,23 +289,92 @@ textarea {
 }
 
 #logFood{
-    overflow: hidden;
-    display:none;
+	overflow: hidden;
+	/*display: none;*/
+}
+#editLoggedFood {
+	overflow: hidden;
 }
 
-
-.loggedFoodCompact:hover, #logFood:hover  {
+.loggedFoodCompact:hover, #logFood:hover, #editLoggedFood:hover  {
 	-webkit-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
 	-moz-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
 		box-shadow: 0px 1px 1px 1.5px #c3c3c3;
 }
 
+/* Chrome, Safari, Opera */
+/*@-webkit-keyframes foodNameColorChange {
+	from {color: red;}
+	to {color: #3A8C37;}
+}*/
 
-.loggedFoodNameCompact, #nameLogFood {
+/* Standard syntax */
+/*@-moz-keyframes foodNameColorChange {
+	from {color: red;}
+	to {color: #3A8C37;}
+}*/
+
+/*@keyframes foodNameColorChange {*/
+	/*from {color: red;}
+	to {color: #3A8C37;}
+}*/
+
+#nameLogFood{
+	padding: .3em 0em .7em .5em;
+	font-size: 1.3em;
+	color:red;
+}
+
+
+.loggedFoodNameCompact {
+	/*-webkit-animation-name: foodNameColorChange; 
+	-webkit-animation-duration: 2s; 
+	-moz-animation-name: foodNameColorChange;
+	-moz-animation-duration: 2s;
+	animation-name: foodNameColorChange;
+	animation-duration: 2s;*/
+	padding: .3em 0em .7em .5em;
+	font-size: 1.3em;
 	color:#3A8C37;
 
-    padding: .3em 0em 1em .5em;
-	font-size: 1.3em;
+}
+
+@-moz-keyframes textColorChange {
+	from { color: red; }
+	to { color: #3A8C37; }
+}
+
+@-webkit-keyframes textColorChange {
+	from { color: red; }
+	to { color: #3A8C37; }
+}
+
+@keyframes textColorChange {
+	from { color: red; }
+	to { color: #3A8C37; }
+}
+
+@keyframes yellowfade{
+	from {
+		background-color: #fffd8e;
+	}
+	to{background-color: #fff;}
+}
+
+.newLoggedFoodCompact{
+		animation-name: yellowfade;
+	animation-duration: 2s;
+}
+
+.newLoggedFoodNameCompact {
+	animation-name: textColorChange;
+	animation-duration: 2s;
+}
+
+
+.loggedFoodInfoCompact {
+	padding-left:10px;
+	padding-bottom:5px;
 }
 
 
@@ -322,54 +386,53 @@ textarea {
 }
 
 #actionContainerLogFood{
-    padding-bottom: 20px;
+	padding-bottom: 20px;
    
 }
 
-
 #infoTableLogFood {
 	  clear:right;
-      margin-bottom: .5em;
-      margin: 0 auto;
-      width:80%;
+	  margin-bottom: .5em;
+	  margin: 0 auto;
+	  width:80%;
 }
 
 #infoTableLogFood td{
 	border-top: 1px solid lightgray;
 	border-bottom: 1px solid lightgray;
-    padding:.2em  1em .2em 0em;
+	padding:.2em  1em .2em 0em;
 	font-size: .9em;
 }
 
 .labelSecLogFoodInfo {
-    padding-left: 10px !important;
+	padding-left: 10px !important;
 }
 
 .labelPrimLogFoodInfo{
-    font-weight: 600;
+	font-weight: 600;
 }
 
 #calsLogFood {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 1.5em;
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-size: 1.5em;
 }
 
 #unitsLogFood, #quantityLogFood{
-    max-width: 100%;
+	max-width: 100%;
 }
 
-#logFood .saveBtn  {
-    float: right;
-    margin-left: .5em;
+.saveBtn, .updateBtn  {
+	float: right;
+	margin-left: .5em;
 }
 
-#logFood .cancelBtn {
-    float: right;
+.cancelBtn {
+	float: right;
 }
-#logFood .deleteBtn {
-    float: left;
+.deleteBtn {
+	float: left;
 }
 
 
@@ -413,15 +476,20 @@ footer{
 		font-size: 1.2em;
 	}
 
-    .loggedFoodInfoCompact {
-		padding-left:10px;
+	.loggedFoodInfoCompact {
 		font-size: .86em;
 	}
 
-    #calendarContainer{
+	#calendarContainer{
 		padding-left: 0px;
 		padding-right:0px;
 	}
+
+
+	#infoTableLogFood {
+		  width:90%;
+	}
+
 }
 
 /* Small devices (tablets, 768px and up) */

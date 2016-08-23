@@ -19,7 +19,8 @@ namespace TodayIHad.WebApp
 
             bundles.Add(new ScriptBundle("~/bundles/moment").Include(
                         "~/Scripts/moment-with-locales.js"));
-
+            bundles.Add(new ScriptBundle("~/bundles/mustache").Include(
+                        "~/Scripts/mustache.js"));
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
                         "~/Scripts/Script.js"));
 

@@ -40,12 +40,13 @@ namespace TodayIHad.WebApp.Controllers
         public JsonResult GetLoggedFood (int loggedFoodFoodId, DateTime dateCreated)
         {
             var loggedFood = _loggedFoodRepository.GetAllForCurrentUser().Where(x => x.DateCreated == dateCreated).FirstOrDefault(n => n.FoodId == loggedFoodFoodId);
+            var food = _foodRepository.GetById(loggedFoodFoodId);
             //var loggedFood = db.LoggedFoods.Where(x => x.DateCreated == dateCreated).FirstOrDefault(n => n.FoodId == loggedFoodFoodId);
             var foodUnits = _foodUnitRepository.GetAllForCurrentFood(loggedFoodFoodId);
 
             if (loggedFood != null && foodUnits != null)
             {
-                var data = new {loggedFood, foodUnits};
+                var data = new {loggedFood, food, foodUnits };
                 return Json(new { data = data });
             }
             return Json(new {error = true});
@@ -68,19 +69,32 @@ namespace TodayIHad.WebApp.Controllers
         }
 
 
-        [HttpPost]
-        public JsonResult LogFood(string name, int amount, string unit, int foodId, int calories, DateTime dateCreated)
+       [HttpPost]
+       public JsonResult LogFood(LoggedFood loggedFood)
         {
+
             var newLoggedFood = new LoggedFood();
 
             if (ModelState.IsValid)
             {
-                newLoggedFood.Name = name;
-                newLoggedFood.Amount = amount;
-                newLoggedFood.Unit = unit;
-                newLoggedFood.Calories = calories;
-                newLoggedFood.FoodId = foodId;
-                newLoggedFood.DateCreated = dateCreated;
+                newLoggedFood.Name = loggedFood.Name;
+                newLoggedFood.Amount = loggedFood.Amount;
+                newLoggedFood.Unit = loggedFood.Unit;
+                newLoggedFood.Calories = loggedFood.Calories;
+                newLoggedFood.FoodId = loggedFood.FoodId;
+                newLoggedFood.DateCreated = loggedFood.DateCreated;
+                newLoggedFood.DateUpdated = loggedFood.DateUpdated;
+                newLoggedFood.FatGr = loggedFood.FatGr;
+                newLoggedFood.FatSatGr = loggedFood.FatSatGr;
+                newLoggedFood.FatMonoGr = loggedFood.FatMonoGr;
+                newLoggedFood.FatPolyGr = loggedFood.FatPolyGr;
+                newLoggedFood.CarbsGr = loggedFood.CarbsGr;
+                newLoggedFood.FiberGr = loggedFood.FiberGr;
+                newLoggedFood.SugarGr = loggedFood.SugarGr;
+                newLoggedFood.ProteinGr = loggedFood.ProteinGr;
+                newLoggedFood.SodiumMg = loggedFood.SodiumMg;
+                newLoggedFood.CholesterolMg = loggedFood.CholesterolMg;
+
 
                 _loggedFoodRepository.Create(newLoggedFood);
 
@@ -92,20 +106,37 @@ namespace TodayIHad.WebApp.Controllers
 
 
         [HttpPost]
-        public JsonResult UpdateLoggedFood(int amount, string unit, int loggedFoodId)
+        public JsonResult UpdateLoggedFood(LoggedFood loggedFood)
         {
-            var dbLoggedFood = _loggedFoodRepository.GetById(loggedFoodId);
+
+            var updatedLoggedFood = new LoggedFood();
 
             if (ModelState.IsValid)
             {
-                dbLoggedFood.Amount = amount;
-                dbLoggedFood.Unit = unit;
+                updatedLoggedFood.Id = loggedFood.Id;
+                updatedLoggedFood.Name = loggedFood.Name;
+                updatedLoggedFood.Amount = loggedFood.Amount;
+                updatedLoggedFood.Unit = loggedFood.Unit;
+                updatedLoggedFood.Calories = loggedFood.Calories;
+                updatedLoggedFood.FoodId = loggedFood.FoodId;
+                updatedLoggedFood.DateUpdated = loggedFood.DateUpdated;
+                updatedLoggedFood.FatGr = loggedFood.FatGr;
+                updatedLoggedFood.FatSatGr = loggedFood.FatSatGr;
+                updatedLoggedFood.FatMonoGr = loggedFood.FatMonoGr;
+                updatedLoggedFood.FatPolyGr = loggedFood.FatPolyGr;
+                updatedLoggedFood.CarbsGr = loggedFood.CarbsGr;
+                updatedLoggedFood.FiberGr = loggedFood.FiberGr;
+                updatedLoggedFood.SugarGr = loggedFood.SugarGr;
+                updatedLoggedFood.ProteinGr = loggedFood.ProteinGr;
+                updatedLoggedFood.SodiumMg = loggedFood.SodiumMg;
+                updatedLoggedFood.CholesterolMg = loggedFood.CholesterolMg;
 
-                _loggedFoodRepository.Update(dbLoggedFood);
-                return Json(new {success = true});
+
+                _loggedFoodRepository.Update(updatedLoggedFood);
+
+                return Json(new { success = true });
             }
-
-            return Json(new {error = true});
+            return Json(new { error = true });
         }
 
         [HttpPost]
