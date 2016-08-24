@@ -36,7 +36,7 @@ namespace TodayIHad.WebApp.Controllers
         }
 
 
-        [HttpPost] //napravi json object i go zemi celio
+        [HttpPost] 
         public JsonResult GetLoggedFood (int loggedFoodFoodId, DateTime dateCreated)
         {
             var loggedFood = _loggedFoodRepository.GetAllForCurrentUser().Where(x => x.DateCreated == dateCreated).FirstOrDefault(n => n.FoodId == loggedFoodFoodId);
@@ -51,6 +51,19 @@ namespace TodayIHad.WebApp.Controllers
             }
             return Json(new {error = true});
         }
+
+        [HttpPost]
+        public JsonResult GetLoggedFoodsForDate (DateTime dateText)
+        {
+            var loggedFoods = _loggedFoodRepository.GetAllForCurrentUser().Where(x => x.DateCreated.Date == dateText.Date).ToList();
+
+            if(loggedFoods != null)
+            {
+                return Json(new { data = loggedFoods});
+            }
+
+            return Json(new { error = true });
+        } 
 
 
         [HttpPost]

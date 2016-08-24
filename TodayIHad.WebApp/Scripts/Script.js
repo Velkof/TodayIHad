@@ -5,8 +5,55 @@
     $("#tabs").tabs();
     $("#tabs").css("display", "block");
 
-    $("#datepicker").datepicker();
 
+    $('#datepicker').datepicker({
+        onSelect: function (dateText, inst) {
+
+            var dateText = moment(dateText).format("YYYY-MM-DD HH:mm:ss");
+
+            getLoggedFoodsForDate(dateText);
+       
+    
+        }
+    });
+
+
+    function getLoggedFoodsForDate(date) {
+        $.ajax({
+            type: "POST",
+            url: "/Dashboard/GetLoggedFoodsForDate",
+            data: { dateText: date },
+            success: function (data) {
+
+                $(".loggedFoodCompact").remove();
+                $("#editLoggedFood").remove();
+                $("#logFood").hide();
+
+
+                for (var i in data) {
+                    for (var j in data[i]) {
+
+                        var dateCreated = moment(data[i][j].DateCreated).format("YYYY-MM-DD HH:mm:ss");
+
+                        $("#loggedFoodsContainer").prepend("<div class='loggedFoodCompact'>" +
+                                                           "<span class='hiddenFoodIdCompact' style='display:none;'>" + data[i][j].FoodId + "</span>" +
+                                                           "<span class='hiddenLoggedFoodIdCompact' style='display:none;'>" + data[i][j].Id + "</span>" +
+                                                           "<span class='hiddenDateCreatedCompact' style='display:none;'>" + dateCreated + "</span>" +
+                                                           "<span id='hiddenRowNumberCompact' style='display:none;'></span>" +
+                                                           "<div class='loggedFoodNameCompact'>" + data[i][j].Name + "</div>" +
+                                                           "<div class='loggedFoodInfoCompact'>" +
+                                                           "Calories: <span class='loggedFoodCaloriesCompact'>" + data[i][j].Calories + "</span>" +
+                                                           " | Quantity: <span class='loggedFoodQuantityCompact'>" + data[i][j].Amount + "</span>" +
+                                                           " | Unit: <span class='loggedFoodUnitCompact'>" + data[i][j].Unit + "</span></div></div>");
+
+                    }
+                }
+            },
+            error: function () {
+                alert("Couldn't get logged foods for selected date.");
+            },
+        });
+    }
 
     //Get list of foods based on user search
     $("#foodSearchBox").on("input", function () {
@@ -46,11 +93,18 @@
             url: "/Dashboard/GetSelectedFood",
             data: { foodName: selectedFoodName },
             success: function (data) {
+
+                $("#datepicker").datepicker("setDate", "08/24/2016");
+                var dateNow = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
+
+
+                alert(dateNow);
+                //getLoggedFoodsForDate(dateNow);
+                $("#btnContainerLogFood").empty();
                 $("#foodSearchUL").empty();
                 $("#unitsLogFood").empty();
-                //$("#quantityLogFood").empty();
 
-                
+                //$("#quantityLogFood").empty();                
                 //$("#editLoggedFood #unitsLogFood").empty();
                 //$("#editLoggedFood #quantityLogFood").empty();
 
@@ -117,6 +171,9 @@
         });
     });
 
+
+
+
     //when units or quantity changes, update all nutrient and calorie values
     
     $("#loggedFoodsContainer").on("change", "#unitsLogFood, #quantityLogFood", function () {
@@ -163,7 +220,6 @@
         var amount = $(thisLogFoodDivId + " #quantityLogFood").val();
         var unit = $(thisLogFoodDivId + " #unitsLogFood option:selected").text();
         var foodId = $(thisLogFoodDivId + " #hiddenIdLogFood").text();
-        alert("var foodId:" + foodId);
         var name = $(thisLogFoodDivId + " #nameLogFood").text();
         var calories = $(thisLogFoodDivId + " #calsAmountLogFood").text();
         var fat = $(thisLogFoodDivId + " #fatAmountLogFood").text();
@@ -204,18 +260,11 @@
             LoggedFood["DateUpdated"] = dateNow;
         } else {
             var dateCreated = $("#editLoggedFood #hiddenDateCreatedLoggedFood").text();
-            var loggedFoodId = $("#editLoggedFood .hiddenLoggedFoodIdFull").text();
-                               
+            var loggedFoodId = $("#editLoggedFood .hiddenLoggedFoodIdFull").text();                               
             var url = "/Dashboard/UpdateLoggedFood";
-            alert(loggedFoodId);
-
-
             LoggedFood["DateCreated"] = dateCreated;
             LoggedFood["DateUpdated"] = dateNow;
             LoggedFood["Id"] = loggedFoodId;
-
-            alert(dateCreated);
-
         }
         $.ajax({
             type: "POST",
@@ -253,14 +302,13 @@
 
     });
 
-
+    //close current open logFood or editLoggedFood div
     $("#loggedFoodsContainer").on("click", ".cancelBtn", function () {
     
         var thisLogFoodDiv = $(this).parent().parent().parent();
         $(thisLogFoodDiv).hide();
-        thisLogFoodDiv.prev().addClass("newLoggedFoodCompact").show();
-
-            
+        $(thisLogFoodDiv).prev().children(".loggedFoodNameCompact").addClass("newLoggedFoodNameCompact");
+        $(thisLogFoodDiv).prev().addClass("newLoggedFoodCompact").show();            
     });
 
     //open editLoggedFood and retrieve logged food
@@ -268,10 +316,10 @@
 
         var loggedFoodFoodId = $(this).find(".hiddenFoodIdCompact").html();
         var loggedFoodDateCreated = $(this).find(".hiddenDateCreatedCompact").html();
-
         var loggedFoodName = $(this).find(".loggedFoodNameCompact").html();
         var rowNumber = $(this).index();
         var clickedLoggedFoodCompact = this;
+
 
         $.ajax({
             type: "POST",
@@ -354,7 +402,7 @@
 
             },
             error: function () {
-                alert("failed");
+                alert("couldn't retrieve and/or display logged food");
             }
         });
     });

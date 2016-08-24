@@ -96,7 +96,7 @@
             </div>
 
 
-            @foreach (var item in Model.OrderByDescending(x => x.DateCreated))
+            @foreach (var item in Model.Where(x=>x.DateCreated.Date == DateTime.Now.Date).OrderByDescending(x => x.DateCreated))
             {
                 <div class="loggedFoodCompact">
                     <span class='hiddenFoodIdCompact' style='display:none;'>@item.FoodId</span>
