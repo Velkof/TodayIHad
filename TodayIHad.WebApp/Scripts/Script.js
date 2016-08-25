@@ -1,21 +1,90 @@
 ﻿$(document).ready(function () {
 
+    var selectedDates = [];
 
 
     $("#tabs").tabs();
     $("#tabs").css("display", "block");
 
+    var activeMonth = new Date().getMonth() + 1;
+    var activeYear = new Date().getFullYear();
+    getDatesWhenFoodLoggedForDisplayedMonth(activeYear, activeMonth);
+
 
     $('#datepicker').datepicker({
         onSelect: function (dateText, inst) {
-
             var dateText = moment(dateText).format("YYYY-MM-DD HH:mm:ss");
 
             getLoggedFoodsForDate(dateText);
-       
-    
+
+
+        },
+        onChangeMonthYear: function(year, month) {
+
+            getDatesWhenFoodLoggedForDisplayedMonth(year, month);
+
+            $.ajax({
+                type:"POST",
+                url: "/Dashboard/GetDatesWhenFoodLoggedForDisplayedMonth",
+                data: {year: year,
+                        month: month},
+                success: function (data) {
+
+                    for (var i in data) {
+                        for (var j in data[i]) {
+                            var highlightDate = moment(data[i][j].DateCreated).format("MM/DD/YYYY");
+                            selectedDates[new Date(highlightDate)] = new Date(highlightDate);
+                        }
+
+                    }
+                    $("#datepicker").datepicker("refresh");
+                },
+                error: function () {
+                    alert("highlighting failed");
+                }
+            });
+
+        },
+        beforeShowDay: function (date) {
+
+            var highlight = selectedDates[date];
+            if (highlight) {
+                return [true, "highlightedDates", ""];
+            }
+            else {
+                //return [true, "", ""];
+                return [true, "", ""];
+            }
         }
+
+
     });
+
+    function getDatesWhenFoodLoggedForDisplayedMonth(year, month) {
+        $.ajax({
+            type: "POST",
+            url: "/Dashboard/GetDatesWhenFoodLoggedForDisplayedMonth",
+            data: {
+                year: year,
+                month: month
+            },
+            success: function (data) {
+
+                for (var i in data) {
+                    for (var j in data[i]) {
+                        var highlightDate = moment(data[i][j].DateCreated).format("MM/DD/YYYY");
+                        selectedDates[new Date(highlightDate)] = new Date(highlightDate);
+                    }
+
+                }
+                $("#datepicker").datepicker("refresh");
+
+            },
+            error: function () {
+                alert("highlighting failed");
+            }
+        });
+    }
 
 
     function getLoggedFoodsForDate(date) {

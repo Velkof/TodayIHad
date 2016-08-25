@@ -65,6 +65,20 @@ namespace TodayIHad.WebApp.Controllers
             return Json(new { error = true });
         } 
 
+        [HttpPost]
+        public JsonResult GetDatesWhenFoodLoggedForDisplayedMonth(int year, int month)
+        {
+            var datesWhenFoodLogged = _loggedFoodRepository.GetAllForCurrentUser().Where(y=>y.DateCreated.Year == year).Where(x => x.DateCreated.Month == month).ToList();
+
+            if(datesWhenFoodLogged !=null)
+            {
+                return Json(new { data = datesWhenFoodLogged });
+            }
+            return Json(new { error = true});
+        }
+
+
+
 
         [HttpPost]
         public JsonResult GetSelectedFood(string foodName) //Retrieves food that was clicked on dropdown search
@@ -167,6 +181,8 @@ namespace TodayIHad.WebApp.Controllers
             return Json(new {error = true });
 
         }
+
+        
 
     }
 }
