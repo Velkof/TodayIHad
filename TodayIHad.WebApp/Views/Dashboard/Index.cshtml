@@ -39,8 +39,20 @@
 
 
     <div id="tabs-1">
+        <div id="sidebarContainer" class="col-md-4 col-md-push-8">
+            <div id="dateBrowser" class="col-xs-12">
+                <button id="prevDate" class="col-xs-2 btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button>
+                <button id="date" class="col-xs-7 btn btn-default"><span id="dateValue"></span> </button><button id="nextDate" class="col-xs-2 btn btn-default"><span class="glyphicon glyphicon-chevron-right"></span></button>
+            </div>
+            <div id="calendarContainer" class="col-xs-12">
 
-        <div id="loggedFoodsContainer" class="col-xs-12 col-md-8">
+                <div id="datepicker"></div>
+
+            </div>
+
+        </div>
+
+        <div id="loggedFoodsContainer" class="col-md-8 col-md-pull-4">
 
             <div id="logFood" style="display:none;">
 
@@ -96,7 +108,7 @@
             </div>
 
 
-            @foreach (var item in Model.Where(x=>x.DateCreated.Date == DateTime.Now.Date).OrderByDescending(x => x.DateCreated))
+            @foreach (var item in Model.Where(x => x.DateCreated.Date == DateTime.Now.Date).OrderByDescending(x => x.DateCreated))
             {
                 <div class="loggedFoodCompact">
                     <span class='hiddenFoodIdCompact' style='display:none;'>@item.FoodId</span>
@@ -113,10 +125,6 @@
             }
 
 
-
-        </div>
-        <div id="calendarContainer" class="col-xs-12  col-md-4">
-            <div id="datepicker"></div>
 
         </div>
 

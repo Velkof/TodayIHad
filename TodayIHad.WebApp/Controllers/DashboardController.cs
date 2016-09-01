@@ -52,6 +52,13 @@ namespace TodayIHad.WebApp.Controllers
             return Json(new {error = true});
         }
 
+        protected JsonResult RespondWithItem (LoggedFood loggedFood)
+        {
+
+            return Json(new { data = loggedFood });
+        }
+
+
         [HttpPost]
         public JsonResult GetLoggedFoodsForDate (DateTime dateText)
         {
@@ -63,18 +70,18 @@ namespace TodayIHad.WebApp.Controllers
             }
 
             return Json(new { error = true });
-        } 
+        }
 
         [HttpPost]
         public JsonResult GetDatesWhenFoodLoggedForDisplayedMonth(int year, int month)
         {
-            var datesWhenFoodLogged = _loggedFoodRepository.GetAllForCurrentUser().Where(y=>y.DateCreated.Year == year).Where(x => x.DateCreated.Month == month).ToList();
+            var datesWhenFoodLogged = _loggedFoodRepository.GetAllForCurrentUser().Where(y => y.DateCreated.Year == year).Where(x => x.DateCreated.Month == month).ToList();
 
-            if(datesWhenFoodLogged !=null)
+            if (datesWhenFoodLogged != null)
             {
                 return Json(new { data = datesWhenFoodLogged });
             }
-            return Json(new { error = true});
+            return Json(new { error = true });
         }
 
 

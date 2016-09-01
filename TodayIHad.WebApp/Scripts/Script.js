@@ -10,14 +10,18 @@
     var activeYear = new Date().getFullYear();
     getDatesWhenFoodLoggedForDisplayedMonth(activeYear, activeMonth);
 
+    var dateValue = moment(new Date()).format("DD/MM/YYYY");
+    $("#dateValue").text(dateValue);
+
+
 
     $('#datepicker').datepicker({
         onSelect: function (dateText, inst) {
             var dateText = moment(dateText).format("YYYY-MM-DD HH:mm:ss");
-
             getLoggedFoodsForDate(dateText);
 
-
+            var dateValue = moment(dateText).format("DD/MM/YYYY");
+            $("#dateValue").text(dateValue);
         },
         onChangeMonthYear: function(year, month) {
 
@@ -52,13 +56,44 @@
                 return [true, "highlightedDates", ""];
             }
             else {
-                //return [true, "", ""];
                 return [true, "", ""];
             }
         }
 
 
     });
+
+    $("#date").on("click", function () {
+        $("#datepicker").toggle();
+    });
+
+    $("#prevDate").on("click", function () {
+
+        var date = $("#datepicker").datepicker("getDate");
+        date.setDate(date.getDate() - 1);
+        $("#datepicker").datepicker("setDate", date);
+
+
+        var dateUserFriendlyFormat = moment(date).format("DD/MM/YYYY");
+        $("#dateValue").text(dateUserFriendlyFormat);
+        var dateSQLFormat = moment(date).format("YYYY-MM-DD HH:mm:ss");
+        getLoggedFoodsForDate(dateSQLFormat);
+    });
+
+
+    $("#nextDate").on("click", function () {
+
+        var date = $("#datepicker").datepicker("getDate");
+        date.setDate(date.getDate() + 1);
+        $("#datepicker").datepicker("setDate", date);
+
+        var dateUserFriendlyFormat = moment(date).format("DD/MM/YYYY");
+        $("#dateValue").text(dateUserFriendlyFormat);
+        var dateSQLFormat = moment(date).format("YYYY-MM-DD HH:mm:ss");
+        getLoggedFoodsForDate(dateSQLFormat);
+
+    });
+
 
     function getDatesWhenFoodLoggedForDisplayedMonth(year, month) {
         $.ajax({
@@ -70,13 +105,23 @@
             },
             success: function (data) {
 
-                for (var i in data) {
-                    for (var j in data[i]) {
-                        var highlightDate = moment(data[i][j].DateCreated).format("MM/DD/YYYY");
-                        selectedDates[new Date(highlightDate)] = new Date(highlightDate);
-                    }
+                $.each(data.data, function(i, item){
+                    
+                    var highlightDate = moment(item.DateCreated).format("MM/DD/YYYY");
+                    selectedDates[new Date(highlightDate)] = new Date(highlightDate);
+                });
 
-                }
+
+              
+                //for (var i in data) {
+                //    for (var j in data[i]) {
+
+                //        var highlightDate = moment(data[i][j].DateCreated).format("MM/DD/YYYY");
+                //        selectedDates[new Date(highlightDate)] = new Date(highlightDate);
+                //    }
+
+                //}
+
                 $("#datepicker").datepicker("refresh");
 
             },
@@ -85,6 +130,7 @@
             }
         });
     }
+
 
 
     function getLoggedFoodsForDate(date) {
@@ -162,12 +208,11 @@
             url: "/Dashboard/GetSelectedFood",
             data: { foodName: selectedFoodName },
             success: function (data) {
-
+                //$(".loggedFoodCompact").show();
                 $("#datepicker").datepicker("setDate", "08/24/2016");
                 var dateNow = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
 
 
-                alert(dateNow);
                 //getLoggedFoodsForDate(dateNow);
                 $("#btnContainerLogFood").empty();
                 $("#foodSearchUL").empty();
@@ -398,6 +443,8 @@
                 dateCreated: loggedFoodDateCreated
             },
             success: function (data) {
+                $(".loggedFoodCompact").show();
+
                 $(clickedLoggedFoodCompact).hide();
                 $("#editLoggedFood").remove();
                 var logFoodDiv = $("#logFood").html();
