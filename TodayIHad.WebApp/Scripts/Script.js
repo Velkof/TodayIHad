@@ -164,6 +164,8 @@
 			url: "/Dashboard/GetSelectedFood",
 			data: { foodName: selectedFoodName },
 			success: function (data) {
+				$("#logFood").remove();
+				$("#editLoggedFood").remove();
 
 				//var dateNow = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
 				$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
@@ -174,7 +176,6 @@
 				$("#unitsLogFood").empty();
 
 
-				//$("#logFood").show();
 
 
 				$("#btnContainerLogFood").append("<button class='btn btn-success saveBtn'>Save</button>");
@@ -250,8 +251,9 @@
 	//open editLoggedFood and retrieve logged food
 	$("#loggedFoodsContainer").on("click", ".loggedFoodCompact", function () {
 
-		var loggedFoodFoodId = $(this).find(".hiddenFoodIdCompact").html();
+		var loggedFoodFoodId = $(this).find(".hiddenFoodIdCompact").html();  
 		var loggedFoodDateCreated = $(this).find(".hiddenDateCreatedCompact").html();
+	
 		var loggedFoodName = $(this).find(".loggedFoodNameCompact").text();
 		var rowNumber = $(this).index();
 		var clickedLoggedFoodCompact = this;
@@ -264,7 +266,7 @@
 			url: "/Dashboard/GetLoggedFood",
 			data: {
 				loggedFoodFoodId: loggedFoodFoodId,
-				dateCreated: loggedFoodDateCreated
+				dateCreated: loggedFoodDateCreated,
 			},
 			success: function (data) {
 
@@ -317,6 +319,8 @@
 		});
 	});
 
+	alert(new Date());
+
 
 	//Log Food or update logged food
 	$("#loggedFoodsContainer").on("click", ".saveBtn, .updateBtn", function () {
@@ -360,10 +364,28 @@
 
 
 		if (thisLogFoodDivId == "#logFood") {
-			var dateCreated = currentDateSQLFormat;
-			LoggedFood["DateCreated"] = currentDateSQLFormat;
+		    //var dateCreated = currentDateSQLFormat;
+		    //LoggedFood["DateCreated"] = currentDateSQLFormat;
 
-			var url = "/Dashboard/LogFood";
+		    //var url = "/Dashboard/LogFood";
+
+
+
+		    var date = $("#datepicker").datepicker("getDate");
+
+		    var dateSQLFormat = moment(date).format("YYYY-MM-DD");  //date for which you want to enter food (the one currently selected on datepicker)
+
+
+		    var timeSQLFormat = moment(currentDateSQLFormat).format("HH:mm:ss"); //current hh:mm:ss so all dates would be unique, even if it would be incorrect for dates other than current
+
+		    var dateCreated = dateSQLFormat + " " + timeSQLFormat;
+
+
+		    LoggedFood["DateCreated"] = dateCreated;
+
+
+
+		    var url = "/Dashboard/LogFood";
 		} else {
 			var dateCreated = $("#editLoggedFood #hiddenDateCreatedLoggedFood").text();
 			LoggedFood["DateCreated"] = dateCreated;
@@ -412,7 +434,7 @@
 
 		var thisLogFoodDiv = $(this).parent().parent().parent();
 		$(thisLogFoodDiv).hide();
-	    $(thisLogFoodDiv).prev().show();
+		$(thisLogFoodDiv).prev().show();
 
 		//$(thisLogFoodDiv).prev().children(".loggedFoodNameCompact").addClass("newLoggedFoodNameCompact");
 		//$(thisLogFoodDiv).prev().addClass("newLoggedFoodCompact").show();

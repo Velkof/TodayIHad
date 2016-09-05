@@ -40,6 +40,7 @@ namespace TodayIHad.WebApp.Controllers
         public JsonResult GetLoggedFood (int loggedFoodFoodId, DateTime dateCreated)
         {
             var loggedFood = _loggedFoodRepository.GetAllForCurrentUser().Where(x => x.DateCreated == dateCreated).FirstOrDefault(n => n.FoodId == loggedFoodFoodId);
+
             var food = _foodRepository.GetById(loggedFoodFoodId);
             //var loggedFood = db.LoggedFoods.Where(x => x.DateCreated == dateCreated).FirstOrDefault(n => n.FoodId == loggedFoodFoodId);
             var foodUnits = _foodUnitRepository.GetAllForCurrentFood(loggedFoodFoodId);

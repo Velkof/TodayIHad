@@ -108,7 +108,7 @@
             </div>*@
 
 
-            @foreach (var item in Model.Where(x => x.DateCreated.Date == DateTime.Now.Date).OrderByDescending(x => x.DateCreated))
+            @foreach (var item in Model.Where(x => x.DateCreated.Date == DateTime.Now.Date).OrderByDescending(x => x.Id))
             {
                 <div class="loggedFoodCompact">
                     <span class='hiddenFoodIdCompact' style='display:none;'>@item.FoodId</span>
@@ -187,9 +187,8 @@
 
         <span id='hiddenIdLogFood' style='display:none;'>{{Id}}</span>
 
-        <div >
+        <div id="nameLogFoodDiv">
             <span id="nameLogFood">{{Name}}</span>
-            <br /><br />
         </div>
         <div id="infoContainerLogFood" class="col-xs-12  col-sm-7">
             <table id="infoTableLogFood">
@@ -248,9 +247,8 @@
         <span id='hiddenIdLogFood' style='display:none;'>{{loggedFood.FoodId}}</span>
         <span class='hiddenLoggedFoodIdFull' style='display:none'>{{loggedFood.Id}}</span>
         <span id='hiddenDateCreatedLoggedFood' style='display:none'></span>
-        <div>
+        <div id="nameLogFoodDiv">
             <span id="nameLogFood">{{loggedFood.Name}}</span>
-            <br /><br />
         </div>
         <div id="infoContainerLogFood" class="col-xs-12  col-sm-7">
             <table id="infoTableLogFood">
