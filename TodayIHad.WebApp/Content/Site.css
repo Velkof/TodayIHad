@@ -290,7 +290,7 @@ color: green;*/
     min-height: 300px;
 }
 
-.loggedFoodCompact, #logFood, #editLoggedFood {
+.loggedFoodCompact, #logFood, #editLoggedFood{
     -moz-min-height: 70px;
     -ms-min-height: 70px;
     -o-min-height: 70px;

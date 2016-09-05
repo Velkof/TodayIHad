@@ -36,7 +36,9 @@ namespace TodayIHad.WebApp
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/themes/base/jquery-ui.min.css",
-                      "~/Content/Site.css"));
+                      "~/Content/Site.css",
+                      "~/Content/templatemo-style.css"
+                      ));
         }
     }
 }
