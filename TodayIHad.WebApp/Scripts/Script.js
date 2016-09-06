@@ -96,7 +96,7 @@
 				$("#datepicker").datepicker("refresh");
 			},
 			error: function () {
-				alert("highlighting failed");
+				//alert("highlighting failed");
 			}
 		});
 	}
@@ -319,9 +319,6 @@
 		});
 	});
 
-	alert(new Date());
-
-
 	//Log Food or update logged food
 	$("#loggedFoodsContainer").on("click", ".saveBtn, .updateBtn", function () {
 		var thisLogFoodDiv = $(this).parent().parent().parent();
@@ -364,28 +361,17 @@
 
 
 		if (thisLogFoodDivId == "#logFood") {
-		    //var dateCreated = currentDateSQLFormat;
-		    //LoggedFood["DateCreated"] = currentDateSQLFormat;
+			//var dateCreated = currentDateSQLFormat;
+			//LoggedFood["DateCreated"] = currentDateSQLFormat;
+			//var url = "/Dashboard/LogFood";
+			var date = $("#datepicker").datepicker("getDate");
+			var dateSQLFormat = moment(date).format("YYYY-MM-DD");  //date for which you want to enter food (the one currently selected on datepicker)
+			var timeSQLFormat = moment(currentDateSQLFormat).format("HH:mm:ss"); //current hh:mm:ss so all dates would be unique, even if it would be incorrect for dates other than current
+			var dateCreated = dateSQLFormat + " " + timeSQLFormat;
 
-		    //var url = "/Dashboard/LogFood";
+			LoggedFood["DateCreated"] = dateCreated;
+			var url = "/Dashboard/LogFood";
 
-
-
-		    var date = $("#datepicker").datepicker("getDate");
-
-		    var dateSQLFormat = moment(date).format("YYYY-MM-DD");  //date for which you want to enter food (the one currently selected on datepicker)
-
-
-		    var timeSQLFormat = moment(currentDateSQLFormat).format("HH:mm:ss"); //current hh:mm:ss so all dates would be unique, even if it would be incorrect for dates other than current
-
-		    var dateCreated = dateSQLFormat + " " + timeSQLFormat;
-
-
-		    LoggedFood["DateCreated"] = dateCreated;
-
-
-
-		    var url = "/Dashboard/LogFood";
 		} else {
 			var dateCreated = $("#editLoggedFood #hiddenDateCreatedLoggedFood").text();
 			LoggedFood["DateCreated"] = dateCreated;
@@ -412,14 +398,9 @@
 
 				$(thisLogFoodDiv).prev(".loggedFoodCompact").remove();
 
-
-
 				$("#btnContainerLogFood").empty();
 
-
 				$(thisLogFoodDiv).hide();
-
-
 			},
 			error: function () {
 				alert("error1");

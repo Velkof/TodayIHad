@@ -375,6 +375,7 @@ color: green;*/
 
 #actionContainerLogFood {
     padding-bottom: 20px;
+    padding-left: 0px;
 }
 
 #infoTableLogFood {
@@ -412,7 +413,7 @@ color: green;*/
 
 .saveBtn, .updateBtn {
     float: right;
-    margin-left: .5em;
+    margin-left: .3em;
 }
 
 .cancelBtn {
@@ -485,6 +486,39 @@ color: green;*/
 }
 
 
+/*----------------------------User Food Section------------------------------*/
+
+/*.userFoodContainer {
+    padding-left: 0px;
+}*/
+
+.userFoodForm{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.userFoodForm .form-control {
+    max-width: 100%;
+    margin-bottom: 10px;
+
+}
+#unitAddOrRemove{
+    padding: 0px;
+}
+
+#unitGlyphiconsContainer{
+    padding-top: 6px;
+    padding-left: 0px;
+}
+
+.glyphicon-plus {
+    color: #55a452;
+}
+
+.glyphicon-minus {
+    color: #ea3333;
+}
+
 footer {
     padding-top: 100px;
     clear: left;
@@ -530,6 +564,9 @@ footer {
 
     #infoTableLogFood {
         width: 90%;
+    }
+    #actionContainerLogFood {
+        padding-left: 15px;
     }
 
     #datepicker {

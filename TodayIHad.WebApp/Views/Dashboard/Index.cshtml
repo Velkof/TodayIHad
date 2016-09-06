@@ -54,60 +54,6 @@
 
         <div id="loggedFoodsContainer" class="col-md-8 col-md-pull-4">
 
-            @*<div id="logFood" style="display:none;">
-
-                <span id='hiddenIdLogFood' style='display:none;'></span>
-
-                <div id="nameLogFood">
-                    <br /><br />
-                </div>
-                <div id="infoContainerLogFood" class="col-xs-12  col-sm-7">
-                    <table id="infoTableLogFood">
-                        <tr><th>Info</th></tr>
-                        <tr>
-                            <td class="labelPrimLogFoodInfo">Fat: </td>
-                            <td><span id="fatAmountLogFood" data-fatAmountLogFood=""></span> g</td>
-                            <td class="labelPrimLogFoodInfo"> Prot: </td>
-                            <td><span id="protAmountLogFood" data-protAmountLogFood=""></span> g</td>
-                        </tr>
-                        <tr>
-                            <td class="labelSecLogFoodInfo">Sat. </td>
-                            <td><span id="satFatAmountLogFood" data-satFatAmountLogFood=""></span> g</td>
-                            <td class="labelPrimLogFoodInfo"> Carb: </td>
-                            <td><span id="carbsAmountLogFood" data-carbsAmountLogFood=""></span> g</td>
-                        </tr>
-                        <tr>
-                            <td class="labelSecLogFoodInfo">Mono. </td>
-                            <td> <span id="monoFatAmountLogFood" data-monoFatAmountLogFood=""></span> g</td>
-                            <td class="labelSecLogFoodInfo">Fiber: </td>
-                            <td><span id="fiberAmountLogFood" data-fiberAmountLogFood=""></span> g</td>
-                        </tr>
-                        <tr>
-                            <td class="labelSecLogFoodInfo">Poly.</td>
-                            <td><span id="polyFatAmountLogFood" data-polyFatAmountLogFood=""></span> g</td>
-                            <td class="labelSecLogFoodInfo">Sugar:</td>
-                            <td><span id="sugarAmountLogFood" data-sugarAmountLogFood=""></span> g</td>
-                        </tr>
-                        <tr>
-                            <td class="labelPrimLogFoodInfo">Choles:</td>
-                            <td><span id="cholesAmountLogFood" data-cholesAmountLogFood=""></span> mg</td>
-                            <td class="labelPrimLogFoodInfo">Sodium:</td>
-                            <td><span id="sodiumAmountLogFood" data-sodiumAmountLogFood=""></span> mg</td>
-                        </tr>
-                    </table>
-                    <div id="calsLogFood"><span id="calsAmountLogFood" data-calsAmountLogFood=""></span> calories</div>
-                </div>
-                <div id="actionContainerLogFood" class="col-xs-12 col-sm-5">
-                    <label>Unit</label>
-                    <select class="form-control" id="unitsLogFood"></select> <br />
-                    <label>Quantity</label>
-                    <input type="number" class="form-control" id="quantityLogFood" value="" /><br /><br />
-                    <div id="btnContainerLogFood"></div>
-                </div>
-
-            </div>*@
-
-
             @foreach (var item in Model.Where(x => x.DateCreated.Date == DateTime.Now.Date).OrderByDescending(x => x.Id))
             {
                 <div class="loggedFoodCompact">
@@ -195,7 +141,7 @@
                 <tr><th>Info</th></tr>
                 <tr>
                     <td class="labelPrimLogFoodInfo">Fat: </td>
-                    <td><span id="fatAmountLogFood" data-fatamountlogfood="{{FatGr}}">{{FatGr}}</span>g</td>
+                    <td><span id="fatAmountLogFood" data-fatamountlogfood="{{FatGr}}">{{FatGr}}</span> g</td>
                     <td class="labelPrimLogFoodInfo"> Prot: </td>
                     <td><span id="protAmountLogFood" data-protamountlogfood="{{ProteinGr}}">{{ProteinGr}}</span> g</td>
                 </tr>
@@ -255,7 +201,7 @@
                 <tr><th>Info</th></tr>
                 <tr>
                     <td class="labelPrimLogFoodInfo">Fat: </td>
-                    <td><span id="fatAmountLogFood" data-fatamountlogfood="{{food.FatGr}}">{{loggedFood.FatGr}}</span>g</td>
+                    <td><span id="fatAmountLogFood" data-fatamountlogfood="{{food.FatGr}}">{{loggedFood.FatGr}}</span> g</td>
                     <td class="labelPrimLogFoodInfo"> Prot: </td>
                     <td><span id="protAmountLogFood" data-protamountlogfood="{{food.ProteinGr}}">{{loggedFood.ProteinGr}}</span> g</td>
                 </tr>

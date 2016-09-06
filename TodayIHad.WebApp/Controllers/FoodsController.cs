@@ -18,7 +18,7 @@ namespace TodayIHad.WebApp.Controllers
         // GET: Foods
         public ActionResult Index()
         {
-            return View(db.Foods.ToList());
+            return View(/*db.Foods.ToList()*/);
         }
 
         // GET: Foods/Details/5
