@@ -28,13 +28,12 @@ namespace TodayIHad.Repositories.Repositories
             return true;
         }
 
-        public bool Delete(int id)
+        public bool Delete(int foodId)
         {
-            var dbUsersToFood = GetById(id);
+            var dbUsersToFood = GetByFoodId(foodId);
 
             if (dbUsersToFood != null)
             {
-
                 db.UsersToFoods.Remove(dbUsersToFood);
                 db.SaveChanges();
                 return true;
@@ -51,6 +50,11 @@ namespace TodayIHad.Repositories.Repositories
         public UsersToFood GetById(int id)
         {
             return GetAll().FirstOrDefault(x => x.Id == id);
+        }
+
+        public UsersToFood GetByFoodId(int foodId)
+        {
+            return GetAll().FirstOrDefault(x => x.FoodId == foodId);
         }
 
         public bool Update(UsersToFood usersToFood)

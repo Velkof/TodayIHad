@@ -15,17 +15,17 @@ namespace TodayIHad.Domain.Entities
         [MaxLength(84)]
         public string Unit { get; set; }
 
-        public int Calories { get; set; }
-        public float? ProteinGr { get; set; }
-        public float? FatGr { get; set; }
-        public float? CarbsGr { get; set; }
-        public float? FiberGr { get; set; }
-        public float? SugarGr { get; set; }
-        public float? SodiumMg { get; set; }
-        public float? FatSatGr { get; set; }
-        public float? FatMonoGr { get; set; }
-        public float? FatPolyGr { get; set; }
-        public float? CholesterolMg { get; set; }
+        public double? Calories { get; set; }
+        public double? ProteinGr { get; set; }
+        public double? FatGr { get; set; }
+        public double? CarbsGr { get; set; }
+        public double? FiberGr { get; set; }
+        public double? SugarGr { get; set; }
+        public double? SodiumMg { get; set; }
+        public double? FatSatGr { get; set; }
+        public double? FatMonoGr { get; set; }
+        public double? FatPolyGr { get; set; }
+        public double? CholesterolMg { get; set; }
 
         public DateTime DateCreated { get; set; }
 

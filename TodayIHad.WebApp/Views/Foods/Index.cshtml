@@ -1,6 +1,4 @@
-﻿@*@model IEnumerable<TodayIHad.Domain.Entities.Food>*@
-
-@model TodayIHad.Domain.Entities.Food
+﻿@model TodayIHad.Domain.Entities.Food
 
 
 @{
@@ -9,206 +7,203 @@
 
 <br /><br />
 
-
-
-
 <div class="userFoodContainer container">
 
-    <h3>Create New Food</h3>
+    <h3>Create New Food - Step <span id="createFoodStepNum">1</span> of 2</h3>
 
-    <h5>Or scroll down to view, edit or delete your custom foods.</h5>
     <br />
 
-    @*@using (Html.BeginForm("Create", "Foods", FormMethod.Post))
+    @using (Html.BeginForm("Create", "Foods", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-horizontal">
-            <h4>Food</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        <div class="userFoodForm form-group col-md-8">
+            <div id="createFoodStep1">
+
+                <div class="row form-group">
+                    <div class="col-xs-12">
+                        <label>Food Name</label>
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus", @id = "userFoodName" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-xs-6">
+                        <label>Amount</label>
+                        <input type="number" value="100" id="userFoodAmount" class="form-control" />
+                    </div>
+                    <div id="foodUnitsContainer" class="col-xs-6">
+                        <div class="row">
+                            <label class="col-xs-6">Unit</label>
+                            <a id="addUnit" href="#">[Add]</a>
+
+                        </div>
+                        <select id="userFoodUnit" class="form-control" name="userFoodUnit">
+                            <option value="gr" data-gramweight="1" selected>gr</option>
+                            <option value="oz" data-gramweight="28.35">oz</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div id="addUnitContainer"></div>
+
+                <button id="continueBtn" class="btn btn-info"> Continue to Step 2 of 2</button>
+
+            </div>
+            <div id="createFoodStep2">
+
+                <div class="alert alert-danger" role="alert">All values below should be <span id="createFoodPerAmount">per 100 gr.</span></div>
+
+                <input type="hidden" id="gramsTotal" name="gramsTotal" value="100" />
+                <input type="hidden" id="foodUnits" name="foodUnits" value="" />
+
+
+                <div class="row form-group">
+                    <div class="col-xs-6">
+                        <label>Calories</label>
+                        @Html.EditorFor(model => model.CaloriesKcal, new { htmlAttributes = new { @class = "form-control", @id = "userFoodCalories", @placeholder = 0 } })
+                        @Html.ValidationMessageFor(model => model.CaloriesKcal, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Protein (g)</label>
+                        @Html.EditorFor(model => model.ProteinGr, new { htmlAttributes = new { @class = "form-control", @id = "userFoodProtein", @placeholder = 0 } })
+                        @Html.ValidationMessageFor(model => model.ProteinGr, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-xs-6">
+                        <label>Fat (g)</label>
+                        @Html.EditorFor(model => model.FatGr, new { htmlAttributes = new { @class = "form-control", @id = "userFoodFat", @placeholder = 0 } })
+                        @Html.ValidationMessageFor(model => model.FatGr, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Carbs (g)</label>
+                        @Html.EditorFor(model => model.CarbsGr, new { htmlAttributes = new { @class = "form-control", @id = "userFoodCarbs", @placeholder = 0 } })
+                        @Html.ValidationMessageFor(model => model.CarbsGr, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-xs-6">
+                        <label>Saturated Fat (g)</label>
+                        @Html.EditorFor(model => model.FatSatGr, new { htmlAttributes = new { @class = "form-control", @id = "userFoodFatSat", @placeholder = 0 } })
+                        @Html.ValidationMessageFor(model => model.FatSatGr, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Fiber (g)</label>
+                        @Html.EditorFor(model => model.FiberGr, new { htmlAttributes = new { @class = "form-control", @id = "userFoodFiber", @placeholder = 0 } })
+                        @Html.ValidationMessageFor(model => model.FiberGr, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-xs-6">
+                        <label>Mono. Fat (g)</label>
+                        @Html.EditorFor(model => model.FatMonoGr, new { htmlAttributes = new { @class = "form-control", @id = "userFoodFatMono", @placeholder = 0 } })
+                        @Html.ValidationMessageFor(model => model.FatMonoGr, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Sugar (g)</label>
+                        @Html.EditorFor(model => model.SugarGr, new { htmlAttributes = new { @class = "form-control", @id = "userFoodSugar", @placeholder = 0 } })
+                        @Html.ValidationMessageFor(model => model.SugarGr, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-xs-6">
+                        <label>Poly. Fat (g)</label>
+                        @Html.EditorFor(model => model.FatPolyGr, new { htmlAttributes = new { @class = "form-control", @id = "userFoodFatPoly", @placeholder = 0 } })
+                        @Html.ValidationMessageFor(model => model.FatPolyGr, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Sodium (mg)</label>
+                        @Html.EditorFor(model => model.SodiumMg, new { htmlAttributes = new { @class = "form-control", @id = "userFoodSodium", @placeholder = 0 } })
+                        @Html.ValidationMessageFor(model => model.SodiumMg, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-xs-6">
+                        <label>Cholesterol (mg)</label>
+                        @Html.EditorFor(model => model.CholesterolMg, new { htmlAttributes = new { @class = "form-control", @id = "userFoodCholes", @placeholder = 0 } })
+                        @Html.ValidationMessageFor(model => model.CholesterolMg, "", new { @class = "text-danger" })
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <button id="cancelBtnCreateFood" class="btn btn-default">Cancel</button>
+                    <input type="submit" id="createFoodBtn" value="Create Food" class="btn btn-success" />
                 </div>
             </div>
+        </div>
+    }
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+
+</div>
+<br /><br />
+
+
+<div id="userFoodList" class="col-md-8">
+    <h3>My Foods</h3>
+
+    <table class="table">
+        @foreach (var item in ViewBag.ListOfFoods)
+            {
+                <tr>
+                    <td>                       
+                        @item.Name
+                    </td>
+                    <td class="actionContainerMyFoods">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+    </table>
+</div>
+
+<script id="addFoodUnitTemplate" type="text/mustachetemplates">
+    <div id="addFoodUnit" class="row form-group">
+
+        <div id="headerAddUnit" class="row form-group col-xs-12">
+
+            <div class="col-xs-10" id="addNewUnitHeading">
+                <div>
+                    Add or remove units
+
                 </div>
             </div>
-        </div>
-    }*@
-@using (Html.BeginForm("Create", "Foods", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-    <div class="userFoodForm form-group col-md-8">
-        <div class="row form-group">
-            <div class="col-xs-12">
-                <label>Food Name</label>
-                @*<input type="text" autofocus="autofocus" id="userFoodName" class="form-control" />*@
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus", @id = "userFoodName" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-         </div>
-        <div class="row form-group">
-            <div class="col-xs-4 col-sm-5">
-                <label>Amount</label>
-                <input type="number" value="100" id="userFoodAmount" class="form-control" />
-            </div>
-            <div class="col-xs-5 col-sm-5">
-                <div class="row">
-                    <label class="col-xs-6">Unit</label>
-                </div>
-                <select id="userFoodUnit" class="form-control">
-                    <option value="gr" selected>gr</option>
-                    <option value="oz">oz</option>
-                </select>
-            </div>
-            <div class="col-xs-3 col-sm-2" id="unitAddOrRemove">
-                <div class="row">
-                    <label></label>
-                </div>
-                <div id="unitGlyphiconsContainer">
-                    <span class="glyphicon glyphicon-plus gi-2x"></span>
-                    <span class="glyphicon glyphicon-minus gi-2x"></span>
-                </div>
+            <div class="closeBtnContainer">
+                <button id="closeBtnAddUnit" class="glyphicon glyphicon-remove btn btn-default"></button>
             </div>
         </div>
 
-        <h5 class="alert alert-danger" role="alert">Recommended fields. All values below should be for 100 gr of food.</h5>
+        <div id="unitList" class="col-xs-12 col-md-6">
+            <label>Your  units</label>
+            <table id="addUnitTable" class="table">
 
-        <div class="row form-group">
-            <div class="col-xs-6">
-                <label>Calories</label>
-                @*<input type="number" id="userFoodCalories" class="form-control" />*@
-                @Html.EditorFor(model => model.CaloriesKcal, new { htmlAttributes = new { @class = "form-control", @id = "userFoodCalories" } })
-                @Html.ValidationMessageFor(model => model.CaloriesKcal, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-xs-6">
-                <label>Carbs (g)</label>
-                @*<input type="number" id="userFoodCarbs" class="form-control" />*@
-                @Html.EditorFor(model => model.CarbsGr, new { htmlAttributes = new { @class = "form-control", @id = "userFoodCarbs" } })
-                @Html.ValidationMessageFor(model => model.CarbsGr, "", new { @class = "text-danger" })
-            </div>
+             </table>
+        </div>
+        <div id="actionContainerAddUnit" class="col-xs-12 col-md-6">
+
+            <label>Name</label>
+            <input type="text" id="nameAddUnit" class="form-control" placeholder="e.g. - slice, cup..." />
+
+            <label>Weight in grams</label>
+            <input type="number" id="weightInGramsAddUnit" class="form-control" placeholder="0" />
+
+            <input type="button" id="addUnitBtn" class="btn btn-success" value="Add Unit" />
+
         </div>
 
-        <div class="row form-group">
-            <div class="col-xs-6">
-                <label>Protein (g)</label>
-                @*<input type="number" id="userFoodProtein" class="form-control" />*@
-                @Html.EditorFor(model => model.ProteinGr, new { htmlAttributes = new { @class = "form-control", @id = "userFoodProtein" } })
-                @Html.ValidationMessageFor(model => model.ProteinGr, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-xs-6">
-                <label>Fat (g)</label>
-                @*<input type="number" id="userFoodFat" class="form-control" />*@
-                @Html.EditorFor(model => model.FatGr, new { htmlAttributes = new { @class = "form-control", @id = "userFoodFat" } })
-                @Html.ValidationMessageFor(model => model.FatGr, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div><h5 class="alert alert-success" role="alert">Optional fields.</h5></div>
-
-        <div class="row form-group">
-            <div class="col-xs-6">
-                <label>Saturated Fat (g)</label>
-                @*<input type="number" id="userFoodFatSat" class="form-control" />*@
-                @Html.EditorFor(model => model.FatSatGr, new { htmlAttributes = new { @class = "form-control", @id = "userFoodFatSat" } })
-                @Html.ValidationMessageFor(model => model.FatSatGr, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-xs-6">
-                <label>Mono. Fat (g)</label>
-                @*<input type="number" id="userFoodFatMono" class="form-control" />*@
-                @Html.EditorFor(model => model.FatMonoGr, new { htmlAttributes = new { @class = "form-control", @id = "userFoodFatMono" } })
-                @Html.ValidationMessageFor(model => model.FatMonoGr, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <div class="col-xs-6">
-                <label>Poly. Fat (g)</label>
-                @*<input type="number" id="userFoodFatPoly" class="form-control" />*@
-                @Html.EditorFor(model => model.FatPolyGr, new { htmlAttributes = new { @class = "form-control", @id = "userFoodFatPoly" } })
-                @Html.ValidationMessageFor(model => model.FatPolyGr, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-xs-6">
-                <label>Cholesterol (mg)</label>
-                @*<input type="number" id="userFoodCholes" class="form-control" />*@
-                @Html.EditorFor(model => model.CholesterolMg, new { htmlAttributes = new { @class = "form-control", @id = "userFoodCholes" } })
-                @Html.ValidationMessageFor(model => model.CholesterolMg, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <div class="col-xs-6">
-                <label>Fiber (g)</label>
-                @*<input type="number" id="userFoodFiber" class="form-control" />*@
-                @Html.EditorFor(model => model.FiberGr, new { htmlAttributes = new { @class = "form-control", @id = "userFoodFiber" } })
-                @Html.ValidationMessageFor(model => model.FiberGr, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-xs-6">
-                <label>Sugar (g)</label>
-                @*<input type="number" id="userFoodSugar" class="form-control" />*@
-                @Html.EditorFor(model => model.SugarGr, new { htmlAttributes = new { @class = "form-control", @id = "userFoodSugar" } })
-                @Html.ValidationMessageFor(model => model.SugarGr, "", new { @class = "text-danger" })
-
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <div class="col-xs-6">
-                <label>Sodium (mg)</label>
-                @*<input type="number" id="userFoodSodium" class="form-control" />*@
-                @Html.EditorFor(model => model.SodiumMg, new { htmlAttributes = new { @class = "form-control", @id = "userFoodSodium" } })
-                @Html.ValidationMessageFor(model => model.SodiumMg, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Create Food" class="btn btn-success" />
-        </div>
+        @*<div id="unitBtnContainer" class="row col-xs-12">
+            <input type="button" id="addUnitBtn" class="btn btn-success " value="Add" />
+        </div>*@
     </div>
-}
-        <br /><br />
-
-        <div class="userFoodList col-md-8">
-            <h3>My Foods</h3>
-
-            <table class="table">
-                @*<tr>
-                        <th>
-                            My Foods
-                        </th>
-
-                        <th>
-
-                        </th>
-                    </tr>*@
-
-                @*@foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                            </td>
-                        </tr>
-                    }*@
-
-            </table>
 
 
-            <p>
-                @Html.ActionLink("Create New", "Create")
-            </p>
-        </div>
 
+
+</script>

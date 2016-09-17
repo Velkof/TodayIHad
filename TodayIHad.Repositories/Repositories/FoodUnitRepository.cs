@@ -9,13 +9,15 @@ namespace TodayIHad.Repositories.Repositories
     {
         private Database db = new Database();
 
-        public bool Create(List<FoodUnit> foodUnitsList)
+        public bool Create(List<FoodUnit> foodUnitsList, int foodId)
         {
-            
-            foreach (var foodUnit in foodUnitsList)
+
+            foreach(var foodUnit in foodUnitsList)
             {
+                foodUnit.FoodId = foodId;
                 db.FoodUnits.Add(foodUnit);
             }
+
 
             db.SaveChanges();
 
@@ -23,15 +25,19 @@ namespace TodayIHad.Repositories.Repositories
 
         }
 
-        public bool Delete(int id)
+        public bool Delete(int foodId)
         {
-            var dbFoodUnit = GetById(id);
+            var dbFoodUnitList = GetAllForFood(foodId);
 
-            if (dbFoodUnit != null)
+
+
+            if (dbFoodUnitList != null)
             {
-                db.FoodUnits.Remove(dbFoodUnit);
+                foreach (var i in dbFoodUnitList)
+                {
+                    db.FoodUnits.Remove(i);
+                }
                 db.SaveChanges();
-
                 return true;
             }
 
@@ -41,6 +47,11 @@ namespace TodayIHad.Repositories.Repositories
         public List<FoodUnit> GetAll()
         {
             return db.FoodUnits.ToList();
+        }
+
+        public List<FoodUnit> GetAllForFood(int foodId)
+        {
+            return db.FoodUnits.Where(x => x.FoodId == foodId).ToList();
         }
 
         public List<FoodUnit> GetAllForCurrentFood(int foodId)

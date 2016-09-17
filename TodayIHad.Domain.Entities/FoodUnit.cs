@@ -8,7 +8,7 @@ namespace TodayIHad.Domain.Entities
 
         [MaxLength(84)]
         public string Name { get; set; }
-        public float GramWeight { get; set; }
+        public double GramWeight { get; set; }
 
         public virtual int FoodId { get; set; }
         //public virtual Food Food { get; set; }

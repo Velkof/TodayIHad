@@ -15,13 +15,28 @@
 	highlightDatesWhenFoodLoggedForDisplayedMonth(currentYear, currentMonth);
 
 
+	function hideNothingHereMessageIfLoggedFoods() {
+
+		if ($("#loggedFoodsContainer").has(".loggedFoodCompact").is(":visible")) {
+			$("#nothingHere").hide();
+		} else {
+			$("#nothingHere").show();
+		}
+
+	}
+
+	hideNothingHereMessageIfLoggedFoods();
+
+
 	$('#datepicker').datepicker({
 		onSelect: function (dateText, inst) {
+
 			var dateText = moment(dateText).format("YYYY-MM-DD HH:mm:ss");
 			getLoggedFoodsForDate(dateText);
 
 			var dateValue = moment(dateText).format("DD/MM/YYYY");
 			$("#dateValue").text(dateValue);
+
 		},
 		onChangeMonthYear: function(year, month) {
 
@@ -122,7 +137,8 @@
 					item.DateCreated = moment(item.DateCreated).format("YYYY-MM-DD HH:mm:ss");
 					$("#loggedFoodsContainer").prepend(Mustache.render(loggedFoodTemplate, item));              
 				});
-				
+
+				hideNothingHereMessageIfLoggedFoods();				
 			},
 			error: function () {
 				alert("Couldn't get logged foods for selected date.");
@@ -167,7 +183,6 @@
 				$("#logFood").remove();
 				$("#editLoggedFood").remove();
 
-				//var dateNow = moment(new Date()).format("YYYY-MM-DD HH:mm:ss");
 				$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
 				$(selectedFood).remove();
 
@@ -279,17 +294,9 @@
 				$("#logFood").remove();
 				$("#editLoggedFood").remove();
 
-				//$("#editLoggedFood #unitsLogFood").empty();
-				//$("#editLoggedFood #btnContainerLogFood").empty();
-
-
 				for (var i in data) {
 					var editLoggedFoodTemplate = $("#editLoggedFoodTemplate").html();
 					$(clickedLoggedFoodCompact).after(Mustache.render(editLoggedFoodTemplate, data[i]));
-
-
-
-
 
 					$("#editLoggedFood #hiddenDateCreatedLoggedFood").text(loggedFoodDateCreated);
 
@@ -444,5 +451,119 @@
 
 	});
 
+//-----------------STATS-TAB----------------------------------------------------------------------------------//
+
+
+$("#statsTab").on("click", function(e){
+
+	e.preventDefault();
+	$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
 
 });
+
+//-----------------FRIENDS-TAB--------------------------------------------------------------------------------//
+
+	
+$("#friendsTab").on("click", function (e) {
+
+	e.preventDefault();
+	$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
+
+});
+
+//-----------------PROFILE-TAB-------------------------------------------------------------------------------//
+
+
+$("#profileTab").on("click", function (e) {
+
+	e.preventDefault();
+	$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
+
+});
+
+
+
+//-------------------FOODS-----------------------------------------------------------------------------------//
+
+	//Retrives template for adding or removing units
+	$("#addUnit").on("click", function () {
+
+		$("#addFoodUnit").remove();
+		var addFoodUnitTemplate = $('#addFoodUnitTemplate').html();
+		$("#addUnitContainer").html(Mustache.render(addFoodUnitTemplate));
+
+	});
+
+
+	function addFoodUnitsToArray() {
+
+		var foodUnitArray = [];
+
+		$("#userFoodUnit option").each(function () {
+
+			var gramWeight = $(this).attr("data-gramweight");
+			var name = $(this).val();
+
+			var foodUnit = {
+				Name: name,
+				GramWeight: gramWeight
+			}
+
+			foodUnitArray.push(foodUnit);
+		});
+		$("#foodUnits").val(JSON.stringify(foodUnitArray));
+	};
+
+
+	//continue to step 2 of form
+	$("#continueBtn").on("click", function (e) {
+		e.preventDefault();
+
+		var amount = $("#userFoodAmount").val();
+		var gramWeight = $("#userFoodUnit").find(":selected").data('gramweight');
+		var gramsTotal = gramWeight * amount;
+		$("#gramsTotal").val(gramsTotal);
+
+
+		addFoodUnitsToArray();
+
+		var selectedFoodUnit = $("#userFoodUnit option:selected").val();
+
+		$("#createFoodStepNum").text("2");
+		$("#createFoodPerAmount").html("<strong>per " + amount + " " + selectedFoodUnit + ".</strong>");
+
+		$("#createFoodStep1").hide();
+		$("#createFoodStep2").show();
+
+	});
+
+
+	//cancel form submit and return to default foods/index state
+	$(".userFoodForm").on("click", "#cancelBtnCreateFood", function (e) {
+		e.preventDefault();
+		location.reload();
+	});
+		
+
+	//Add new unit
+	$("#addUnitContainer").on("click", "#addUnitBtn", function () {
+
+
+		var gramWeight = $("#weightInGramsAddUnit").val();
+		var name = $("#nameAddUnit").val();
+
+		$("#addUnitTable").append("<tr><td id='nameUnit'>" + name + "</td><td id='weightInGramsUnit'>" + gramWeight  + "</td><td id='removeUnit' class='glyphicon glyphicon-remove'></td></tr>");		
+		$("#userFoodUnit").append('<option value="' + name + '" data-gramweight="' + gramWeight + '" selected>' + name + '</option>');
+		$("#userFoodAmount").val(1);
+	});
+
+	$("#addUnitContainer").on("click", "#closeBtnAddUnit", function () {
+
+		$("#addUnitContainer").empty();
+	});
+
+}); 
+
+
+
+

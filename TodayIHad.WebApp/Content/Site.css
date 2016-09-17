@@ -85,11 +85,11 @@ textarea {
     border-top-right-radius: 0px;
 }
 
-    .foodSearchResultsLI.list-group-item:hover {
-        border-top-left-radius: 0px;
-        border-top-right-radius: 0px;
-        background-color: #f7ffb3;
-    }
+.foodSearchResultsLI.list-group-item:hover {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    background-color: #f7ffb3;
+}
 
 
 
@@ -206,9 +206,6 @@ color: green;*/
 
 .highlightedDates a {
     background-color: #f7ffb3 !important;
-    /*border-bottom: 4px solid green !important;*/
-    /*color: green !important;*/
-    /*color: white !important;*/
 }
 
 
@@ -228,6 +225,10 @@ color: green;*/
 
 .gi-5x {
     font-size: 5em;
+}
+
+.navElementVisibleOnlyOnMobile {
+    display: none !important;
 }
 
 
@@ -349,6 +350,7 @@ color: green;*/
     to {background-color: #fff;}
 }
 
+
 .newLoggedFoodCompact {
     animation-name: yellowfade;
     animation-duration: 2s;
@@ -385,12 +387,16 @@ color: green;*/
     width: 80%;
 }
 
-    #infoTableLogFood td {
-        border-top: 1px solid lightgray;
-        border-bottom: 1px solid lightgray;
-        padding: .2em 1em .2em 0em;
-        font-size: .9em;
-    }
+#infoTableLogFood td {
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    padding: .2em 1em .2em 0em;
+    font-size: .9em;
+}
+
+.valuesInfoTable {
+    text-align: right;
+}
 
 .labelSecLogFoodInfo {
     padding-left: 10px !important;
@@ -502,21 +508,58 @@ color: green;*/
     margin-bottom: 10px;
 
 }
-#unitAddOrRemove{
-    padding: 0px;
+
+#addUnit{
+    float:right;
+    padding-right: 15px;
 }
 
-#unitGlyphiconsContainer{
-    padding-top: 6px;
-    padding-left: 0px;
+#addFoodUnit{
+    -webkit-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+    -moz-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+    box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+    
+    margin-left: 0px;
+    margin-right: 0px;
+    border-radius: 2px;
+    overflow: hidden;
+
 }
 
-.glyphicon-plus {
-    color: #55a452;
+#addFoodUnit:hover {
+    -webkit-box-shadow: 0px 1px 1px 1px #a4a8a1;
+    -moz-box-shadow: 0px 1px 1px 1px #a4a8a1;
+    box-shadow: 0px 1px 1px 1px #a4a8a1;
 }
 
-.glyphicon-minus {
-    color: #ea3333;
+#addNewUnitHeading{
+    padding: .3em 0em .7em 0.5em;
+    font-size: 1.3em;
+    color: red;
+}
+
+#unitBtnContainer {
+    margin: 4px 0px 10px 0px;
+}
+
+
+#createFoodBtn, #closeUnitBtn, #addUnitBtn {
+    float: right;
+}
+#addUnitBtn{
+    margin-left: 5px;
+    margin-top: 15px;
+}
+#cancelBtnCreateFood {
+    float: left;
+}
+
+#createFoodStep2{
+    display: none;
+}
+
+#userFoodList {
+    padding-right: 0px;
 }
 
 footer {
@@ -524,27 +567,115 @@ footer {
     clear: left;
 }
 
+
+
+
+
+
+
+
+
+#nothingHere{
+    margin-top: 10px;
+    padding-top: 100px;
+    height: 300px;
+    border: 4px dashed lightgray;
+    width: 100%;
+    text-align: center;
+    vertical-align: central;
+    font-size: 3em;
+    color:lightgray;
+
+}
+
+
+.closeBtnContainer {
+    margin-top: 5px;
+    text-align:right;
+}
+#headerAddUnit{
+    margin: 3px 0px 0px 0px;
+    padding-left: 0px;
+}
+
+#actionContainerAddUnit {
+    
+    margin-bottom: 20px;
+}
+
+
+
+.actionContainerMyFoods {
+    text-align:right;
+    
+}
+
+
+
+
+
+
+
+
+
 /* Extra small devices (phones, up to 480px) */
 @media screen and (max-width: 767px) {
     /*Bootstrap override*/
-    .navbar-inverse .navbar-nav .open .dropdown-menu {
-        background-color: #3AA637;
+
+    .navbar .navbar-nav, .navElementVisibleOnlyOnMobile{
+      display: inline-block !important;
+      float: none;
+      vertical-align: top;
+      width: 100%;
     }
 
-        .navbar-inverse .navbar-nav .open .dropdown-menu > li:hover {
-            background-color: #3A8C37;
-        }
+    .navbar .navbar-collapse {
+      text-align: center;
+    }
 
-        .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
-            color: #fff;
-        }
 
-        .navbar-inverse .navbar-nav .open .dropdown-menu .divider,
-        .navbar-inverse .navbar-nav .open .dropdown-menu .divider:hover {
-            background-color: transparent;
-        }
+
+
+
+    .navbar-inverse .navbar-nav .open .dropdown-menu {
+    background-color: #3AA637;
+    }
+
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li:hover {
+        background-color: #3A8C37;
+    }
+
+    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+        color: #fff;
+    }
+
+    .navbar-inverse .navbar-nav .open .dropdown-menu .divider,
+    .navbar-inverse .navbar-nav .open .dropdown-menu .divider:hover {
+        background-color: transparent;
+    }
+
+
+
 
     /*Custom CSS-----------max-width-767px---*/
+
+    #dropdownNavRight {
+        display: none;
+    }
+
+    /*.navElementVisibleOnlyOnMobile {
+        display: inline-block !important;
+    }*/
+
+    #userNameInNavMobile{
+        color: yellow;
+        font-size: 16px;
+        padding-bottom: 10px;
+        width: 100%;
+        background-color: #3AA637;
+
+    }
+
     .NameCompact {
         /*color:green;*/
         padding-top: .3em;
@@ -572,6 +703,10 @@ footer {
     #datepicker {
         display: none;
     }
+
+    #nothingHere {
+        font-size: 2em;
+    }
 }
 
 /* Small devices (tablets, 768px and up) */
@@ -584,6 +719,11 @@ footer {
     #datepicker {
         display: none;
     }
+
+    #nothingHere {
+        font-size: 2.7em;
+    }
+
 }
 /* tablets/desktops and up ----------- */
 @media (min-width: 992px) and (max-width: 1199px) {
@@ -591,3 +731,9 @@ footer {
 /* large desktops and up ----------- */
 @media screen and (min-width: 1200px) {
 }
+
+
+
+
+
+
