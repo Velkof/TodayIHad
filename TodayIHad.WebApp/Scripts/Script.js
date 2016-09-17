@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-	var selectedDates = [];
+    var selectedDates = [];
 
 
 	$("#tabs").tabs();
@@ -25,11 +25,20 @@
 
 	}
 
+	function getYearMonthAndCallHighlightFunc() {
+	    var selectedDate = $("#datepicker").datepicker('getDate');
+	    var selectedMonth = selectedDate.getMonth() + 1;
+	    var selectedYear = selectedDate.getFullYear();
+
+	    highlightDatesWhenFoodLoggedForDisplayedMonth(selectedYear, selectedMonth);
+	}
+
 	hideNothingHereMessageIfLoggedFoods();
 
 
 	$('#datepicker').datepicker({
-		onSelect: function (dateText, inst) {
+	    onSelect: function (dateText, inst) {
+
 
 			var dateText = moment(dateText).format("YYYY-MM-DD HH:mm:ss");
 			getLoggedFoodsForDate(dateText);
@@ -45,6 +54,7 @@
 		},
 		beforeShowDay: function (date) {
 
+            
 			var highlight = selectedDates[date];
 			if (highlight) {
 				return [true, "highlightedDates", ""];
@@ -52,10 +62,13 @@
 			else {
 				return [true, "", ""];
 			}
-		}
-
+		},
+		maxDate: new Date()
 
 	});
+
+
+
 
 	//Toggle datepicker
 	$("#date").on("click", function () {
@@ -82,6 +95,9 @@
 		date.setDate(date.getDate() + 1);
 		$("#datepicker").datepicker("setDate", date);
 
+
+		var date = $("#datepicker").datepicker("getDate"); //gets date a second time so it doesn't go to next date if field disabled in calendar
+
 		var dateUserFriendlyFormat = moment(date).format("DD/MM/YYYY");
 		$("#dateValue").text(dateUserFriendlyFormat);
 		var dateSQLFormat = moment(date).format("YYYY-MM-DD HH:mm:ss");
@@ -101,6 +117,7 @@
 				month: month
 			},
 			success: function (data) {
+			    selectedDates = [];
 
 				$.each(data.data, function(i, item){
 					
@@ -180,6 +197,8 @@
 			url: "/Dashboard/GetSelectedFood",
 			data: { foodName: selectedFoodName },
 			success: function (data) {
+			    $("#nothingHere").hide();
+
 				$("#logFood").remove();
 				$("#editLoggedFood").remove();
 
@@ -396,6 +415,8 @@
 			traditional: true,
 			data: JSON.stringify(LoggedFood),
 			success: function (data) {
+
+
 				$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
 
 
@@ -408,6 +429,10 @@
 				$("#btnContainerLogFood").empty();
 
 				$(thisLogFoodDiv).hide();
+
+				hideNothingHereMessageIfLoggedFoods();
+				getYearMonthAndCallHighlightFunc();
+
 			},
 			error: function () {
 				alert("error1");
@@ -423,6 +448,8 @@
 		var thisLogFoodDiv = $(this).parent().parent().parent();
 		$(thisLogFoodDiv).hide();
 		$(thisLogFoodDiv).prev().show();
+
+		hideNothingHereMessageIfLoggedFoods();
 
 		//$(thisLogFoodDiv).prev().children(".loggedFoodNameCompact").addClass("newLoggedFoodNameCompact");
 		//$(thisLogFoodDiv).prev().addClass("newLoggedFoodCompact").show();
@@ -442,6 +469,10 @@
 			success: function (data) {
 				$(editFoodDiv).prev(".loggedFoodCompact").remove();
 				$(editFoodDiv).remove();
+
+
+				hideNothingHereMessageIfLoggedFoods();
+				getYearMonthAndCallHighlightFunc();
 
 			},
 			error: function () {
