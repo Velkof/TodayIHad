@@ -41,33 +41,32 @@ textarea {
     border-color: #3A8C37;
 }
 
-    .navbar-inverse .navbar-nav > li:hover {
-        background-color: #3A8C37;
-    }
+.navbar-inverse .navbar-nav > li:hover {
+    background-color: #3A8C37;
+}
 
-    .navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a {
-        color: #fff;
-    }
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a {
+    color: #fff;
+}
 
-        .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus,
-        .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
-            /*color: #EFFF5C;*/
-            background-color: transparent;
-        }
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus,
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    /*color: #EFFF5C;*/
+    background-color: transparent;
+}
 
 
-    .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
-        background-color: #3A8C37;
-    }
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+    background-color: #3A8C37;
+}
 
-    .navbar-inverse .navbar-toggle {
-        border-color: #fff;
-    }
+.navbar-inverse .navbar-toggle {
+    border-color: #fff;
+}
 
-    .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
-        /*color: #EFFF5C;*/
-        background-color: #3A8C37;
-    }
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: #3A8C37;
+}
 
 .form-control:focus {
     border-color: #3AA637;
@@ -106,6 +105,7 @@ textarea {
     border: 0px;
     padding: 0px;
     background-color: #fff;
+    clear:both;
 }
 
 .ui-widget-header {
@@ -148,7 +148,6 @@ textarea {
 
 .hasDatepicker {
     height: 300px;
-    /*width: 353px;*/
     border-radius: 2px;
     margin-top: 10px;
     -webkit-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
@@ -276,10 +275,24 @@ textarea {
     width: 100%;
 }
 
-
-#scoreInfoDiv, #calorieInfoDiv {
-    min-height: 100px;
+#dailyTotalsAndScoreContainer{
+    margin: 20px 0px 30px 0px;
+    border: 1px dashed green;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
+
+#scoreInfoDiv, #dailyInfoDiv {
+    min-height: 200px;
+    border: 1px dashed red;
+}
+
+#calsDailyInfo{
+    font-size: 70px;
+    color:#3A8C37;
+    font-weight: 700;
+}
+
 
 #foodEditDiv {
     border: 1px solid red;
@@ -287,7 +300,6 @@ textarea {
     z-index: 10;
     background-color: yellow;
 }
-
 
 
 #loggedFoodsContainer {
@@ -410,10 +422,11 @@ textarea {
 
 #calsLogFood {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
-    font-size: 1.5em;
+    font-size: 1.7em;
 }
+
 
 #unitsLogFood, #quantityLogFood {
     max-width: 100%;
@@ -510,6 +523,13 @@ textarea {
 
 }
 
+.validationMsg{
+    color: red;
+    font-size: 1em;
+    font-weight: bold;
+    float:right;
+}
+
 #addUnit{
     float:right;
     padding-right: 15px;
@@ -539,18 +559,21 @@ textarea {
     color: red;
 }
 
+#continueBtn {
+    margin-top: 15px;
+    float: right;
+}
+
+
 #unitBtnContainer {
-    margin: 4px 0px 10px 0px;
+    margin: 4px 0px 15px 0px;
 }
 
 
 #createFoodBtn, #closeUnitBtn, #addUnitBtn {
     float: right;
 }
-#addUnitBtn{
-    margin-left: 5px;
-    margin-top: 15px;
-}
+
 #cancelBtnCreateFood {
     float: left;
 }
@@ -594,6 +617,9 @@ footer {
     margin-top: 5px;
     text-align:right;
 }
+
+
+
 #headerAddUnit{
     margin: 3px 0px 0px 0px;
     padding-left: 0px;
@@ -610,9 +636,6 @@ footer {
     text-align:right;
     
 }
-
-
-
 
 
 

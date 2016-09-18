@@ -10,19 +10,21 @@
         <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-search"></span></span>
         <input type="text" class="form-control" id="foodSearchBox" placeholder="Search for food..." autocomplete="off" name="SearchFoodString" />
     </div>
-
     <div id="foodSearchResultsContainer">
         <ul id="foodSearchUL"></ul>
-
     </div>
-
 </div>
 
 
-
-<div id="scoreInfoDiv"></div>
-<div id="calorieInfoDiv"></div>
-
+<div id="dailyTotalsAndScoreContainer" class="col-xs-12 row">
+    <div id="dailyInfoDiv" class="col-xs-7">
+        <div id="calsDailyInfo">
+            <span>93</span>
+             <p>calories</p>
+        </div>
+    </div>
+    <div id="scoreInfoDiv" class="col-xs-5"></div>
+</div>
 
 
 <div id="tabs" style="display: none;">
@@ -177,7 +179,7 @@
             <input type="number" class="form-control" id="quantityLogFood" value="" /><br /><br />
             <div id="btnContainerLogFood">
                 <button class='btn btn-success saveBtn'>Save</button>
-                <button class='btn btn-default cancelBtn'>Cancel</button>  
+                <button class='btn btn-default cancelBtn'>Cancel</button>
             </div>
         </div>
 
@@ -228,7 +230,11 @@
                     <td class="valuesInfoTable"><span id="sodiumAmountLogFood" data-sodiumamountlogfood="{{food.SodiumMg}}">{{loggedFood.SodiumMg}}</span> mg</td>
                 </tr>
             </table>
-            <div id="calsLogFood"><span id="calsAmountLogFood" data-calsamountlogfood="{{food.CaloriesKcal}}">{{loggedFood.Calories}}</span> calories</div>
+
+            <div id="calsLogFood">
+                <span id="calsAmountLogFood" data-calsamountlogfood="{{food.CaloriesKcal}}">{{loggedFood.Calories}} </span>  calories
+            </div>
+
         </div>
         <div id="actionContainerLogFood" class="col-xs-12 col-sm-5">
             <label>Unit</label>
