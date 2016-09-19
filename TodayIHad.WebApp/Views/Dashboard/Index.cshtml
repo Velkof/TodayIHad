@@ -55,7 +55,7 @@
 
         <div id="loggedFoodsContainer" class="col-md-8 col-md-pull-4">
 
-            <div id="nothingHere">You haven't added any foods for this day.</div>
+            <div id="nothingHere">You haven't added any food for this day.</div>
 
 
             @*@foreach (var item in Model.Where(x => x.DateCreated.Date == DateTime.Now.Date).OrderByDescending(x => x.Id))

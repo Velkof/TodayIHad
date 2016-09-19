@@ -23,28 +23,37 @@
 	    },
 	};
 
-	var responsiveOptionsDailyTotals = [
-	  ['screen and (max-width: 639px)', {
-	      labelOffset: 60,
-	      chartPadding: 20
-	  }],
-	  ['screen and (min-width: 640px)', {
-	      chartPadding: 25,
-	      labelOffset: 90,
-	      labelDirection: 'explode',
-	      labelInterpolationFnc: function (value) {
-	          return value;
-	      }
-	  }],
-	  ['screen and (min-width: 768px)', {
-	      labelOffset: 60,
-	      chartPadding: 20
-	  }],
-	  ['screen and (min-width: 1024px)', {
-	      labelOffset: 80,
-	      chartPadding: 25
-	  }]
-	];
+
+    var responsiveOptionsDailyTotals = [
+      ['screen and (min-width: 1px)', {
+          labelDirection: 'explode',
+          labelInterpolationFnc: function (value) {
+              return value;
+          }
+      }],
+      ['screen and (min-width: 300px)', {
+          labelOffset: 0,
+          chartPadding: 20
+      }],
+      ['screen and (min-width: 476px)', {
+          labelOffset: 35,
+          chartPadding: 20
+      }],
+      ['screen and (min-width: 640px)', {
+          chartPadding: 25,
+          labelOffset: 75,
+
+      }],
+      ['screen and (min-width: 768px)', {
+          labelOffset: 45,
+          chartPadding: 20
+      }],
+      ['screen and (min-width: 1024px)', {
+          labelOffset: 70,
+          chartPadding: 25
+      }]
+    ];
+
 
 	new Chartist.Pie('#dailyTotalsChart', dataDailyTotals, optionsDailyTotals, responsiveOptionsDailyTotals);
 
@@ -156,8 +165,8 @@
 
 	    if (dailyTotals.Carbs == 0 && dailyTotals.Protein == 0 && dailyTotals.Fat == 0) {
 	        var dataDailyTotals = {
-	            labels: ['No data'],
-	            series: [1]
+	            labels: ['Carbs', "Protein", "Fat"],
+	            series: [1, 98, 1]
 	        };
 
 	    } else {
