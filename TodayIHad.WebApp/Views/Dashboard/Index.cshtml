@@ -17,13 +17,16 @@
 
 
 <div id="dailyTotalsAndScoreContainer" class="col-xs-12 row">
-    <div id="dailyInfoDiv" class="col-xs-7">
-        <div id="calsDailyInfo">
-            <span>93</span>
-             <p>calories</p>
+    <div id="dailyInfoDiv" class="col-xs-12 col-sm-7 ">
+        <div id="dailyTotalsChart" class="ct-chart ct-minor-sixth col-xs-12"></div>
+
+
+        <div id="calsDailyInfo" class="col-xs-12">
+            <span id="caloriesDailyTotals">0</span>
+             calories
         </div>
     </div>
-    <div id="scoreInfoDiv" class="col-xs-5"></div>
+    <div id="scoreInfoDiv" class="col-sm-5"></div>
 </div>
 
 
@@ -55,7 +58,7 @@
             <div id="nothingHere">You haven't added any foods for this day.</div>
 
 
-            @foreach (var item in Model.Where(x => x.DateCreated.Date == DateTime.Now.Date).OrderByDescending(x => x.Id))
+            @*@foreach (var item in Model.Where(x => x.DateCreated.Date == DateTime.Now.Date).OrderByDescending(x => x.Id))
             {
                 <div class="loggedFoodCompact">
                     <span class='hiddenFoodIdCompact' style='display:none;'>@item.FoodId</span>
@@ -69,7 +72,7 @@
                         | Unit: <span class="loggedFoodUnitCompact">@item.Unit</span>
                     </div>
                 </div>
-            }
+            }*@
 
 
 

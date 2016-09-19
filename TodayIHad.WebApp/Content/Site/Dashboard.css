@@ -277,20 +277,37 @@ textarea {
 
 #dailyTotalsAndScoreContainer{
     margin: 20px 0px 30px 0px;
-    border: 1px dashed green;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    /*border: 1px dashed green;*/
 }
 
-#scoreInfoDiv, #dailyInfoDiv {
-    min-height: 200px;
-    border: 1px dashed red;
+.ct-label {
+    font-size: 1.5em;
+    font-weight: bold;
+    stroke-width: 0px;
+    /*stroke: black;*/
+    fill: #747070;
 }
+
+#dailyTotalsChart > svg > g.ct-series.ct-series-a .ct-slice-pie {
+       fill: #bfbc76;     
+}
+
+#dailyTotalsChart > svg > g.ct-series.ct-series-b .ct-slice-pie {
+       fill: #f87355;     
+}
+
+#scoreInfoDiv, #dailyInfoDiv, #dailyTotalsChart {
+    min-height: 200px;
+    /*border: 1px dashed red;*/
+}
+
+
 
 #calsDailyInfo{
-    font-size: 70px;
-    color:#3A8C37;
+    font-size: 4rem;
+    color:#747070;
     font-weight: 700;
+    text-align: center;
 }
 
 
@@ -307,6 +324,20 @@ textarea {
     padding-right: 0px;
     min-height: 300px;
 }
+
+
+#nothingHere{
+    margin-top: 10px;
+    padding-top: 100px;
+    height: 300px;
+    border: 4px dashed lightgray;
+    width: 100%;
+    text-align: center;
+    vertical-align: central;
+    font-size: 3em;
+    color:lightgray;
+}
+
 
 .loggedFoodCompact, #logFood, #editLoggedFood{
     -moz-min-height: 70px;
@@ -505,141 +536,10 @@ textarea {
     background-color: transparent;
 }
 
-
-/*----------------------------User Food Section------------------------------*/
-
-/*.userFoodContainer {
-    padding-left: 0px;
-}*/
-
-.userFoodForm{
-    padding-left: 0px;
-    padding-right: 0px;
-}
-
-.userFoodForm .form-control {
-    max-width: 100%;
-    margin-bottom: 10px;
-
-}
-
-.validationMsg{
-    color: red;
-    font-size: 1em;
-    font-weight: bold;
-    float:right;
-}
-
-#addUnit{
-    float:right;
-    padding-right: 15px;
-}
-
-#addFoodUnit{
-    -webkit-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-    -moz-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-    box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-    
-    margin-left: 0px;
-    margin-right: 0px;
-    border-radius: 2px;
-    overflow: hidden;
-
-}
-
-#addFoodUnit:hover {
-    -webkit-box-shadow: 0px 1px 1px 1px #a4a8a1;
-    -moz-box-shadow: 0px 1px 1px 1px #a4a8a1;
-    box-shadow: 0px 1px 1px 1px #a4a8a1;
-}
-
-#addNewUnitHeading{
-    padding: .3em 0em .7em 0.5em;
-    font-size: 1.3em;
-    color: red;
-}
-
-#continueBtn {
-    margin-top: 15px;
-    float: right;
-}
-
-
-#unitBtnContainer {
-    margin: 4px 0px 15px 0px;
-}
-
-
-#createFoodBtn, #closeUnitBtn, #addUnitBtn {
-    float: right;
-}
-
-#cancelBtnCreateFood {
-    float: left;
-}
-
-#createFoodStep2{
-    display: none;
-}
-
-#userFoodList {
-    padding-right: 0px;
-}
-
 footer {
     padding-top: 100px;
     clear: left;
 }
-
-
-
-
-
-
-
-
-
-#nothingHere{
-    margin-top: 10px;
-    padding-top: 100px;
-    height: 300px;
-    border: 4px dashed lightgray;
-    width: 100%;
-    text-align: center;
-    vertical-align: central;
-    font-size: 3em;
-    color:lightgray;
-
-}
-
-
-.closeBtnContainer {
-    margin-top: 5px;
-    text-align:right;
-}
-
-
-
-#headerAddUnit{
-    margin: 3px 0px 0px 0px;
-    padding-left: 0px;
-}
-
-#actionContainerAddUnit {
-    
-    margin-bottom: 20px;
-}
-
-
-
-.actionContainerMyFoods {
-    text-align:right;
-    
-}
-
-
-
-
 
 
 /* Extra small devices (phones, up to 480px) */
@@ -656,10 +556,6 @@ footer {
     .navbar .navbar-collapse {
       text-align: center;
     }
-
-
-
-
 
     .navbar-inverse .navbar-nav .open .dropdown-menu {
     background-color: #3AA637;
@@ -731,6 +627,11 @@ footer {
     #nothingHere {
         font-size: 2em;
     }
+
+    #scoreInfoDiv {
+        display: none;
+    }
+
 }
 
 /* Small devices (tablets, 768px and up) */

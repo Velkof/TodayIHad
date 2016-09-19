@@ -2,7 +2,6 @@
 
 	var selectedDates = [];
 
-
 	$("#tabs").tabs();
 	$("#tabs").css("display", "block");
 
@@ -11,6 +10,46 @@
 	var currentYear = new Date().getFullYear();
 
 	$("#dateValue").text(currentDate);
+
+
+	var dataDailyTotals = {
+	    labels: ['No data'],
+	    series: [1]
+	};
+
+	var optionsDailyTotals = {
+	    labelInterpolationFnc: function (value) {
+	        return value.slice(0, 7);
+	    },
+	};
+
+	var responsiveOptionsDailyTotals = [
+	  ['screen and (max-width: 639px)', {
+	      labelOffset: 60,
+	      chartPadding: 20
+	  }],
+	  ['screen and (min-width: 640px)', {
+	      chartPadding: 25,
+	      labelOffset: 90,
+	      labelDirection: 'explode',
+	      labelInterpolationFnc: function (value) {
+	          return value;
+	      }
+	  }],
+	  ['screen and (min-width: 768px)', {
+	      labelOffset: 60,
+	      chartPadding: 20
+	  }],
+	  ['screen and (min-width: 1024px)', {
+	      labelOffset: 80,
+	      chartPadding: 25
+	  }]
+	];
+
+	new Chartist.Pie('#dailyTotalsChart', dataDailyTotals, optionsDailyTotals, responsiveOptionsDailyTotals);
+
+	
+
 	highlightDatesWhenFoodLoggedForDisplayedMonth(currentYear, currentMonth);
 
 
@@ -63,6 +102,18 @@
 		maxDate: new Date()
 	});
 
+	function getSelectedDateInSQLFormat() {
+	    var date = $("#datepicker").datepicker("getDate");
+	    $("#datepicker").datepicker("setDate", date);
+
+	    var dateUserFriendlyFormat = moment(date).format("DD/MM/YYYY");
+	    $("#dateValue").text(dateUserFriendlyFormat);
+	    var dateSQLFormat = moment(date).format("YYYY-MM-DD HH:mm:ss");
+	    return dateSQLFormat;
+	}
+
+	var dateSQLFormat = getSelectedDateInSQLFormat();
+	getLoggedFoodsForDate(dateSQLFormat);
 
 	//Toggle datepicker
 	$("#date").on("click", function () {
@@ -77,7 +128,7 @@
 
 		var dateUserFriendlyFormat = moment(date).format("DD/MM/YYYY");
 		$("#dateValue").text(dateUserFriendlyFormat);
-		var dateSQLFormat = moment(date).format("YYYY-MM-DD HH:mm:ss");
+	    var dateSQLFormat = moment(date).format("YYYY-MM-DD HH:mm:ss");
 		getLoggedFoodsForDate(dateSQLFormat);
 	});
 
@@ -99,6 +150,29 @@
 	});
 
 
+	function updateDailyTotals(dailyTotals) {
+
+	    $("#caloriesDailyTotals").text(Math.ceil(dailyTotals.Calories));
+
+	    if (dailyTotals.Carbs == 0 && dailyTotals.Protein == 0 && dailyTotals.Fat == 0) {
+	        var dataDailyTotals = {
+	            labels: ['No data'],
+	            series: [1]
+	        };
+
+	    } else {
+
+	        var dataDailyTotals = {
+	            labels: ['Protein', 'Fat', 'Carbs'],
+	            series: [dailyTotals.Protein, dailyTotals.Fat, dailyTotals.Carbs]
+	        };
+
+	    }
+	    var dailyTotalsChart = $("#dailyTotalsChart");
+	    dailyTotalsChart.get(0).__chartist__.update(dataDailyTotals);
+
+
+	};
 	//Highlight dates function
 	function highlightDatesWhenFoodLoggedForDisplayedMonth(year, month) {
 		$.ajax({
@@ -141,19 +215,48 @@
 
 				var loggedFoodTemplate = $("#loggedFoodTemplate").html();
 
+				var dailyTotals = {
+                    Calories: 0,
+                    Fat: 0,
+				    FatSat: 0,
+                    FatMono: 0,
+                    FatPoly: 0,
+				    Protein: 0,
+                    Carbs: 0,
+                    Sugar: 0,
+                    Fiber: 0,
+                    Cholesterol: 0,
+                    Sodium: 0
+				};
+
 				$.each(data.data, function (i, item) {
 
 					item.DateCreated = moment(item.DateCreated).format("YYYY-MM-DD HH:mm:ss");
-					$("#loggedFoodsContainer").prepend(Mustache.render(loggedFoodTemplate, item));              
+					$("#loggedFoodsContainer").prepend(Mustache.render(loggedFoodTemplate, item));
+
+					dailyTotals.Calories = dailyTotals.Calories + item.Calories;
+					dailyTotals.Fat = dailyTotals.Fat + item.FatGr;
+					dailyTotals.FatSat = dailyTotals.FatSat + item.FatSatGr;
+					dailyTotals.FatMono = dailyTotals.FatMono + item.FatMonoGr;
+					dailyTotals.FatPoly = dailyTotals.FatPoly + item.FatPolyGr;
+					dailyTotals.Protein = dailyTotals.Protein + item.ProteinGr;
+					dailyTotals.Carbs = dailyTotals.Carbs + item.CarbsGr;
+					dailyTotals.Sugar = dailyTotals.Sugar + item.SugarGr;
+					dailyTotals.FIber = dailyTotals.Fiber + item.FiberGr;
+					dailyTotals.Cholesterol = dailyTotals.Cholesterol + item.CholesterolMg;
+					dailyTotals.Sodium = dailyTotals.Sodium + item.SodiumMg;
 				});
 
-				hideNothingHereMessageIfLoggedFoods();				
+				updateDailyTotals(dailyTotals);
+
+				hideNothingHereMessageIfLoggedFoods();
 			},
 			error: function () {
 				alert("Couldn't get logged foods for selected date.");
 			},
 		});
 	}
+
 
 	//Get list of foods based on user search
 	$("#foodSearchBox").on("input", function () {
@@ -261,9 +364,6 @@
 			}
 		}
 	});
-
-
-
 
 	//open editLoggedFood and retrieve logged food
 	$("#loggedFoodsContainer").on("click", ".loggedFoodCompact", function () {
@@ -400,7 +500,6 @@
 		});
 	});
 
-
 	//close current open logFood or editLoggedFood div
 	$("#loggedFoodsContainer").on("click", ".cancelBtn", function () {
 
@@ -410,7 +509,6 @@
 
 		hideNothingHereMessageIfLoggedFoods();
 	});
-
 
 	//delete logged food
 	$("#loggedFoodsContainer").on("click", ".deleteBtn", function () {
@@ -437,162 +535,46 @@
 
 	});
 
-//-----------------STATS-TAB----------------------------------------------------------------------------------//
 
 
-$("#statsTab").on("click", function(e){
 
-	e.preventDefault();
-	$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
 
-});
 
-//-----------------FRIENDS-TAB--------------------------------------------------------------------------------//
+
+
+
+	//-----------------STATS-TAB----------------------------------------------------------------------------------//
+
+
+	$("#statsTab").on("click", function(e){
+
+		e.preventDefault();
+		$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
+
+	});
+
+	//-----------------FRIENDS-TAB--------------------------------------------------------------------------------//
 
 	
-$("#friendsTab").on("click", function (e) {
+	$("#friendsTab").on("click", function (e) {
 
-	e.preventDefault();
-	$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
+		e.preventDefault();
+		$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
+
+	});
+
+	//-----------------PROFILE-TAB-------------------------------------------------------------------------------//
+
+
+	$("#profileTab").on("click", function (e) {
+
+		e.preventDefault();
+		$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
+
+	});
+
+
 
 });
-
-//-----------------PROFILE-TAB-------------------------------------------------------------------------------//
-
-
-$("#profileTab").on("click", function (e) {
-
-	e.preventDefault();
-	$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
-
-});
-
-
-
-//-------------------FOODS-----------------------------------------------------------------------------------//
-
-	//Retrives template for adding or removing units
-$("#addUnit").on("click", function () {
-            
-    var unitsArray = []; //array of units that user has added - for  display in table
-
-    $("#userFoodUnit option").each(function () {
-            var optionName =  $(this).val();
-           
-            if (optionName !== "gr" && optionName !== "oz") {
-
-                var optionId = $(this).attr('id');
-                var unitId = optionId.substring(6, 20);
-                var optionGramWeight = $(this).data("gramweight");
-
-                var unit = {
-                    Id: unitId,
-                    Name: optionName,
-                    GramWeight: optionGramWeight
-                };
-                unitsArray.push(unit);
-            }              
-     });
-
-		$("#addFoodUnit").remove();
-		var addFoodUnitTemplate = $('#addFoodUnitTemplate').html();
-		$("#addUnitContainer").html(Mustache.render(addFoodUnitTemplate, {unitsArray:unitsArray}));
-
-	});
-
-
-	function addFoodUnitsToArray() {
-
-		var foodUnitArray = [];
-
-		$("#userFoodUnit option").each(function () {
-
-			var gramWeight = $(this).attr("data-gramweight");
-			var name = $(this).val();
-
-			var foodUnit = {
-				Name: name,
-				GramWeight: gramWeight
-			}
-			foodUnitArray.push(foodUnit);
-		});
-		$("#foodUnits").val(JSON.stringify(foodUnitArray));
-	};
-
-
-	//continue to step 2 of form
-	$("#continueBtn").on("click", function (e) {        
-		e.preventDefault();
-		var foodName = $("#userFoodName").val();
-
-		if (foodName !== null && foodName !== "") {
-		    var amount = $("#userFoodAmount").val();
-		    var gramWeight = $("#userFoodUnit").find(":selected").data('gramweight');
-		    var gramsTotal = gramWeight * amount;
-		    $("#gramsTotal").val(gramsTotal);
-
-		    addFoodUnitsToArray();
-
-		    var selectedFoodUnit = $("#userFoodUnit option:selected").val();
-
-		    $("#createFoodStepNum").text("2");
-		    $("#createFoodPerAmount").html("<strong>" + amount + " x " + selectedFoodUnit + " or " + gramsTotal + " grams.</strong>");
-
-		    $("#createFoodStep1").hide();
-		    $("#createFoodStep2").show();
-		} else {
-            $(".validationMsg").remove();
-		    $("#userFoodName").before("<p class='validationMsg'>* Food name cannot be empty</p>");
-		}
-
-
-	});
-
-
-	//cancel form submit and return to default foods/index state
-	$(".userFoodForm").on("click", "#cancelBtnCreateFood", function (e) {
-		e.preventDefault();
-		location.reload();
-	});
-		
-
-	//Add new unit
-	$("#addUnitContainer").on("click", "#addUnitBtn", function () {
-
-
-	    var unitId = Math.random().toString(36).substr(2, 10);
-		var gramWeight = $("#weightInGramsAddUnit").val();
-		var name = $("#nameAddUnit").val();
-
-	    $("#addUnitTable").append("<tr><td><input type='checkbox' name='checkboxUnit' id='" + unitId + "'></td><td id='nameUnit'>" + name + "</td><td id='weightInGramsUnit'>" + gramWeight + " g</td></tr>");
-		$("#userFoodUnit").append('<option value="' + name + '" id="option'+unitId+'" data-gramweight="' + gramWeight + '" selected>' + name + '</option>');
-		$("#userFoodAmount").val(1);
-
-	});
-
-    //close the addunit div
-	$("#addUnitContainer").on("click", "#closeBtnAddUnit", function () {
-		$("#addUnitContainer").empty();
-	});
-
-    //delete selected units
-	$("#addUnitContainer").on("click", "#deleteUnitBtn", function () {
-	    $('[name="checkboxUnit"]:checked').each(function () {
-            
-	        var checkBoxId = $(this).attr('id');
-
-	        $("#" + checkBoxId).parent().parent().remove();
-	        $("#option" + checkBoxId).remove();
-	    });
-
-	});
-
-
-
-
-
-}); 
-
-
 
 
