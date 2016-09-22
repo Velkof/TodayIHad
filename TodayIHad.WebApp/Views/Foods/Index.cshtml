@@ -24,7 +24,7 @@
                 <div class="row form-group">
                     <div class="col-xs-12">
                         <label>Food Name</label>
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @autofocus = "autofocus", @id = "userFoodName" } })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @id = "userFoodName" } })
                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                     </div>
                 </div>

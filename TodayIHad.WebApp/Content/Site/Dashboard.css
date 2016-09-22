@@ -276,15 +276,15 @@ textarea {
 }
 
 #dailyTotalsAndScoreContainer{
-    margin: 20px 0px 30px 0px;
-    /*border: 1px dashed green;*/
+    margin: 15px 0px 20px 0px;
+    padding-left:0px;
+    padding-right:0px;    
 }
 
 .ct-label {
     font-size: 1.5em;
     font-weight: bold;
     stroke-width: 0px;
-    /*stroke: black;*/
     fill: #747070;
 }
 
@@ -296,20 +296,53 @@ textarea {
        fill: #f87355;     
 }
 
-#scoreInfoDiv, #dailyInfoDiv, #dailyTotalsChart {
+#dailyInfoDiv, #dailyTotalsChart {
     min-height: 200px;
     /*border: 1px dashed red;*/
 }
 
 
-
 #calsDailyInfo{
-    font-size: 2.9em;
+    font-size: 2.7em;
     color:#747070;
     font-weight: 700;
     text-align: center;
+    padding-right: 0px;
+    padding-left: 0px;
 }
 
+#dailyTotalsReportContainer{
+    /*border: 1px solid #F0F0F0;*/
+    text-align: center;
+    color:#747070;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+#dailyTotalsTable{
+    display: none;   
+}
+
+.macroRatiosTable{
+    font-weight: bold;
+    width: 50%;
+    margin: 0 auto;
+    padding: 0px;
+}
+
+
+#fullDailyReportTable{
+    margin: 0 auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    clear: right;
+    width: 70%;
+}
+
+#scoreInfoDiv {
+    padding: 10px 0px 0px 0px;
+    text-align: center;
+}
 
 #foodEditDiv {
     border: 1px solid red;
@@ -432,7 +465,7 @@ textarea {
     width: 80%;
 }
 
-#infoTableLogFood td {
+#infoTableLogFood td, #fullDailyReportTable td {
     border-top: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
     padding: .2em 1em .2em 0em;
@@ -480,7 +513,6 @@ textarea {
 #sidebarContainer {
     padding: 0px 3px 10px 3px;
     overflow: hidden;
-    margin-bottom: 20px;
 }
 
 #calendarContainer, #dateBrowser {
@@ -583,9 +615,6 @@ footer {
         display: none;
     }
 
-    /*.navElementVisibleOnlyOnMobile {
-        display: inline-block !important;
-    }*/
 
     #userNameInNavMobile{
         color: yellow;
@@ -594,6 +623,13 @@ footer {
         width: 100%;
         background-color: #3AA637;
 
+    }
+
+    #fullDailyReportTable{      
+        width: 90%;
+    }
+    .macroRatiosTable {
+        width: 65%;
     }
 
     .NameCompact {
@@ -626,10 +662,6 @@ footer {
 
     #nothingHere {
         font-size: 2em;
-    }
-
-    #scoreInfoDiv {
-        display: none;
     }
 
 }

@@ -1,5 +1,12 @@
 ﻿$(document).ready(function () {
 
+	var score = 0;
+	for (var i = 0; i < 55; i++) {
+		score = score + i * 5 + i * 10;
+	}
+
+	alert(score);
+
 	var selectedDates = [];
 
 	$("#tabs").tabs();
@@ -12,47 +19,50 @@
 	$("#dateValue").text(currentDate);
 
 
+	var currentDateMMMMDYYYY = moment(new Date()).format("MMMM D, YYYY");
+	$(".dateFullDailyReport").text(currentDateMMMMDYYYY);
+
 	var dataDailyTotals = {
-	    labels: ['No data'],
-	    series: [1]
+		labels: [' '],
+		series: [1]
 	};
 
 	var optionsDailyTotals = {
-	    labelInterpolationFnc: function (value) {
-	        return value.slice(0, 7);
-	    },
+		labelInterpolationFnc: function (value) {
+			return value.slice(0, 7);
+		},
 	};
 
 
-    var responsiveOptionsDailyTotals = [
-      ['screen and (min-width: 1px)', {
-          labelDirection: 'explode',
-          labelInterpolationFnc: function (value) {
-              return value;
-          }
-      }],
-      ['screen and (min-width: 300px)', {
-          labelOffset: 0,
-          chartPadding: 20
-      }],
-      ['screen and (min-width: 476px)', {
-          labelOffset: 35,
-          chartPadding: 20
-      }],
-      ['screen and (min-width: 640px)', {
-          chartPadding: 25,
-          labelOffset: 75,
+	var responsiveOptionsDailyTotals = [
+	  ['screen and (min-width: 1px)', {
+		  labelDirection: 'explode',
+		  labelInterpolationFnc: function (value) {
+			  return value;
+		  }
+	  }],
+	  ['screen and (min-width: 300px)', {
+		  labelOffset: 0,
+		  chartPadding: 20
+	  }],
+	  ['screen and (min-width: 476px)', {
+		  labelOffset: 35,
+		  chartPadding: 20
+	  }],
+	  ['screen and (min-width: 640px)', {
+		  chartPadding: 25,
+		  labelOffset: 75,
 
-      }],
-      ['screen and (min-width: 768px)', {
-          labelOffset: 45,
-          chartPadding: 20
-      }],
-      ['screen and (min-width: 1024px)', {
-          labelOffset: 70,
-          chartPadding: 25
-      }]
-    ];
+	  }],
+	  ['screen and (min-width: 768px)', {
+		  labelOffset: 45,
+		  chartPadding: 20
+	  }],
+	  ['screen and (min-width: 1024px)', {
+		  labelOffset: 70,
+		  chartPadding: 25
+	  }]
+	];
 
 
 	new Chartist.Pie('#dailyTotalsChart', dataDailyTotals, optionsDailyTotals, responsiveOptionsDailyTotals);
@@ -92,6 +102,10 @@
 			var dateValue = moment(dateText).format("DD/MM/YYYY");
 			$("#dateValue").text(dateValue);
 
+
+			var dateMMMMDYYYY = moment(dateText).format("MMMM D, YYYY");
+			$(".dateFullDailyReport").text(dateMMMMDYYYY);
+
 		},
 		onChangeMonthYear: function(year, month) {
 
@@ -112,13 +126,18 @@
 	});
 
 	function getSelectedDateInSQLFormat() {
-	    var date = $("#datepicker").datepicker("getDate");
-	    $("#datepicker").datepicker("setDate", date);
+		var date = $("#datepicker").datepicker("getDate");
+		$("#datepicker").datepicker("setDate", date);
 
-	    var dateUserFriendlyFormat = moment(date).format("DD/MM/YYYY");
-	    $("#dateValue").text(dateUserFriendlyFormat);
-	    var dateSQLFormat = moment(date).format("YYYY-MM-DD HH:mm:ss");
-	    return dateSQLFormat;
+		var dateUserFriendlyFormat = moment(date).format("DD/MM/YYYY");
+		$("#dateValue").text(dateUserFriendlyFormat);
+
+		var dateMMMMDYYYY = moment(date).format("MMMM D, YYYY");
+		$(".dateFullDailyReport").text(dateMMMMDYYYY);
+
+
+		var dateSQLFormat = moment(date).format("YYYY-MM-DD HH:mm:ss");
+		return dateSQLFormat;
 	}
 
 	var dateSQLFormat = getSelectedDateInSQLFormat();
@@ -137,7 +156,11 @@
 
 		var dateUserFriendlyFormat = moment(date).format("DD/MM/YYYY");
 		$("#dateValue").text(dateUserFriendlyFormat);
-	    var dateSQLFormat = moment(date).format("YYYY-MM-DD HH:mm:ss");
+
+		var dateMMMMDYYYY = moment(date).format("MMMM D, YYYY");
+		$(".dateFullDailyReport").text(dateMMMMDYYYY);
+
+		var dateSQLFormat = moment(date).format("YYYY-MM-DD HH:mm:ss");
 		getLoggedFoodsForDate(dateSQLFormat);
 	});
 
@@ -153,6 +176,10 @@
 
 		var dateUserFriendlyFormat = moment(date).format("DD/MM/YYYY");
 		$("#dateValue").text(dateUserFriendlyFormat);
+
+		var dateMMMMDYYYY = moment(date).format("MMMM D, YYYY");
+		$(".dateFullDailyReport").text(dateMMMMDYYYY);
+
 		var dateSQLFormat = moment(date).format("YYYY-MM-DD HH:mm:ss");
 		getLoggedFoodsForDate(dateSQLFormat);
 
@@ -161,27 +188,39 @@
 
 	function updateDailyTotals(dailyTotals) {
 
-	    $("#caloriesDailyTotals").text(Math.ceil(dailyTotals.Calories));
+		$("#caloriesDailyTotals").text(Math.ceil(dailyTotals.Calories));
 
-	    if (dailyTotals.Carbs == 0 && dailyTotals.Protein == 0 && dailyTotals.Fat == 0) {
-	        var dataDailyTotals = {
-	            labels: ['Carbs', "Protein", "Fat"],
-	            series: [1, 98, 1]
-	        };
+		if (dailyTotals.Carbs == 0 && dailyTotals.Protein == 0 && dailyTotals.Fat == 0) {
+			var dataDailyTotals = {
+				labels: [' '],
+				series: [1]
+			};
+		} else {
 
-	    } else {
+			var dataDailyTotals = {
+				labels: ['Protein', 'Fat', 'Carbs'],
+				series: [dailyTotals.Protein, dailyTotals.Fat, dailyTotals.Carbs]
+			};
 
-	        var dataDailyTotals = {
-	            labels: ['Protein', 'Fat', 'Carbs'],
-	            series: [dailyTotals.Protein, dailyTotals.Fat, dailyTotals.Carbs]
-	        };
-
-	    }
-	    var dailyTotalsChart = $("#dailyTotalsChart");
-	    dailyTotalsChart.get(0).__chartist__.update(dataDailyTotals);
+		}
+		var dailyTotalsChart = $("#dailyTotalsChart");
+		dailyTotalsChart.get(0).__chartist__.update(dataDailyTotals);
 
 
 	};
+
+	$("#showDailyReport").on("click", function () {
+		
+		$("#dailyTotalsTable").show();
+		$("#showDailyReport").hide();
+	   
+	});
+	$("#hideDailyReport").on("click", function () {
+		$("#dailyTotalsTable").hide();
+		$("#showDailyReport").show();
+	});
+
+
 	//Highlight dates function
 	function highlightDatesWhenFoodLoggedForDisplayedMonth(year, month) {
 		$.ajax({
@@ -225,17 +264,17 @@
 				var loggedFoodTemplate = $("#loggedFoodTemplate").html();
 
 				var dailyTotals = {
-                    Calories: 0,
-                    Fat: 0,
-				    FatSat: 0,
-                    FatMono: 0,
-                    FatPoly: 0,
-				    Protein: 0,
-                    Carbs: 0,
-                    Sugar: 0,
-                    Fiber: 0,
-                    Cholesterol: 0,
-                    Sodium: 0
+					Calories: 0,
+					Fat: 0,
+					FatSat: 0,
+					FatMono: 0,
+					FatPoly: 0,
+					Protein: 0,
+					Carbs: 0,
+					Sugar: 0,
+					Fiber: 0,
+					Cholesterol: 0,
+					Sodium: 0
 				};
 
 				$.each(data.data, function (i, item) {
@@ -258,14 +297,51 @@
 
 				updateDailyTotals(dailyTotals);
 
+
+
+				
+				for (var i in dailyTotals) {
+					dailyTotals[i] = Math.round(dailyTotals[i]);
+				};
+
+				$("#fullDailyReportTable").remove();
+				$("#macroRatiosTableDailyReport").remove();
+
+				var fullDailyReportTemplate = $("#fullDailyReportTemplate").html();
+
+				$("#dailyTotalsTable").prepend(Mustache.render(fullDailyReportTemplate, dailyTotals));
+
+
+				var percentages = calculatePercentages(dailyTotals.Carbs, dailyTotals.Protein, dailyTotals.Fat);
+
+				$("#carbsRatioDailyReport").text("C: " + percentages.Carbs + "%");
+				$("#proteinRatioDailyReport").text("P: " + percentages.Protein + "%");
+				$("#fatRatioDailyReport").text("F: " + percentages.Fat + "%");
+
 				hideNothingHereMessageIfLoggedFoods();
 			},
 			error: function () {
-				alert("Couldn't get logged foods for selected date.");
+				
 			},
 		});
 	}
 
+	function calculatePercentages(carbs, protein, fat) {
+
+
+		var totalCalories = carbs * 4 + fat * 8.8 + protein * 4;
+
+		var carbsPercentage = Math.round(carbs * 4 / totalCalories * 100 * 10) / 10;
+		var proteinPercentage = Math.round(protein * 4 / totalCalories * 100 * 10) / 10;
+		var fatPercentage = Math.round(fat * 8.8 / totalCalories * 100 * 10) / 10;
+
+		var percentages = {
+			Carbs: carbsPercentage,
+			Protein: proteinPercentage,
+			Fat: fatPercentage
+		}
+		return percentages;
+	};
 
 	//Get list of foods based on user search
 	$("#foodSearchBox").on("input", function () {
@@ -336,6 +412,11 @@
 
 				var calories = $("#unitsLogFood option:selected").val()
 							   * $("#quantityLogFood").val() * data[i].food.CaloriesKcal / 100;
+
+
+				$('html,body').animate({
+					scrollTop: $("#loggedFoodsContainer").offset().top - 65
+				},'slow');
 
 			},
 			error: function () {
@@ -500,6 +581,8 @@
 				$(thisLogFoodDiv).prev(".loggedFoodCompact").remove();
 				$("#btnContainerLogFood").empty();
 				$(thisLogFoodDiv).hide();
+				var dateSQLFormat = getSelectedDateInSQLFormat();
+				getLoggedFoodsForDate(dateSQLFormat);
 				hideNothingHereMessageIfLoggedFoods();
 				getYearMonthAndCallHighlightFunc();
 			},
@@ -533,6 +616,9 @@
 				$(editFoodDiv).prev(".loggedFoodCompact").remove();
 				$(editFoodDiv).remove();
 
+				var dateSQLFormat = getSelectedDateInSQLFormat();
+				getLoggedFoodsForDate(dateSQLFormat);
+				
 				hideNothingHereMessageIfLoggedFoods();
 				getYearMonthAndCallHighlightFunc();
 
@@ -562,10 +648,10 @@
 
 	});
 
-	//-----------------FRIENDS-TAB--------------------------------------------------------------------------------//
+	//-----------------Scores-TAB--------------------------------------------------------------------------------//
 
 	
-	$("#friendsTab").on("click", function (e) {
+	$("#scoresTab").on("click", function (e) {
 
 		e.preventDefault();
 		$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");

@@ -8,7 +8,7 @@
 <div id="searchContainer">
     <div id="foodSearchBoxContainer" class="input-group">
         <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-search"></span></span>
-        <input type="text" class="form-control" id="foodSearchBox" placeholder="Search for food..." autocomplete="off" name="SearchFoodString" />
+        <input type="text" class="form-control" id="foodSearchBox" name="SearchFoodString" placeholder="Search for food..." autocomplete="off" />
     </div>
     <div id="foodSearchResultsContainer">
         <ul id="foodSearchUL"></ul>
@@ -18,15 +18,34 @@
 
 <div id="dailyTotalsAndScoreContainer" class="col-xs-12 row">
     <div id="dailyInfoDiv" class="col-xs-12 col-sm-7 ">
-        <div id="dailyTotalsChart" class="ct-chart ct-minor-sixth col-xs-12"></div>
+        <div id="dailyTotalsChart" class="ct-chart ct-major-sixth col-xs-12"></div>
 
 
         <div id="calsDailyInfo" class="col-xs-12">
             <span id="caloriesDailyTotals">0</span>
-             calories
+            calories
+        </div>
+        <div id="dailyTotalsReportContainer" class="col-xs-12">
+            <div id="dailyTotalsTable">
+                <div id="hideDailyReport">
+                    Close report for <span class="dateFullDailyReport"></span> <span class="glyphicon glyphicon-chevron-up"></span>
+                </div>
+            </div>
+            <div id="showDailyReport">
+                Full report for <span class="dateFullDailyReport"></span> <span class="glyphicon glyphicon-chevron-down"></span>
+            </div>
         </div>
     </div>
-    <div id="scoreInfoDiv" class="col-sm-5"></div>
+    <div id="scoreInfoDiv" class="col-xs-12 col-sm-5">
+        <div id="scoreInfoCollapsed">
+            <div>Score: 22140 | Level: 9/15 |  Rank: <a href="#">2/6</a></div>
+            <div> Streak: 5 days  | Active: 288 days </div>
+        </div>
+        <div id="scoreInfoFull">
+
+        </div>
+
+    </div>
 </div>
 
 
@@ -34,7 +53,7 @@
     <ul>
         <li id="foodLogTab"><a href="#tabs-1">Food Log</a></li>
         <li id="statsTab"><a href="#tabs-2">Stats</a></li>
-        <li id="friendsTab"><a href="#tabs-3">Friends</a></li>
+        <li id="scoresTab"><a href="#tabs-3">Scores</a></li>
         <li id="profileTab"><a href="#tabs-4"><span class="glyphicon glyphicon-user"></span></a></li>
     </ul>
 
@@ -59,20 +78,20 @@
 
 
             @*@foreach (var item in Model.Where(x => x.DateCreated.Date == DateTime.Now.Date).OrderByDescending(x => x.Id))
-            {
-                <div class="loggedFoodCompact">
-                    <span class='hiddenFoodIdCompact' style='display:none;'>@item.FoodId</span>
-                    <span class='hiddenLoggedFoodIdCompact' style='display:none;'>@item.Id</span>
-                    <span class='hiddenDateCreatedCompact' style='display:none;'>@item.DateCreated </span>
-                    <span id='hiddenRowNumberCompact' style='display:none;'></span>
-                    <div class="loggedFoodNameCompact">@item.Name	</div>
-                    <div class="loggedFoodInfoCompact">
-                        Calories: <span class="loggedFoodCaloriesCompact">@item.Calories</span>
-                        | Quantity: <span class="loggedFoodQuantityCompact">@item.Amount</span>
-                        | Unit: <span class="loggedFoodUnitCompact">@item.Unit</span>
+                {
+                    <div class="loggedFoodCompact">
+                        <span class='hiddenFoodIdCompact' style='display:none;'>@item.FoodId</span>
+                        <span class='hiddenLoggedFoodIdCompact' style='display:none;'>@item.Id</span>
+                        <span class='hiddenDateCreatedCompact' style='display:none;'>@item.DateCreated </span>
+                        <span id='hiddenRowNumberCompact' style='display:none;'></span>
+                        <div class="loggedFoodNameCompact">@item.Name	</div>
+                        <div class="loggedFoodInfoCompact">
+                            Calories: <span class="loggedFoodCaloriesCompact">@item.Calories</span>
+                            | Quantity: <span class="loggedFoodQuantityCompact">@item.Amount</span>
+                            | Unit: <span class="loggedFoodUnitCompact">@item.Unit</span>
+                        </div>
                     </div>
-                </div>
-            }*@
+                }*@
 
 
 
@@ -85,7 +104,15 @@
     <div id="tabs-2">
         Stats will be here...
     </div>
-    <div id="tabs-3">Friends leaderboards...Compare points and streaks with friends</div>
+    <div id="tabs-3">
+        scores and leaderboards...
+
+        Score = Streak * 10 + Active days * 5.
+
+        For example, if you have a 5 day streak and have been active on the site (added at least one food) for 60 days,
+        you'll get 50 (5 * 10) points for the streak and 300 (60 * 5) points for the active days, or 350 days in total for that day.
+        These will then be added to your previous score. 
+    </div>
     <div id="tabs-4">
         Profile...(adjust weight and other measurements)
     </div>
@@ -255,3 +282,49 @@
 
 </script>
 
+
+<script id="fullDailyReportTemplate" type="text/mustachetemplates">
+
+
+    <table id="macroRatiosTableDailyReport" class="macroRatiosTable">
+        <tr>
+            <td id="carbsRatioDailyReport" class="carbsRatio"></td>
+            <td id="proteinRatioDailyReport" class="proteinRatio"></td>
+            <td id="fatRatioDailyReport" class="fatRatio"></td>
+        </tr>
+    </table>
+
+    <table id="fullDailyReportTable">
+        <tr>
+            <td class="labelPrimLogFoodInfo">Fat: </td>
+            <td class="valuesInfoTable">{{Fat}} g &nbsp;</td>
+            <td class="labelPrimLogFoodInfo"> Prot: </td>
+            <td class="valuesInfoTable">{{Protein}} g &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="labelSecLogFoodInfo">Sat. </td>
+            <td class="valuesInfoTable">{{FatSat}} g &nbsp;</td>
+            <td class="labelPrimLogFoodInfo"> Carb: </td>
+            <td class="valuesInfoTable">{{Carbs}} g &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="labelSecLogFoodInfo">Mono. </td>
+            <td class="valuesInfoTable">{{FatMono}} g &nbsp;</td>
+            <td class="labelSecLogFoodInfo">Fiber: </td>
+            <td class="valuesInfoTable">{{Fiber}} g &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="labelSecLogFoodInfo">Poly.</td>
+            <td class="valuesInfoTable">{{FatPoly}} g &nbsp;</td>
+            <td class="labelSecLogFoodInfo">Sugar:</td>
+            <td class="valuesInfoTable">{{Sugar}} g &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="labelPrimLogFoodInfo">Choles:</td>
+            <td class="valuesInfoTable">{{Cholesterol}} mg</td>
+            <td class="labelPrimLogFoodInfo">Sodium:</td>
+            <td class="valuesInfoTable">{{Sodium}} mg</td>
+        </tr>
+    </table>
+
+</script>
