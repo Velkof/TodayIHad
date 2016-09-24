@@ -124,6 +124,18 @@
     <Compile Include="Migrations\201609132156509_float to double.Designer.cs">
       <DependentUpon>201609132156509_float to double.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609222215094_NewUserProperties.cs" />
+    <Compile Include="Migrations\201609222215094_NewUserProperties.Designer.cs">
+      <DependentUpon>201609222215094_NewUserProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609222220411_AddScoreLastUpdatedUserProperty.cs" />
+    <Compile Include="Migrations\201609222220411_AddScoreLastUpdatedUserProperty.Designer.cs">
+      <DependentUpon>201609222220411_AddScoreLastUpdatedUserProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609242045423_AddUserScoreEntity.cs" />
+    <Compile Include="Migrations\201609242045423_AddUserScoreEntity.Designer.cs">
+      <DependentUpon>201609242045423_AddUserScoreEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\LoggedFoodRepository.cs" />
@@ -194,6 +206,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609132156509_float to double.resx">
       <DependentUpon>201609132156509_float to double.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609222215094_NewUserProperties.resx">
+      <DependentUpon>201609222215094_NewUserProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609222220411_AddScoreLastUpdatedUserProperty.resx">
+      <DependentUpon>201609222220411_AddScoreLastUpdatedUserProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609242045423_AddUserScoreEntity.resx">
+      <DependentUpon>201609242045423_AddUserScoreEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

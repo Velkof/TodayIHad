@@ -5,7 +5,6 @@
 		score = score + i * 5 + i * 10;
 	}
 
-	alert(score);
 
 	var selectedDates = [];
 
@@ -585,6 +584,9 @@
 				getLoggedFoodsForDate(dateSQLFormat);
 				hideNothingHereMessageIfLoggedFoods();
 				getYearMonthAndCallHighlightFunc();
+
+				updateUserScoreInfo();
+
 			},
 			error: function () {
 				alert("food not logged or updated");
@@ -632,7 +634,18 @@
 
 
 
+	function updateUserScoreInfo() {
 
+		$.ajax({
+			type: "POST",
+			url: "Dashboard/GetUserScoreInfo",
+			success:function(data) {
+			},
+            error: function(){
+            }
+		});
+
+	};
 
 
 

@@ -9,8 +9,8 @@ namespace TodayIHad.Domain.Entities
 {
     public class User : IdentityUser
     {
-        public virtual DateTime DateCreated { get; set; }
-        public virtual bool IsActive { get; set; }
+        public DateTime DateCreated { get; set; }
+        public bool IsActive { get; set; }
 
         public virtual ICollection<LoggedFood> LoggedFoods { get; set; }
 

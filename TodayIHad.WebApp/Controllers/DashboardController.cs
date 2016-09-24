@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 using TodayIHad.Domain.Entities;
@@ -15,6 +16,7 @@ namespace TodayIHad.WebApp.Controllers
         private IFoodRepository _foodRepository = new FoodRepository();
         private IFoodUnitRepository _foodUnitRepository = new FoodUnitRepository();
         private ILoggedFoodRepository _loggedFoodRepository = new LoggedFoodRepository();
+        private IUserRepository _userRepository = new UserRepository();
 
         // GET: Dashboard
         public ActionResult Index() //List logged foods for current user
@@ -189,7 +191,25 @@ namespace TodayIHad.WebApp.Controllers
 
         }
 
+        [HttpPost]
+        public JsonResult GetUserScoreInfo()
+        {
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+            var user  = _userRepository.GetById(userId);
+
+            if (ModelState.IsValid && user != null)
+            {
+                return Json(new { data = user });
+
+            }
+
+            return Json(new { error = true });
+        }
+
         
+
+
 
     }
 }

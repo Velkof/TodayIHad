@@ -13,6 +13,7 @@ using Database = TodayIHad.Repositories.Database;
 
 namespace TodayIHad.WebApp.Controllers
 {
+    [Authorize]
     public class FoodsController : Controller
     {
         private Database db = new Database();
