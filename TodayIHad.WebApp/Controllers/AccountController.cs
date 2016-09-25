@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TodayIHad.Domain.Entities;
+using TodayIHad.Domain.Interfaces;
+using TodayIHad.Repositories;
 using TodayIHad.WebApp.Models;
 
 namespace TodayIHad.WebApp.Controllers
@@ -16,6 +18,9 @@ namespace TodayIHad.WebApp.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+
+        private IUserScoreRepository _userScoreRepository = new UserScoreRepository();
+
 
         public AccountController()
         {
@@ -155,12 +160,17 @@ namespace TodayIHad.WebApp.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+
+                    var userScore = new UserScore();
+                    userScore.UserId = user.Id;
+                    _userScoreRepository.Create(userScore);
 
                     return RedirectToAction("Index", "Home");
                 }

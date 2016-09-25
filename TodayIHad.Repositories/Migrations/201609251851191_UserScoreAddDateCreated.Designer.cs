@@ -7,13 +7,13 @@ namespace TodayIHad.Repositories.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddUserScoreEntity : IMigrationMetadata
+    public sealed partial class UserScoreAddDateCreated : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddUserScoreEntity));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UserScoreAddDateCreated));
         
         string IMigrationMetadata.Id
         {
-            get { return "201609242045423_AddUserScoreEntity"; }
+            get { return "201609251851191_UserScoreAddDateCreated"; }
         }
         
         string IMigrationMetadata.Source

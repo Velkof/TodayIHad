@@ -61,6 +61,7 @@
     <Compile Include="IFoodRepository.cs" />
     <Compile Include="IFoodUnitRepository.cs" />
     <Compile Include="IUserRepository.cs" />
+    <Compile Include="IUserScoreRepository.cs" />
     <Compile Include="IUsersToFoodRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

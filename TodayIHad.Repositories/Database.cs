@@ -16,5 +16,6 @@ namespace TodayIHad.Repositories
         public DbSet<LoggedFood> LoggedFoods { get; set; }
         public DbSet<UsersToFood> UsersToFoods { get; set; }
         public DbSet<FoodUnit> FoodUnits { get; set; }
+        public DbSet<UserScore> UserScores { get; set; }
     }
 }

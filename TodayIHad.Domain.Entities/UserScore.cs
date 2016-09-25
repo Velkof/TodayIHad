@@ -10,6 +10,9 @@ namespace TodayIHad.Domain.Entities
         public int Streak { get; set; }
         public int ActiveDays { get; set; }
         public int Rank { get; set; }
-        public DateTime ScoreLastUpdated { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateUpdated { get; set; }
+
+        public virtual string UserId { get; set; }
     }
 }

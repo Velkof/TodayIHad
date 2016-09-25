@@ -1,10 +1,5 @@
 ﻿$(document).ready(function () {
 
-	var score = 0;
-	for (var i = 0; i < 55; i++) {
-		score = score + i * 5 + i * 10;
-	}
-
 
 	var selectedDates = [];
 
@@ -17,6 +12,7 @@
 
 	$("#dateValue").text(currentDate);
 
+	getUserScoreInfo();
 
 	var currentDateMMMMDYYYY = moment(new Date()).format("MMMM D, YYYY");
 	$(".dateFullDailyReport").text(currentDateMMMMDYYYY);
@@ -633,16 +629,40 @@
 	});
 
 
+	function getUserScoreInfo() {
+
+	    $.ajax({
+	        type: "POST",
+	        url: "Dashboard/GetUserScoreInfo",
+	        success: function (data) {
+
+	            $(".scoreValue").text(data.data.Score);
+	            $(".streakValue").text(data.data.Streak);
+	            $(".activeValue").text(data.data.Active);
+	            $(".levelValue").text(data.data.Level);
+
+	        },
+	        error: function () {
+	        }
+	    });
+
+	};
 
 	function updateUserScoreInfo() {
 
 		$.ajax({
 			type: "POST",
-			url: "Dashboard/GetUserScoreInfo",
-			success:function(data) {
+			url: "Dashboard/UpdateUserScoreInfo",
+			success: function (data) {
+
+				$(".scoreValue").text(data.data.Score);
+				$(".streakValue").text(data.data.Streak);
+				$(".activeValue").text(data.data.Active);
+				$(".levelValue").text(data.data.Level);
+
 			},
-            error: function(){
-            }
+			error: function(){
+			}
 		});
 
 	};

@@ -132,9 +132,13 @@
     <Compile Include="Migrations\201609222220411_AddScoreLastUpdatedUserProperty.Designer.cs">
       <DependentUpon>201609222220411_AddScoreLastUpdatedUserProperty.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609242045423_AddUserScoreEntity.cs" />
-    <Compile Include="Migrations\201609242045423_AddUserScoreEntity.Designer.cs">
-      <DependentUpon>201609242045423_AddUserScoreEntity.cs</DependentUpon>
+    <Compile Include="Migrations\201609242101134_AddUserScoreEntityFixed.cs" />
+    <Compile Include="Migrations\201609242101134_AddUserScoreEntityFixed.Designer.cs">
+      <DependentUpon>201609242101134_AddUserScoreEntityFixed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609251851191_UserScoreAddDateCreated.cs" />
+    <Compile Include="Migrations\201609251851191_UserScoreAddDateCreated.Designer.cs">
+      <DependentUpon>201609251851191_UserScoreAddDateCreated.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -143,6 +147,7 @@
     <Compile Include="Repositories\FoodUnitRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Repositories\UsersToFoodRepository.cs" />
+    <Compile Include="Repositories\UserScoreRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -213,8 +218,11 @@
     <EmbeddedResource Include="Migrations\201609222220411_AddScoreLastUpdatedUserProperty.resx">
       <DependentUpon>201609222220411_AddScoreLastUpdatedUserProperty.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609242045423_AddUserScoreEntity.resx">
-      <DependentUpon>201609242045423_AddUserScoreEntity.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609242101134_AddUserScoreEntityFixed.resx">
+      <DependentUpon>201609242101134_AddUserScoreEntityFixed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609251851191_UserScoreAddDateCreated.resx">
+      <DependentUpon>201609251851191_UserScoreAddDateCreated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

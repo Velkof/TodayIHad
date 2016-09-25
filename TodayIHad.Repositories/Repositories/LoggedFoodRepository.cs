@@ -14,10 +14,6 @@ namespace TodayIHad.Repositories.Repositories
         public bool Create(LoggedFood loggedFood)
         {
             loggedFood.UserId = HttpContext.Current.User.Identity.GetUserId();
-            //loggedFood.DateCreated = DateTime.Now;
-            //loggedFood.DateUpdated = DateTime.Now;
-
-
             db.LoggedFoods.Add(loggedFood);
             db.SaveChanges();
 

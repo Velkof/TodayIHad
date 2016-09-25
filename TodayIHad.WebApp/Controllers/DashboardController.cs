@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Linq;
 using System.Web.Mvc;
 using TodayIHad.Domain.Entities;
@@ -17,6 +16,7 @@ namespace TodayIHad.WebApp.Controllers
         private IFoodUnitRepository _foodUnitRepository = new FoodUnitRepository();
         private ILoggedFoodRepository _loggedFoodRepository = new LoggedFoodRepository();
         private IUserRepository _userRepository = new UserRepository();
+        private IUserScoreRepository _userScoreRepository = new UserScoreRepository();
 
         // GET: Dashboard
         public ActionResult Index() //List logged foods for current user
@@ -194,20 +194,33 @@ namespace TodayIHad.WebApp.Controllers
         [HttpPost]
         public JsonResult GetUserScoreInfo()
         {
-            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var userScore = _userScoreRepository.GetForCurrentUser();
 
-            var user  = _userRepository.GetById(userId);
-
-            if (ModelState.IsValid && user != null)
+            if (userScore != null)
             {
-                return Json(new { data = user });
-
+                return Json(new { data = userScore });
             }
 
             return Json(new { error = true });
         }
 
-        
+        [HttpPost]
+        public JsonResult UpdateUserScoreInfo()
+        {
+            var userScore = _userScoreRepository.GetForCurrentUser();
+
+            if (userScore != null)
+            {
+                if (userScore.DateUpdated.Date != DateTime.Now.Date)
+                {
+                    _userScoreRepository.Update(userScore);
+                }
+                return Json(new { data = userScore });
+            }
+
+            return Json(new { error = true });
+        }
+
 
 
 
