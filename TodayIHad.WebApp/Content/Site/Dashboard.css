@@ -91,7 +91,16 @@ textarea {
 }
 
 
+.progress {
+    position: relative;
+}
 
+.progress span {
+    position: absolute;
+    display: block;
+    width: 100%;
+    color: black;
+ }
 
 #tabs-1 > table {
     border: 0px;
@@ -344,6 +353,26 @@ textarea {
     text-align: center;
 }
 
+#scoreInfoCollapsed{
+    display:none;
+}
+
+#scoreInfoFull {
+    margin-top: 10%;
+    font-size: 1.1em;
+    color: #747070;
+    text-align:left;
+}
+
+#scoreInfoFull div {
+    margin-bottom: 10px;
+}
+
+#scoreInfoFull > div > div.progress > div {
+    background-color: #a7d889;
+
+}
+
 #foodEditDiv {
     border: 1px solid red;
     position: fixed;
@@ -543,6 +572,7 @@ textarea {
     color:#3A8C37;
 }
 
+
 #dateCaret {
     float: right;
 }
@@ -632,8 +662,14 @@ footer {
         width: 65%;
     }
 
+    #scoreInfoCollapsed{
+        display:unset;
+    }
+    #scoreInfoFull{
+        display: none;
+    }
+
     .NameCompact {
-        /*color:green;*/
         padding-top: .3em;
         padding-left: 10px;
         font-size: 1.2em;

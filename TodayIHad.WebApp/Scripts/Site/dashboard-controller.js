@@ -2,6 +2,7 @@
 
 
 	var selectedDates = [];
+	getUserScoreInfo();
 
 	$("#tabs").tabs();
 	$("#tabs").css("display", "block");
@@ -12,7 +13,6 @@
 
 	$("#dateValue").text(currentDate);
 
-	getUserScoreInfo();
 
 	var currentDateMMMMDYYYY = moment(new Date()).format("MMMM D, YYYY");
 	$(".dateFullDailyReport").text(currentDateMMMMDYYYY);
@@ -635,14 +635,15 @@
 	        type: "POST",
 	        url: "Dashboard/GetUserScoreInfo",
 	        success: function (data) {
+	            var scoreCollapsedTemplate = $("#scoreCollapsedTemplate").html();
+	            var scoreFullTemplate = $("#scoreFullTemplate").html();
 
-	            $(".scoreValue").text(data.data.Score);
-	            $(".streakValue").text(data.data.Streak);
-	            $(".activeValue").text(data.data.Active);
-	            $(".levelValue").text(data.data.Level);
+	            $("#scoreInfoCollapsed").html(Mustache.render(scoreCollapsedTemplate, data.data));
+	            $("#scoreInfoFull").html(Mustache.render(scoreFullTemplate, data.data));
 
 	        },
 	        error: function () {
+	            alert("didn't get userscore info");
 	        }
 	    });
 
@@ -650,18 +651,23 @@
 
 	function updateUserScoreInfo() {
 
-		$.ajax({
-			type: "POST",
-			url: "Dashboard/UpdateUserScoreInfo",
-			success: function (data) {
+	    $.ajax({
+	        type: "POST",
+	        url: "Dashboard/UpdateUserScoreInfo",
+	        success: function (data) {
 
-				$(".scoreValue").text(data.data.Score);
-				$(".streakValue").text(data.data.Streak);
-				$(".activeValue").text(data.data.Active);
-				$(".levelValue").text(data.data.Level);
+	            $(".scoreValue").text(data.data.Score);
+	            $(".streakValue").text(data.data.Streak);
+	            $(".activeValue").text(data.data.ActiveDays);
+	            $(".levelValue").text(data.data.Level);
+
+	            $("#levelProgressBar").html("<span>" + data.data.ScoreToNextLevel + " pts to Level " + data.data.NextLevel + "</span>");
+				$("#levelProgressBar").attr('aria-valuenow', data.data.PercentOfLevel).css('width', data.data.PercentOfLevel + "%");
 
 			},
-			error: function(){
+	        error: function () {
+	            alert("didn't update userscore info");
+
 			}
 		});
 

@@ -38,10 +38,10 @@
     </div>
     <div id="scoreInfoDiv" class="col-xs-12 col-sm-5">
         <div id="scoreInfoCollapsed">
-            <div>Score: <span class="scoreValue"></span> | Level: <span class="levelValue"></span> /15 |  Rank: <a href="#">2/6</a></div>
-            <div> Streak: <span class="streakValue"></span>  days  | Active: <span class="activeValue"></span>  days </div>
+
         </div>
         <div id="scoreInfoFull">
+
 
         </div>
 
@@ -76,25 +76,6 @@
 
             <div id="nothingHere">You haven't added any food for this day.</div>
 
-
-            @*@foreach (var item in Model.Where(x => x.DateCreated.Date == DateTime.Now.Date).OrderByDescending(x => x.Id))
-                {
-                    <div class="loggedFoodCompact">
-                        <span class='hiddenFoodIdCompact' style='display:none;'>@item.FoodId</span>
-                        <span class='hiddenLoggedFoodIdCompact' style='display:none;'>@item.Id</span>
-                        <span class='hiddenDateCreatedCompact' style='display:none;'>@item.DateCreated </span>
-                        <span id='hiddenRowNumberCompact' style='display:none;'></span>
-                        <div class="loggedFoodNameCompact">@item.Name	</div>
-                        <div class="loggedFoodInfoCompact">
-                            Calories: <span class="loggedFoodCaloriesCompact">@item.Calories</span>
-                            | Quantity: <span class="loggedFoodQuantityCompact">@item.Amount</span>
-                            | Unit: <span class="loggedFoodUnitCompact">@item.Unit</span>
-                        </div>
-                    </div>
-                }*@
-
-
-
         </div>
 
 
@@ -111,7 +92,7 @@
 
         For example, if you have a 5 day streak and have been active on the site (added at least one food) for 60 days,
         you'll get 50 (5 * 10) points for the streak and 300 (60 * 5) points for the active days, or 350 days in total for that day.
-        These will then be added to your previous score. 
+        These will then be added to your previous score.
     </div>
     <div id="tabs-4">
         Profile...(adjust weight and other measurements)
@@ -119,6 +100,38 @@
 
 </div>
 
+<script id="scoreCollapsedTemplate" type="text/mustachetemplates">
+
+    <div>Score: <span class="scoreValue">{{Score}}</span> | Level: <span class="levelValue">{{Level}}</span> /15 |  Rank: <a href="#">2/6</a></div>
+    <div> Streak: <span class="streakValue">{{Streak}}</span>  days  | Active: <span class="activeValue">{{ActiveDays}}</span>  days </div>
+
+</script>
+
+
+<script id="scoreFullTemplate" type="text/mustachetemplates">
+    <div class="col-xs-8 col-xs-offset-2">
+
+        <div><strong>Streak:</strong> <span class="streakValue">{{Streak}}</span> days</div>
+        <div><strong>Active: </strong><span class="activeValue">{{ActiveDays}}</span> days</div>
+        <div><strong>Score: </strong><span class="scoreValue">{{Score}}</span></div>
+
+        @*<div><strong>Rank: </strong><span class="rankValue">1/4</span></div>*@
+        
+        <div><strong>Level: </strong><span class="levelValue">{{Level}}</span></div>
+
+
+
+
+        <div class="progress">
+            <span id="levelProgressBar" class="progress-bar progress-bar-success" role="progressbar"
+                 aria-valuenow="{{PercentOfLevel}}" aria-valuemin="0" aria-valuemax="100" style="width:{{PercentOfLevel}}%;">
+                <span>{{ScoreToNextLevel}} pts to Level {{NextLevel}}</span>
+            </span>
+        </div>
+
+    </div>
+
+</script>
 
 
 <script id="newLoggedFoodTemplate" type="text/mustachetemplates">

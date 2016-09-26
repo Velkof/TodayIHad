@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using TodayIHad.Domain.Entities;
 using TodayIHad.Domain.Interfaces;
 
@@ -19,9 +17,11 @@ namespace TodayIHad.Repositories
             userScore.ActiveDays = 1;
             userScore.Streak = 1;
             userScore.Level = 0;
+            userScore.NextLevel = 1;
             userScore.Score = 15;
             userScore.Rank = 1;
-
+            userScore.ScoreToNextLevel = 10;
+            userScore.PercentOfLevel = 60;
             db.UserScores.Add(userScore);
             db.SaveChanges();
             return true;
@@ -45,10 +45,8 @@ namespace TodayIHad.Repositories
             return db.UserScores.ToList();
         }
 
-        public UserScore GetForCurrentUser()
+        public UserScore GetForCurrentUser(string userId)
         {
-            var userId = HttpContext.Current.User.Identity.GetUserId();
-
             return GetAll().FirstOrDefault(x => x.UserId == userId);
         }
 
@@ -65,14 +63,20 @@ namespace TodayIHad.Repositories
             userScore.ActiveDays = userScore.ActiveDays + 1;
             userScore.Score = userScore.Score + userScore.Streak * 10 + userScore.ActiveDays * 5;
             userScore.Level = CalculateUserLevel(userScore.Score);
+            userScore.NextLevel = userScore.Level + 1;
             userScore.Rank = CalculateUserRank(userScore.Score);
+
+            var scoreForNextLevel = GetScoreForNextLevel(userScore.Level);
+
+            userScore.ScoreToNextLevel = scoreForNextLevel - userScore.Score;
+            userScore.PercentOfLevel = userScore.Score * 100 / scoreForNextLevel;
 
             db.SaveChanges();
 
             return true;
         }
 
-        public int CalculateUserLevel(int score)
+        private int CalculateUserLevel(int score)
         {
             if (score < 25)
                 return 0;
@@ -108,8 +112,71 @@ namespace TodayIHad.Repositories
                 return 15; 
         }
 
+        private int GetScoreForNextLevel(int currentLevel)
+        {
+            int nextLevel = currentLevel;
+            if(currentLevel < 15)
+            {
+               nextLevel = currentLevel + 1;
 
-        public int CalculateUserRank(int score)
+            }
+
+            int scoreForLevel = 0;
+
+            switch(nextLevel)
+            {
+                case 2:
+                    scoreForLevel = 50;
+                    break;
+                case 3:
+                    scoreForLevel = 100;
+                    break;
+                case 4:
+                    scoreForLevel = 250;
+                    break;
+                case 5:
+                    scoreForLevel = 500;
+                    break;
+                case 6:
+                    scoreForLevel = 1000;
+                    break;
+                case 7:
+                    scoreForLevel = 2500;
+                    break;
+                case 8:
+                    scoreForLevel = 5000;
+                    break;
+                case 9:
+                    scoreForLevel = 10000;
+                    break;
+                case 10:
+                    scoreForLevel = 25000;
+                    break;
+                case 11:
+                    scoreForLevel = 50000;
+                    break;
+                case 12:
+                    scoreForLevel = 100000;
+                    break;
+                case 13:
+                    scoreForLevel = 250000;
+                    break;
+                case 14:
+                    scoreForLevel = 500000;
+                    break;
+                case 15:
+                    scoreForLevel = 1000000;
+                    break;
+                default:
+                    break;
+            }
+
+            return scoreForLevel;
+
+        }
+
+
+        private int CalculateUserRank(int score)
         {
             return 1;
         }

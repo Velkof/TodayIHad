@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Linq;
 using System.Web.Mvc;
 using TodayIHad.Domain.Entities;
@@ -194,7 +195,10 @@ namespace TodayIHad.WebApp.Controllers
         [HttpPost]
         public JsonResult GetUserScoreInfo()
         {
-            var userScore = _userScoreRepository.GetForCurrentUser();
+            string userId = User.Identity.GetUserId();
+
+
+            var userScore = _userScoreRepository.GetForCurrentUser(userId);
 
             if (userScore != null)
             {
@@ -207,7 +211,9 @@ namespace TodayIHad.WebApp.Controllers
         [HttpPost]
         public JsonResult UpdateUserScoreInfo()
         {
-            var userScore = _userScoreRepository.GetForCurrentUser();
+            string userId = User.Identity.GetUserId();
+
+            var userScore = _userScoreRepository.GetForCurrentUser(userId);
 
             if (userScore != null)
             {

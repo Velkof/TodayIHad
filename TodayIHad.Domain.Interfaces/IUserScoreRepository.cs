@@ -7,7 +7,7 @@ namespace TodayIHad.Domain.Interfaces
     {
         List<UserScore> GetAll();
         UserScore GetById(int id);
-        UserScore GetForCurrentUser();
+        UserScore GetForCurrentUser(string userId);
 
         bool Create(UserScore userScore);
         bool Update(UserScore userScore);
