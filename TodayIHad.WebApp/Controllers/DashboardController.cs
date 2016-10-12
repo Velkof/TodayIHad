@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using TodayIHad.Domain.Entities;
@@ -18,6 +19,7 @@ namespace TodayIHad.WebApp.Controllers
         private ILoggedFoodRepository _loggedFoodRepository = new LoggedFoodRepository();
         private IUserRepository _userRepository = new UserRepository();
         private IUserScoreRepository _userScoreRepository = new UserScoreRepository();
+        private IFollowersToFollowedRepository _followersToFollowedRepository = new FollowersToFollowedRepository();
 
         // GET: Dashboard
         public ActionResult Index() //List logged foods for current user
@@ -198,10 +200,11 @@ namespace TodayIHad.WebApp.Controllers
             string userId = User.Identity.GetUserId();
 
 
-            var userScore = _userScoreRepository.GetForCurrentUser(userId);
 
-            if (userScore != null)
+            if (userId != null)
             {
+                var userScore = _userScoreRepository.GetForCurrentUser(userId);
+
                 return Json(new { data = userScore });
             }
 
@@ -211,7 +214,9 @@ namespace TodayIHad.WebApp.Controllers
         [HttpPost]
         public JsonResult UpdateUserScoreInfo()
         {
+
             string userId = User.Identity.GetUserId();
+
 
             var userScore = _userScoreRepository.GetForCurrentUser(userId);
 
@@ -228,7 +233,32 @@ namespace TodayIHad.WebApp.Controllers
         }
 
 
+        [HttpPost]
+        public JsonResult AddFollowed(string followedUserEmail)
+        {
+            var followedUserId = _userRepository.GetByEmail(followedUserEmail).Id;
 
+            if (followedUserId != null)
+            {
+                _followersToFollowedRepository.Create(followedUserId);
 
+                return Json(new { success = true });
+            }
+            return Json(new { error = true });
+        }
+
+        [HttpPost]
+        public JsonResult GetFollowed()
+        {
+            var userIdsOfFollowed = _followersToFollowedRepository.GetAllFollowedByUser();
+            List<UserScore> scoresOfFollowedUsers = new List<UserScore>();
+            foreach(var u in userIdsOfFollowed)
+            {
+                var userScore = _userScoreRepository.GetAll().FirstOrDefault(x => x.UserId == u.FollowedId);
+                scoresOfFollowedUsers.Add(userScore);
+
+            }
+            return Json(new { data = scoresOfFollowedUsers });            
+        }
     }
 }

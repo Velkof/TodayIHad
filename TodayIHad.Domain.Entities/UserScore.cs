@@ -16,6 +16,7 @@ namespace TodayIHad.Domain.Entities
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
 
-        public virtual string UserId { get; set; }
+        public string UserId { get; set; }
+        public string UserEmail { get; set; }
     }
 }

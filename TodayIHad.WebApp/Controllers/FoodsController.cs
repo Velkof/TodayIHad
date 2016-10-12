@@ -108,7 +108,7 @@ namespace TodayIHad.WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Calories_kcal,Protein_gr,Fat_gr,Carbs_gr,Fiber_gr,Sugar_gr,Sodium_mg,Fat_Sat_gr,Fat_Mono_gr,Fat_Poly_gr,Cholesterol_mg,IsDefault")] Food food)
+        public ActionResult Edit([Bind(Include = "Id,Name,CaloriesKcal,ProteinGr,FatGr,CarbsGr,FiberGr,SugarGr,SodiumMg,FatSatGr,FatMonoGr,FatPolyGr,CholesterolMg,IsDefault")] Food food)
         {
             if (ModelState.IsValid)
             {
@@ -141,9 +141,7 @@ namespace TodayIHad.WebApp.Controllers
         {
 
             _usersToFoodRepository.Delete(id);
-
             _foodUnitRepository.Delete(id);
-
             _foodRepository.Delete(id);
 
             return RedirectToAction("Index");

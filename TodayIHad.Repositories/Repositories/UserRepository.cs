@@ -40,6 +40,12 @@ namespace TodayIHad.Repositories.Repositories
             return GetAll().FirstOrDefault(x => x.Id == id);
         }
 
+        public User GetByEmail(string email)
+        {
+            return GetAll().FirstOrDefault(x => x.Email == email);
+        }
+
+
         public bool Update(User user)
         {
             throw new NotImplementedException();

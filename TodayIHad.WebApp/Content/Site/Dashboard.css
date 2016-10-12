@@ -146,8 +146,7 @@ textarea {
 }
 
 #tabs-1 {
-    padding-left: 7px;
-    padding-right: 7px;
+    padding: 5px 7px 7px 5px;
 }
 
 .ui- -titlebar-close {
@@ -285,7 +284,7 @@ textarea {
 }
 
 #dailyTotalsAndScoreContainer{
-    margin: 15px 0px 20px 0px;
+    margin: 10px 0px 10px 0px;
     padding-left:0px;
     padding-right:0px;    
 }
@@ -307,7 +306,6 @@ textarea {
 
 #dailyInfoDiv, #dailyTotalsChart {
     min-height: 200px;
-    /*border: 1px dashed red;*/
 }
 
 
@@ -321,7 +319,6 @@ textarea {
 }
 
 #dailyTotalsReportContainer{
-    /*border: 1px solid #F0F0F0;*/
     text-align: center;
     color:#747070;
     padding-right: 0px;
@@ -349,28 +346,38 @@ textarea {
 }
 
 #scoreInfoDiv {
-    padding: 10px 0px 0px 0px;
     text-align: center;
+    overflow: hidden;
+    height: 100%;
 }
 
 #scoreInfoCollapsed{
     display:none;
 }
 
+#tableScoreInfoCollapsed{
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+#tableScoreInfoCollapsed tr td{
+    border: 0px;
+}
+
 #scoreInfoFull {
-    margin-top: 10%;
+    padding-left:60px;
+    margin-top: 7%;
     font-size: 1.1em;
     color: #747070;
     text-align:left;
+    overflow:hidden;
 }
 
 #scoreInfoFull div {
     margin-bottom: 10px;
 }
 
-#scoreInfoFull > div > div.progress > div {
+#levelProgressBar{
     background-color: #a7d889;
-
 }
 
 #foodEditDiv {
@@ -540,7 +547,7 @@ textarea {
 
 
 #sidebarContainer {
-    padding: 0px 3px 10px 3px;
+    padding: 0px 3px 3px 3px;
     overflow: hidden;
 }
 
@@ -705,8 +712,11 @@ footer {
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991px) {
 
-    #calendarContainer, #dateBrowser {
+    #scoreInfoFull {
         padding-left: 0px;
+    }    
+    #calendarContainer, #dateBrowser {
+        padding-left: 10px;
     }
 
     #datepicker {
@@ -716,6 +726,10 @@ footer {
     #nothingHere {
         font-size: 2.7em;
     }
+    #scoreInfoDiv{
+        padding-left: 0px;
+    }
+
 
 }
 /* tablets/desktops and up ----------- */

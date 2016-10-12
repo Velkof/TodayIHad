@@ -65,8 +65,7 @@ namespace TodayIHad.Repositories.Repositories
                 dbFood.FatMonoGr = food.FatMonoGr;
                 dbFood.FatPolyGr = food.FatPolyGr;
                 dbFood.CholesterolMg = food.CholesterolMg;
-                
-                
+                                
                 db.SaveChanges();
                 return true;
             }

@@ -61,54 +61,42 @@
 
 
 	new Chartist.Pie('#dailyTotalsChart', dataDailyTotals, optionsDailyTotals, responsiveOptionsDailyTotals);
-
 	
-
 	highlightDatesWhenFoodLoggedForDisplayedMonth(currentYear, currentMonth);
 
-
 	function hideNothingHereMessageIfLoggedFoods() {
-
 		if ($("#loggedFoodsContainer").has(".loggedFoodCompact").is(":visible")) {
 			$("#nothingHere").hide();
 		} else {
 			$("#nothingHere").show();
 		}
-
 	}
 
 	function getYearMonthAndCallHighlightFunc() {
 		var selectedDate = $("#datepicker").datepicker('getDate');
 		var selectedMonth = selectedDate.getMonth() + 1;
 		var selectedYear = selectedDate.getFullYear();
-
 		highlightDatesWhenFoodLoggedForDisplayedMonth(selectedYear, selectedMonth);
 	}
 
 	hideNothingHereMessageIfLoggedFoods();
 
-
 	$('#datepicker').datepicker({
 		onSelect: function (dateText, inst) {
-
 			var dateText = moment(dateText).format("YYYY-MM-DD HH:mm:ss");
 			getLoggedFoodsForDate(dateText);
 
 			var dateValue = moment(dateText).format("DD/MM/YYYY");
 			$("#dateValue").text(dateValue);
 
-
 			var dateMMMMDYYYY = moment(dateText).format("MMMM D, YYYY");
 			$(".dateFullDailyReport").text(dateMMMMDYYYY);
 
 		},
 		onChangeMonthYear: function(year, month) {
-
 			highlightDatesWhenFoodLoggedForDisplayedMonth(year, month);
-
 		},
-		beforeShowDay: function (date) {
-		 
+		beforeShowDay: function (date) {		 
 			var highlight = selectedDates[date];
 			if (highlight) {
 				return [true, "highlightedDates", ""];
@@ -129,7 +117,6 @@
 
 		var dateMMMMDYYYY = moment(date).format("MMMM D, YYYY");
 		$(".dateFullDailyReport").text(dateMMMMDYYYY);
-
 
 		var dateSQLFormat = moment(date).format("YYYY-MM-DD HH:mm:ss");
 		return dateSQLFormat;
@@ -307,11 +294,11 @@
 				$("#dailyTotalsTable").prepend(Mustache.render(fullDailyReportTemplate, dailyTotals));
 
 
-				var percentages = calculatePercentages(dailyTotals.Carbs, dailyTotals.Protein, dailyTotals.Fat);
+				//var percentages = calculatePercentages(dailyTotals.Carbs, dailyTotals.Protein, dailyTotals.Fat);
 
-				$("#carbsRatioDailyReport").text("C: " + percentages.Carbs + "%");
-				$("#proteinRatioDailyReport").text("P: " + percentages.Protein + "%");
-				$("#fatRatioDailyReport").text("F: " + percentages.Fat + "%");
+				//$("#carbsRatioDailyReport").text("C: " + percentages.Carbs + "%");
+				//$("#proteinRatioDailyReport").text("P: " + percentages.Protein + "%");
+				//$("#fatRatioDailyReport").text("F: " + percentages.Fat + "%");
 
 				hideNothingHereMessageIfLoggedFoods();
 			},
@@ -631,42 +618,42 @@
 
 	function getUserScoreInfo() {
 
-	    $.ajax({
-	        type: "POST",
-	        url: "Dashboard/GetUserScoreInfo",
-	        success: function (data) {
-	            var scoreCollapsedTemplate = $("#scoreCollapsedTemplate").html();
-	            var scoreFullTemplate = $("#scoreFullTemplate").html();
+		$.ajax({
+			type: "POST",
+			url: "Dashboard/GetUserScoreInfo",
+			success: function (data) {
+				var scoreCollapsedTemplate = $("#scoreCollapsedTemplate").html();
+				var scoreFullTemplate = $("#scoreFullTemplate").html();
 
-	            $("#scoreInfoCollapsed").html(Mustache.render(scoreCollapsedTemplate, data.data));
-	            $("#scoreInfoFull").html(Mustache.render(scoreFullTemplate, data.data));
+				$("#scoreInfoCollapsed").html(Mustache.render(scoreCollapsedTemplate, data.data));
+				$("#scoreInfoFull").html(Mustache.render(scoreFullTemplate, data.data));
 
-	        },
-	        error: function () {
-	            alert("didn't get userscore info");
-	        }
-	    });
+			},
+			error: function () {
+			    alert("didn't get user score");
+			}
+		});
 
 	};
 
 	function updateUserScoreInfo() {
 
-	    $.ajax({
-	        type: "POST",
-	        url: "Dashboard/UpdateUserScoreInfo",
-	        success: function (data) {
+		$.ajax({
+			type: "POST",
+			url: "Dashboard/UpdateUserScoreInfo",
+			success: function (data) {
 
-	            $(".scoreValue").text(data.data.Score);
-	            $(".streakValue").text(data.data.Streak);
-	            $(".activeValue").text(data.data.ActiveDays);
-	            $(".levelValue").text(data.data.Level);
+				$(".scoreValue").text(data.data.Score);
+				$(".streakValue").text(data.data.Streak);
+				$(".activeValue").text(data.data.ActiveDays);
+				$(".levelValue").text(data.data.Level);
 
-	            $("#levelProgressBar").html("<span>" + data.data.ScoreToNextLevel + " pts to Level " + data.data.NextLevel + "</span>");
+				$("#levelProgressBar").html("<span>" + data.data.ScoreToNextLevel + " pts to Level " + data.data.NextLevel + "</span>");
 				$("#levelProgressBar").attr('aria-valuenow', data.data.PercentOfLevel).css('width', data.data.PercentOfLevel + "%");
 
 			},
-	        error: function () {
-	            alert("didn't update userscore info");
+			error: function () {
+				alert("didn't update userscore info");
 
 			}
 		});
@@ -685,6 +672,7 @@
 		e.preventDefault();
 		$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
 
+
 	});
 
 	//-----------------Scores-TAB--------------------------------------------------------------------------------//
@@ -694,8 +682,48 @@
 
 		e.preventDefault();
 		$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
+		$("#rankTableContainer tbody").empty();
+		getFollowed();
+
+
+
+		$("#btnFollowUser").on("click", function () {
+			var followedUserEmail = $("#followUserInput").val();
+			
+			$.ajax({
+				type: "POST",
+				url: "/DashBoard/AddFollowed",
+				data: { followedUserEmail: followedUserEmail },
+				success: function (data) {
+
+					getFollowed();
+
+
+				},
+				error: function () {
+					$("#NoSuchUserWarning").remove();
+					$("#followedUsersList").before("<p id='NoSuchUserWarning'>There are no users with this email address.</p>");
+				}
+			});
+
+		});
+
 
 	});
+
+
+	function getFollowed() {
+		$.ajax({
+			type: "POST",
+			url: "/DashBoard/GetFollowed",
+			success: function (data) {
+				$.each(data.data, function (i, item) {
+					$("#rankTableContainer tbody").append("<tr><td>" + item.Score +
+						"</td><td>" + item.UserEmail + "</td><td><span class='glyphicon glyphicon-trash'></span></td></tr>");
+				});
+			},
+		});
+	}
 
 	//-----------------PROFILE-TAB-------------------------------------------------------------------------------//
 

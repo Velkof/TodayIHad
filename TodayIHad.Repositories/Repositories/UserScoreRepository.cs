@@ -58,6 +58,11 @@ namespace TodayIHad.Repositories
         public bool Update(UserScore userScore)
         {
 
+            if (userScore.DateUpdated == DateTime.Now.AddDays(-1))
+            {
+                userScore.Streak = 1;
+            }
+
             userScore.DateUpdated = DateTime.Now;
             userScore.Streak = userScore.Streak + 1;
             userScore.ActiveDays = userScore.ActiveDays + 1;

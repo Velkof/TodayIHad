@@ -83,7 +83,9 @@ namespace TodayIHad.WebApp.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+
+                    return RedirectToAction("LoginRoute", new { returnUrl = returnUrl });
+                    //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -93,6 +95,11 @@ namespace TodayIHad.WebApp.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
+        }
+
+        public ActionResult LoginRoute(string returnUrl)
+        {
+                return RedirectToLocal(returnUrl);
         }
 
         //
@@ -170,6 +177,7 @@ namespace TodayIHad.WebApp.Controllers
 
                     var userScore = new UserScore();
                     userScore.UserId = user.Id;
+                    userScore.UserEmail = user.Email;
                     _userScoreRepository.Create(userScore);
 
                     return RedirectToAction("Index", "Home");

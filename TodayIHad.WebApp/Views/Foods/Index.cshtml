@@ -47,11 +47,11 @@
                     </div>
                 </div>
                 <div id="addUnitContainer"></div>
-
                 <button id="continueBtn" class="btn btn-info"> Continue to Step 2 of 2</button>
 
             </div>
             <div id="createFoodStep2">
+
 
                 <div class="alert alert-danger" role="alert">All values below should be per: <span id="createFoodPerAmount">100 gr.</span></div>
 
@@ -84,6 +84,8 @@
                         @Html.ValidationMessageFor(model => model.CarbsGr, "", new { @class = "text-danger" })
                     </div>
                 </div>
+
+               
 
                 <div class="row form-group">
                     <div class="col-xs-6">
@@ -152,12 +154,10 @@
         @foreach (var item in ViewBag.ListOfFoods)
             {
                 <tr>
-                    <td>                       
-                        @item.Name
+                    <td>
+                        <a href="@Url.Action("Edit/"+@item.Id)">@item.Name</a>
                     </td>
                     <td class="actionContainerMyFoods">
-
-                        <a href="@Url.Action("Edit/"+@item.Id)"><span class="glyphicon glyphicon-pencil"></span></a> &nbsp;
                         <a href="@Url.Action("Delete/"+@item.Id)"><span class="glyphicon glyphicon-trash"></span></a>
                     </td>
                 </tr>
