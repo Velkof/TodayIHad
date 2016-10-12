@@ -55,16 +55,25 @@ namespace TodayIHad.Repositories
             return GetAll().FirstOrDefault(x => x.Id == id);
         }
 
+        public bool ResetStreakIfNeeded (UserScore userScore)
+        {
+            if (userScore.DateUpdated.Date == DateTime.Now.Date)
+            {
+
+            }
+            else if (userScore.DateUpdated.Date != DateTime.Now.Date.AddDays(-1))
+            {
+                userScore.Streak = 0;
+                db.SaveChanges();
+            }
+            return true;
+        }
+
         public bool Update(UserScore userScore)
         {
 
-            if (userScore.DateUpdated == DateTime.Now.AddDays(-1))
-            {
-                userScore.Streak = 1;
-            }
-
-            userScore.DateUpdated = DateTime.Now;
             userScore.Streak = userScore.Streak + 1;
+            userScore.DateUpdated = DateTime.Now;
             userScore.ActiveDays = userScore.ActiveDays + 1;
             userScore.Score = userScore.Score + userScore.Streak * 10 + userScore.ActiveDays * 5;
             userScore.Level = CalculateUserLevel(userScore.Score);

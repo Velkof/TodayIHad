@@ -180,7 +180,7 @@ namespace TodayIHad.WebApp.Controllers
                     userScore.UserEmail = user.Email;
                     _userScoreRepository.Create(userScore);
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 AddErrors(result);
             }
@@ -466,7 +466,7 @@ namespace TodayIHad.WebApp.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Dashboard");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

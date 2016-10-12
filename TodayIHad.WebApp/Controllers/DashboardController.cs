@@ -199,11 +199,11 @@ namespace TodayIHad.WebApp.Controllers
         {
             string userId = User.Identity.GetUserId();
 
-
-
             if (userId != null)
             {
                 var userScore = _userScoreRepository.GetForCurrentUser(userId);
+
+                _userScoreRepository.ResetStreakIfNeeded(userScore);
 
                 return Json(new { data = userScore });
             }
