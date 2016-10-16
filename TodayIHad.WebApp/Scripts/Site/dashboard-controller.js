@@ -294,11 +294,11 @@
 				$("#dailyTotalsTable").prepend(Mustache.render(fullDailyReportTemplate, dailyTotals));
 
 
-				//var percentages = calculatePercentages(dailyTotals.Carbs, dailyTotals.Protein, dailyTotals.Fat);
+				var percentages = calculatePercentages(dailyTotals.Carbs, dailyTotals.Protein, dailyTotals.Fat);
 
-				//$("#carbsRatioDailyReport").text("C: " + percentages.Carbs + "%");
-				//$("#proteinRatioDailyReport").text("P: " + percentages.Protein + "%");
-				//$("#fatRatioDailyReport").text("F: " + percentages.Fat + "%");
+				$("#carbsRatioDailyReport").text("C: " + percentages.Carbs + "%");
+				$("#proteinRatioDailyReport").text("P: " + percentages.Protein + "%");
+				$("#fatRatioDailyReport").text("F: " + percentages.Fat + "%");
 
 				hideNothingHereMessageIfLoggedFoods();
 			},
@@ -310,18 +310,25 @@
 
 	function calculatePercentages(carbs, protein, fat) {
 
+	    if (carbs == 0 && protein == 0 && fat == 0) {
+	        var percentages = {
+	            Carbs: 0,
+	            Protein: 0,
+	            Fat: 0
+	        }
+	    } else {
+	        var totalCalories = carbs * 4 + fat * 8.8 + protein * 4;
 
-		var totalCalories = carbs * 4 + fat * 8.8 + protein * 4;
+	        var carbsPercentage = (carbs * 4 / (totalCalories / 100)).toFixed(1);
+	        var proteinPercentage = (fat * 8.8 / (totalCalories / 100)).toFixed(1);
+	        var fatPercentage = (protein * 4 / (totalCalories / 100)).toFixed(1);
 
-		var carbsPercentage = Math.round(carbs * 4 / totalCalories * 100 * 10) / 10;
-		var proteinPercentage = Math.round(protein * 4 / totalCalories * 100 * 10) / 10;
-		var fatPercentage = Math.round(fat * 8.8 / totalCalories * 100 * 10) / 10;
-
-		var percentages = {
-			Carbs: carbsPercentage,
-			Protein: proteinPercentage,
-			Fat: fatPercentage
-		}
+	        var percentages = {
+	            Carbs: carbsPercentage,
+	            Protein: proteinPercentage,
+	            Fat: fatPercentage
+	        }
+	    }
 		return percentages;
 	};
 
@@ -630,7 +637,7 @@
 
 			},
 			error: function () {
-			    alert("didn't get user score");
+				alert("didn't get user score");
 			}
 		});
 

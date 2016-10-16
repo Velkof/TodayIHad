@@ -217,7 +217,6 @@ namespace TodayIHad.WebApp.Controllers
 
             string userId = User.Identity.GetUserId();
 
-
             var userScore = _userScoreRepository.GetForCurrentUser(userId);
 
             if (userScore != null)

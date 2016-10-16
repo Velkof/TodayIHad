@@ -84,7 +84,7 @@ namespace TodayIHad.WebApp.Controllers
             {
                 case SignInStatus.Success:
 
-                    return RedirectToAction("LoginRoute", new { returnUrl = returnUrl });
+                    return RedirectToAction("LoginRoute");
                     //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -97,9 +97,9 @@ namespace TodayIHad.WebApp.Controllers
             }
         }
 
-        public ActionResult LoginRoute(string returnUrl)
+        public ActionResult LoginRoute()
         {
-                return RedirectToLocal(returnUrl);
+            return RedirectToAction("Index", "Dashboard");
         }
 
         //
