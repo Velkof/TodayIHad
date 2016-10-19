@@ -62,7 +62,6 @@ namespace TodayIHad.WebApp.Controllers
                                                     double gramsTotal, string foodUnits)
         {
 
-            Food newFood = new Food();
             List<FoodUnit> foodUnitsList = JsonConvert.DeserializeObject<List<FoodUnit>>(foodUnits); 
             double hundredGramUnits = gramsTotal / 100;
 
@@ -85,7 +84,7 @@ namespace TodayIHad.WebApp.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(food);
+            return RedirectToAction("Index");
         }
 
         // GET: Foods/Edit/5

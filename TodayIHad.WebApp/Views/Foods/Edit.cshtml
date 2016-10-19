@@ -26,7 +26,7 @@
         <div class="form-group">
             <label class = "control-label col-md-2">Calories</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CaloriesKcal, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CaloriesKcal, new { htmlAttributes = new { @class = "form-control", @data_val_number = "Calories must be between 0 and 99999"} })
                 @Html.ValidationMessageFor(model => model.CaloriesKcal, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -34,7 +34,7 @@
         <div class="form-group">
             <label class = "control-label col-md-2">Protein</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ProteinGr, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ProteinGr, new { htmlAttributes = new { @class = "form-control", @data_val_number = "Protein must be between 0 and 99999" } })
                 @Html.ValidationMessageFor(model => model.ProteinGr, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -42,7 +42,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Fat</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FatGr, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.FatGr, new { htmlAttributes = new { @class = "form-control", @data_val_number = "Fat must be between 0 and 99999" } })
                 @Html.ValidationMessageFor(model => model.FatGr, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -50,7 +50,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Carbs</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CarbsGr, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CarbsGr, new { htmlAttributes = new { @class = "form-control", @data_val_number = "Carbs must be between 0 and 99999" } })
                 @Html.ValidationMessageFor(model => model.CarbsGr, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -58,7 +58,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Fiber</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FiberGr, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.FiberGr, new { htmlAttributes = new { @class = "form-control", @data_val_number = "Fiber must be between 0 and 99999" } })
                 @Html.ValidationMessageFor(model => model.FiberGr, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -66,7 +66,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Sugar</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SugarGr, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.SugarGr, new { htmlAttributes = new { @class = "form-control", @data_val_number = "Sugar must be between 0 and 99999" } })
                 @Html.ValidationMessageFor(model => model.SugarGr, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -74,7 +74,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Sodium (mg)</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SodiumMg, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.SodiumMg, new { htmlAttributes = new { @class = "form-control", @data_val_number = "Sodium must be between 0 and 99999" } })
                 @Html.ValidationMessageFor(model => model.SodiumMg, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -82,7 +82,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Saturated Fat</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FatSatGr, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.FatSatGr, new { htmlAttributes = new { @class = "form-control", @data_val_number = "Sat. Fat must be between 0 and 99999" } })
                 @Html.ValidationMessageFor(model => model.FatSatGr, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -90,7 +90,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Mono. Fat</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FatMonoGr, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.FatMonoGr, new { htmlAttributes = new { @class = "form-control", @data_val_number = "Mono. Fat must be between 0 and 99999" } })
                 @Html.ValidationMessageFor(model => model.FatMonoGr, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -98,7 +98,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Poly. Fat</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FatPolyGr, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.FatPolyGr, new { htmlAttributes = new { @class = "form-control", @data_val_number = "Poly. Fat must be between 0 and 99999" } })
                 @Html.ValidationMessageFor(model => model.FatPolyGr, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -106,7 +106,7 @@
         <div class="form-group">
             <label class="control-label col-md-2">Cholesterol (mg)</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CholesterolMg, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.CholesterolMg, new { htmlAttributes = new { @class = "form-control", @data_val_number = "Cholesterol must be between 0 and 99999" } })
                 @Html.ValidationMessageFor(model => model.CholesterolMg, "", new { @class = "text-danger" })
             </div>
         </div>

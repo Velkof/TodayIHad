@@ -181,7 +181,7 @@
 
 			var dataDailyTotals = {
 				labels: ['Protein', 'Fat', 'Carbs'],
-				series: [dailyTotals.Protein, dailyTotals.Fat, dailyTotals.Carbs]
+				series: [dailyTotals.Protein * 4, dailyTotals.Fat * 8.8, dailyTotals.Carbs * 4]
 			};
 
 		}
@@ -272,7 +272,7 @@
 					dailyTotals.Protein = dailyTotals.Protein + item.ProteinGr;
 					dailyTotals.Carbs = dailyTotals.Carbs + item.CarbsGr;
 					dailyTotals.Sugar = dailyTotals.Sugar + item.SugarGr;
-					dailyTotals.FIber = dailyTotals.Fiber + item.FiberGr;
+					dailyTotals.Fiber = dailyTotals.Fiber + item.FiberGr;
 					dailyTotals.Cholesterol = dailyTotals.Cholesterol + item.CholesterolMg;
 					dailyTotals.Sodium = dailyTotals.Sodium + item.SodiumMg;
 				});
@@ -319,14 +319,10 @@
 	    } else {
 	        var totalCalories = carbs * 4 + fat * 8.8 + protein * 4;
 
-	        var carbsPercentage = (carbs * 4 / (totalCalories / 100)).toFixed(1);
-	        var proteinPercentage = (fat * 8.8 / (totalCalories / 100)).toFixed(1);
-	        var fatPercentage = (protein * 4 / (totalCalories / 100)).toFixed(1);
-
 	        var percentages = {
-	            Carbs: carbsPercentage,
-	            Protein: proteinPercentage,
-	            Fat: fatPercentage
+	            Carbs: (carbs * 4 / (totalCalories / 100)).toFixed(1),
+	            Protein: (protein * 4 / (totalCalories / 100)).toFixed(1),
+	            Fat: (fat * 8.8 / (totalCalories / 100)).toFixed(1)
 	        }
 	    }
 		return percentages;
@@ -637,7 +633,6 @@
 
 			},
 			error: function () {
-				alert("didn't get user score");
 			}
 		});
 
@@ -655,8 +650,8 @@
 				$(".activeValue").text(data.data.ActiveDays);
 				$(".levelValue").text(data.data.Level);
 
-				$("#levelProgressBar").html("<span>" + data.data.ScoreToNextLevel + " pts to Level " + data.data.NextLevel + "</span>");
-				$("#levelProgressBar").attr('aria-valuenow', data.data.PercentOfLevel).css('width', data.data.PercentOfLevel + "%");
+				//$("#levelProgressBar").html("<span>" + data.data.ScoreToNextLevel + " pts to Level " + data.data.NextLevel + "</span>");
+				//$("#levelProgressBar").attr('aria-valuenow', data.data.PercentOfLevel).css('width', data.data.PercentOfLevel + "%");
 
 			},
 			error: function () {
@@ -665,8 +660,6 @@
 			}
 		});
 	};
-
-
 
 
 

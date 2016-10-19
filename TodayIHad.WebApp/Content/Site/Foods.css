@@ -20,10 +20,14 @@
 }
 
 .validationMsg{
-    color: red;
+    color: #a94442;
     font-size: 1em;
+    float:left;
+}
+
+.required{
+    color:red;
     font-weight: bold;
-    float:right;
 }
 
 #addUnit{
@@ -73,6 +77,11 @@
 }
 
 #cancelBtnCreateFood {
+    float: right;
+    margin-right: 5px;
+}
+
+#backBtnCreateFood {
     float: left;
 }
 

@@ -53,29 +53,53 @@ function addFoodUnitsToArray() {
 $("#continueBtn").on("click", function (e) {        
 	e.preventDefault();
 	var foodName = $("#userFoodName").val();
+	var foodCalories = $("#userFoodCalories").val();
+	var foodCarbs = $("#userFoodCarbs").val();
+	var foodProtein = $("#userFoodProtein").val();
+	var foodFat = $("#userFoodFat").val();
 
-	if (foodName !== null && foodName !== "") {
-		var amount = $("#userFoodAmount").val();
-		var gramWeight = $("#userFoodUnit").find(":selected").data('gramweight');
-		var gramsTotal = gramWeight * amount;
-		$("#gramsTotal").val(gramsTotal);
+
+	if (foodName == "" || foodCalories == "" || foodCarbs == "" || foodProtein == "" || foodFat == "") {
+		$(".validationMsg").remove();
+		$("#continueBtn").before("<p class='validationMsg'>All fields are required.</p>");
+	} else if (NameNotInProperFormat(foodName) || NumNotInRange(foodCalories) || NumNotInRange(foodCarbs) || NumNotInRange(foodProtein) || NumNotInRange(foodFat)) {
+	} else {
 
 		addFoodUnitsToArray();
 
-		var selectedFoodUnit = $("#userFoodUnit option:selected").val();
-
 		$("#createFoodStepNum").text("2");
-		$("#createFoodPerAmount").html("<strong>" + amount + " x " + selectedFoodUnit + " or " + gramsTotal + " grams.</strong>");
 
 		$("#createFoodStep1").hide();
 		$("#createFoodStep2").show();
-	} else {
-		$(".validationMsg").remove();
-		$("#userFoodName").before("<p class='validationMsg'>* Food name cannot be empty</p>");
+
 	}
+});
+
+$("#userFoodAmount, #userFoodUnit").on("change", function(){
+
+	var amount = $("#userFoodAmount").val();
+	var gramWeight = $("#userFoodUnit").find(":selected").data('gramweight');
+	var gramsTotal = gramWeight * amount;
+	$("#gramsTotal").val(gramsTotal);
+	var selectedFoodUnit = $("#userFoodUnit option:selected").val();
+	$("#createFoodPerAmount").html("<strong>" + amount + " x " + selectedFoodUnit + " or " + gramsTotal.toFixed(0) + " grams.</strong>");
 
 
 });
+
+function NumNotInRange (num){
+	if (num >= 0 && num <= 99999)
+		return false;
+	else
+		return true;
+}
+
+function NameNotInProperFormat (name) {
+	if (name.length >= 2 && name.length <= 200 && /^[a-zA-Z0-9-_(),.%/]*$/.test(name))
+		return false;
+	else
+		return true;
+}
 
 
 //cancel form submit and return to default foods/index state
@@ -83,6 +107,16 @@ $(".userFoodForm").on("click", "#cancelBtnCreateFood", function (e) {
 	e.preventDefault();
 	location.reload();
 });
+
+//go back to Step 1
+$(".userFoodForm").on("click", "#backBtnCreateFood", function (e) {
+	e.preventDefault();
+	$("#createFoodStep1").show();
+	$("#createFoodStep2").hide();
+
+});
+
+
 		
 
 //Add new unit
