@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -25,7 +24,7 @@ namespace TodayIHad.WebApp.Controllers
         // GET: Foods
         public ActionResult Index()
         {
-            ViewBag.ListOfFoods = db.Foods.OrderByDescending(x=>x.Id).ToList();
+            ViewBag.ListOfFoods  = _foodRepository.GetAll().OrderByDescending(x => x.Id);
 
             return View();
         }
@@ -99,6 +98,7 @@ namespace TodayIHad.WebApp.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(food);
         }
 
@@ -107,15 +107,44 @@ namespace TodayIHad.WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,CaloriesKcal,ProteinGr,FatGr,CarbsGr,FiberGr,SugarGr,SodiumMg,FatSatGr,FatMonoGr,FatPolyGr,CholesterolMg,IsDefault")] Food food)
+        public ActionResult Edit([Bind(Include = "Id,Name,CaloriesKcal,ProteinGr,FatGr,CarbsGr," + 
+                                                 "FiberGr,SugarGr,SodiumMg,FatSatGr,FatMonoGr," + 
+                                                 "FatPolyGr,CholesterolMg,IsDefault")] Food food, 
+                                                 double gramsTotal, string foodUnits)
         {
+
+            List<FoodUnit> foodUnitsList = JsonConvert.DeserializeObject<List<FoodUnit>>(foodUnits);
+            double hundredGramUnits = gramsTotal / 100;
+
             if (ModelState.IsValid)
             {
-                db.Entry(food).State = EntityState.Modified;
-                db.SaveChanges();
+
+                List<PropertyInfo> filledInNutrients = food.GetType().GetProperties().Where(p => p.PropertyType == typeof(double?)).Where(v => v.GetValue(food) != null).ToList();
+
+                foreach (var i in filledInNutrients)
+                {
+                    double value = Convert.ToDouble(i.GetValue(food));
+                    double newValue = Math.Round((value / hundredGramUnits), 1, MidpointRounding.AwayFromZero);
+                    i.SetValue(food, newValue);
+                }
+
+                _foodRepository.Update(food);
+                //_usersToFoodRepository.Create(food.Id);
+
+                _foodUnitRepository.Delete(food.Id);
+                _foodUnitRepository.Create(foodUnitsList, food.Id);
+
                 return RedirectToAction("Index");
             }
+
             return View(food);
+            //if (ModelState.IsValid)
+            //{
+            //    db.Entry(food).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+            //return View(food);
         }
 
         // GET: Foods/Delete/5
@@ -145,6 +174,22 @@ namespace TodayIHad.WebApp.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public JsonResult GetUnitsForFood(int foodId)
+        {
+            List<FoodUnit> foodUnitList = _foodUnitRepository.GetAllForCurrentFood(foodId);
+
+            if (foodUnitList != null)
+            {
+                return Json(new { data = foodUnitList });
+            }
+
+            return Json(new { error = true });
+        }
+
+
+ 
 
         protected override void Dispose(bool disposing)
         {

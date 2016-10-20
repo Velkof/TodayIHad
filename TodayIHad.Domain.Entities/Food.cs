@@ -35,51 +35,40 @@ namespace TodayIHad.Domain.Entities
 
         [Required(ErrorMessage = "Calories is a required field")]
         [Range(0, 99999, ErrorMessage = "Calories must be between {1} and {2}")]
-        //[RegularExpression("^[+]?([0-9]+(?:[\\.][0-9]*)?|\\.[0-9]+)$", ErrorMessage = "Calories must be a number")]
         public double? CaloriesKcal { get; set; }
 
         [Required(ErrorMessage = "Protein is a required field")]
         [Range(0, 99999, ErrorMessage ="Protein must be between {1} and {2}")]
-        //[RegularExpression(@"[0-9]*$", ErrorMessage = "Protein must be a number")]
         public double? ProteinGr { get; set; }
 
 
         [Required(ErrorMessage = "Fat is a required field")]
-        [Range(0, 99999, ErrorMessage = "Fat must be a number between {1} and {2}")]
-        //[RegularExpression(@"[0-9]*$", ErrorMessage = "Fat must be a number")]
+        [Range(0, 99999, ErrorMessage = "Fat must be between {1} and {2}")]
         public double? FatGr { get; set; }
 
         [Required(ErrorMessage = "Carbs is a required field")]
         [Range(0, 99999, ErrorMessage = "Carbs must be between {1} and {2}")]
-        //[RegularExpression(@"[0-9]*$", ErrorMessage = "Carbs must be a number")]
         public double? CarbsGr { get; set; }
 
         [Range(0, 99999, ErrorMessage = "Fiber must be between {1} and {2}")]
-        //[RegularExpression(@"[0-9]*$", ErrorMessage = "Fiber must be a number")]
         public double? FiberGr { get; set; }
 
         [Range(0, 99999, ErrorMessage = "Sugar must be between {1} and {2}")]
-        //[RegularExpression(@"[0-9]*$", ErrorMessage = "Sugar must be a number")]
         public double? SugarGr { get; set; }
 
         [Range(0, 99999, ErrorMessage = "Sodium must be between {1} and {2}")]
-        //[RegularExpression(@"[0-9]*$", ErrorMessage = "Sodium must be a number")]
         public double? SodiumMg { get; set; }
 
         [Range(0, 99999, ErrorMessage = "Sat. Fat must be between {1} and {2}")]
-        //[RegularExpression(@"[0-9]*$", ErrorMessage = "Sat. Fat must be a number")]
         public double? FatSatGr { get; set; }
 
         [Range(0, 99999, ErrorMessage = "Mono. Fat must be between {1} and {2}")]
-        //[RegularExpression(@"[0-9]*$", ErrorMessage = "Mono. Fat must be a number")]
         public double? FatMonoGr { get; set; }
 
         [Range(0, 99999, ErrorMessage = "Poly. Fat must be between {1} and {2}")]
-        //[RegularExpression(@"[0-9]*$", ErrorMessage = "Poly. Fat must be a number")]
         public double? FatPolyGr { get; set; }
 
         [Range(0, 99999, ErrorMessage = "Cholesterol must be between {1} and {2}")]
-        //[RegularExpression(@"[0-9]*$", ErrorMessage = "Cholesterol must be a number")]
         public double? CholesterolMg { get; set; }
 
         public int IsDefault { get; set; }

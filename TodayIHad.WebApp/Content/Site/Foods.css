@@ -62,7 +62,6 @@
 }
 
 #continueBtn {
-    margin-top: 15px;
     float: right;
 }
 
@@ -77,12 +76,13 @@
 }
 
 #cancelBtnCreateFood {
-    float: right;
+    float: left;
     margin-right: 5px;
 }
 
 #backBtnCreateFood {
-    float: left;
+    float: right;
+    margin-right: 5px;
 }
 
 #createFoodStep2{

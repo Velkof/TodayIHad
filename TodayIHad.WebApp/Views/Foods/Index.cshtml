@@ -5,12 +5,11 @@
     ViewBag.Title = "Index";
 }
 
-<br /><br />
+<br />
 
 <div class="userFoodContainer container">
 
     <h3>Create New Food - Step <span id="createFoodStepNum">1</span> of 2</h3>
-
     <br />
 
     @using (Html.BeginForm("Create", "Foods", FormMethod.Post))
@@ -36,7 +35,7 @@
                     <div id="foodUnitsContainer" class="col-xs-6">
                         <div class="row">
                             <label class="col-xs-6">Unit</label>
-                            <a id="addUnit" href="#">[Add]</a>
+                            <a id="addUnit" href="#">Add Unit</a>
 
                         </div>
                         <select id="userFoodUnit" class="form-control" name="userFoodUnit">
@@ -245,8 +244,8 @@
 
                 </div>
                 <div class="form-group">
-                    <button id="backBtnCreateFood" class="btn btn-link">Back to Step 1</button>
                     <input type="submit" id="createFoodBtn" value="Create Food" class="btn btn-success" />
+                    <button id="backBtnCreateFood" class="btn btn-default">Back to Step 1</button>
                     <button id="cancelBtnCreateFood" class="btn btn-default">Cancel</button>
                 </div>
             </div>
