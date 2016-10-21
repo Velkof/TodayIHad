@@ -205,6 +205,8 @@ namespace TodayIHad.WebApp.Controllers
 
                 _userScoreRepository.ResetStreakIfNeeded(userScore);
 
+                _userScoreRepository.ResetSevenDayScoreIfNeeded(userScore);
+
                 return Json(new { data = userScore });
             }
 
@@ -239,25 +241,59 @@ namespace TodayIHad.WebApp.Controllers
 
             if (followedUserId != null)
             {
-                _followersToFollowedRepository.Create(followedUserId);
+                var userAlreadyFollowed = _followersToFollowedRepository.GetAllFollowedByUser().FirstOrDefault(x => x.FollowedId == followedUserId);
 
+                if (userAlreadyFollowed == null)
+                {
+                    _followersToFollowedRepository.Create(followedUserId);
+                    return Json(new { success = true });
+                } else
+                {
+                    return Json(new { error = true });
+                }
+
+            }
+            return Json(new { error = true });
+        }
+
+        [HttpPost]
+        public JsonResult RemoveFollowed(string followedUserEmail)
+        {
+            var followedUserId = _userRepository.GetByEmail(followedUserEmail).Id;
+
+            if (followedUserId != null)
+            {
+                _followersToFollowedRepository.Delete(followedUserId);
                 return Json(new { success = true });
             }
             return Json(new { error = true });
         }
 
         [HttpPost]
-        public JsonResult GetFollowed()
+        public JsonResult GetFollowedAndFollowers()
         {
             var userIdsOfFollowed = _followersToFollowedRepository.GetAllFollowedByUser();
-            List<UserScore> scoresOfFollowedUsers = new List<UserScore>();
-            foreach(var u in userIdsOfFollowed)
-            {
-                var userScore = _userScoreRepository.GetAll().FirstOrDefault(x => x.UserId == u.FollowedId);
-                scoresOfFollowedUsers.Add(userScore);
+            var userIdsOfFollowers = _followersToFollowedRepository.GetAllThatFollowUser();
 
+            List<UserScore> scoresOfFollowedUsers = new List<UserScore>();
+            List<UserScore> scoresOfFollowers= new List<UserScore>();
+
+            foreach (var u in userIdsOfFollowed)
+            {
+                var userScoreOfFollowed = _userScoreRepository.GetAll().FirstOrDefault(x => x.UserId == u.FollowedId);
+                scoresOfFollowedUsers.Add(userScoreOfFollowed);
             }
-            return Json(new { data = scoresOfFollowedUsers });            
+
+            foreach (var u in userIdsOfFollowers)
+            {
+                var userScoreOfFollower = _userScoreRepository.GetAll().FirstOrDefault(x => x.UserId == u.FollowerId);
+                scoresOfFollowers.Add(userScoreOfFollower);
+            }
+
+            var data = new { scoresOfFollowedUsers, scoresOfFollowers };
+
+
+            return Json(new { data = data });            
         }
     }
 }

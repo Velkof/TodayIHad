@@ -53,7 +53,7 @@
             <div class="row form-group">
                 <div class="col-xs-6">
                     <label>Calories <span class="required">*</span></label>
-                    @Html.EditorFor(model => model.CaloriesKcal, new
+                    @Html.EditorFor(model => model.Calories, new
                    {
                        htmlAttributes = new
                        {
@@ -64,7 +64,7 @@
                            @placeholder = 0
                        }
                    })
-                    @Html.ValidationMessageFor(model => model.CaloriesKcal, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Calories, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-xs-6">
                     <label>Protein (g) <span class="required">*</span></label>

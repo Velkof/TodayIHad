@@ -12,6 +12,7 @@ namespace TodayIHad.Domain.Interfaces
         bool Create(UserScore userScore);
         bool Update(UserScore userScore);
         bool ResetStreakIfNeeded(UserScore userScore);
+        bool ResetSevenDayScoreIfNeeded(UserScore userScore);
         bool Delete(int id);
     }
 }

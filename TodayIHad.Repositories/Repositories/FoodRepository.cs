@@ -54,7 +54,7 @@ namespace TodayIHad.Repositories.Repositories
 
 
                 dbFood.Name = food.Name;
-                dbFood.CaloriesKcal = food.CaloriesKcal;
+                dbFood.Calories = food.Calories;
                 dbFood.ProteinGr = food.ProteinGr;
                 dbFood.FatGr = food.FatGr;
                 dbFood.CarbsGr = food.CarbsGr;

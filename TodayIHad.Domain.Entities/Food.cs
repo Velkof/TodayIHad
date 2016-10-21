@@ -9,7 +9,7 @@ namespace TodayIHad.Domain.Entities
 
         public string Name { get; set; }
 
-        public double? CaloriesKcal { get; set; }
+        public double? Calories { get; set; }
         public double? ProteinGr { get; set; }
         public double? FatGr { get; set; }
         public double? CarbsGr { get; set; }
@@ -30,12 +30,12 @@ namespace TodayIHad.Domain.Entities
     {
         [Required(ErrorMessage = "Food name is required")]
         [StringLength(200, MinimumLength = 2, ErrorMessage = "Name must be between 2 and 200 characters")]
-        [RegularExpression("^[a-zA-Z0-9-_(),.%/]*$", ErrorMessage = "Name can contain only letters, numbers, and the symbols - , . _ / % ()")]
+        [RegularExpression("^[a-zA-Z0-9-_(),.%\\/]*$", ErrorMessage = "Name can contain only letters, numbers, and the symbols - , . _ / % ()")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Calories is a required field")]
         [Range(0, 99999, ErrorMessage = "Calories must be between {1} and {2}")]
-        public double? CaloriesKcal { get; set; }
+        public double? Calories { get; set; }
 
         [Required(ErrorMessage = "Protein is a required field")]
         [Range(0, 99999, ErrorMessage ="Protein must be between {1} and {2}")]
@@ -71,6 +71,5 @@ namespace TodayIHad.Domain.Entities
         [Range(0, 99999, ErrorMessage = "Cholesterol must be between {1} and {2}")]
         public double? CholesterolMg { get; set; }
 
-        public int IsDefault { get; set; }
     }
 }

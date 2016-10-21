@@ -396,7 +396,7 @@
 				}
 
 				var calories = $("#unitsLogFood option:selected").val()
-							   * $("#quantityLogFood").val() * data[i].food.CaloriesKcal / 100;
+							   * $("#quantityLogFood").val() * data[i].food.Calories / 100;
 
 
 				$('html,body').animate({
@@ -417,7 +417,7 @@
 		var divId = "#" + $(this).parent().parent().attr("id");
 
 		var foodNutrients = {
-			calsAmount: $(divId + " #calsAmountLogFood").data("calsamountlogfood"),
+		    calsAmount: $(divId + " #calsAmountLogFood").data("calsamountlogfood"),
 			fatAmount: $(divId + " #fatAmountLogFood").data("fatamountlogfood"),
 			satFatAmount: $(divId + " #satFatAmountLogFood").data("satfatamountlogfood"),
 			monoFatAmount: $(divId + " #monoFatAmountLogFood").data("monofatamountlogfood"),
@@ -434,9 +434,15 @@
 								  * $(divId + " #quantityLogFood").val() / 100;
 
 		for (var i in foodNutrients) {
-			if (foodNutrients[i] != "") {
+		    if (foodNutrients[i] == "") {
+		    } else if (i == "calsAmount") {
+		        $(divId + " #" + i + "LogFood").text((grams * foodNutrients[i]).toFixed(0));
+		    }
+		    else {
 				$(divId + " #" + i + "LogFood").text((grams * foodNutrients[i]).toFixed(1));
 			}
+
+
 		}
 	});
 
@@ -512,7 +518,7 @@
 			FoodId: $(thisLogFoodDivId + " #hiddenIdLogFood").text(),
 			Amount: $(thisLogFoodDivId + " #quantityLogFood").val(),
 			Unit: $(thisLogFoodDivId + " #unitsLogFood option:selected").text(),
-			Calories: $(thisLogFoodDivId + " #calsAmountLogFood").text(),
+			Calories: Math.ceil($(thisLogFoodDivId + " #calsAmountLogFood").text()),
 			FatGr: $(thisLogFoodDivId + " #fatAmountLogFood").text(),
 			FatSatGr: $(thisLogFoodDivId + " #satFatAmountLogFood").text(),
 			FatMonoGr: $(thisLogFoodDivId + " #monoFatAmountLogFood").text(),
@@ -649,10 +655,6 @@
 				$(".streakValue").text(data.data.Streak);
 				$(".activeValue").text(data.data.ActiveDays);
 				$(".levelValue").text(data.data.Level);
-
-				//$("#levelProgressBar").html("<span>" + data.data.ScoreToNextLevel + " pts to Level " + data.data.NextLevel + "</span>");
-				//$("#levelProgressBar").attr('aria-valuenow', data.data.PercentOfLevel).css('width', data.data.PercentOfLevel + "%");
-
 			},
 			error: function () {
 				alert("didn't update userscore info");
@@ -682,47 +684,70 @@
 		e.preventDefault();
 		$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
 		$("#rankTableContainer tbody").empty();
-		getFollowed();
+		getFollowedAndFollowers();
 
 
 
-		$("#btnFollowUser").on("click", function () {
-			var followedUserEmail = $("#followUserInput").val();
-			
+		$("#btnFollowUser").on("click", function () { 
+		    var followedUserEmail = $("#followUserInput").val();
+		    $("#NoSuchUserWarning").remove();
+		    $("#followUserInput").val("");
+
 			$.ajax({
 				type: "POST",
 				url: "/DashBoard/AddFollowed",
 				data: { followedUserEmail: followedUserEmail },
 				success: function (data) {
-
-					getFollowed();
-
+				    getFollowedAndFollowers();
 
 				},
 				error: function () {
-					$("#NoSuchUserWarning").remove();
-					$("#followedUsersList").before("<p id='NoSuchUserWarning'>There are no users with this email address.</p>");
+					$("#followUserForm").append("<p id='NoSuchUserWarning' class='validationMsg'>No such user. Did you enter the correct email address?</p>");
 				}
 			});
-
 		});
-
-
 	});
 
 
-	function getFollowed() {
+	function getFollowedAndFollowers() {
 		$.ajax({
 			type: "POST",
-			url: "/DashBoard/GetFollowed",
+			url: "/DashBoard/GetFollowedAndFollowers",
 			success: function (data) {
-				$.each(data.data, function (i, item) {
-					$("#rankTableContainer tbody").append("<tr><td>" + item.Score +
-						"</td><td>" + item.UserEmail + "</td><td><span class='glyphicon glyphicon-trash'></span></td></tr>");
-				});
+			    $("#followedTable tbody").empty();
+			    $("#followersTable tbody").empty();
+
+			    $.each(data.data.scoresOfFollowedUsers, function (i, item) {
+				    $("#followedTable tbody").append("<tr><td id='hiddenFollowedEmail' style='display:none;'>"+item.UserEmail+"</td><td>" + item.UserName + "</td><td class='removeFollowed'><a href='#'>Unfollow</a></td></tr>");
+			    });
+			    $.each(data.data.scoresOfFollowers, function (i, item) {
+			        $("#followersTable tbody").append("<tr><td>" + item.UserName + "</td></tr>");
+			    });
 			},
 		});
 	}
+
+	$("#followedTable").on("click", ".removeFollowed", function (e) {
+
+	    e.preventDefault();
+	    var followedUserEmail = $("#hiddenFollowedEmail").text();
+	    var currentRow = $(this).parent();
+	    $("#NoSuchUserWarning").remove();
+
+	    $.ajax({
+	        type: "POST",
+	        url: "/Dashboard/RemoveFollowed",
+	        data: {followedUserEmail: followedUserEmail},
+	        success: function (data) {
+	            currentRow.remove();
+	        },
+	        error: function () {
+	            alert("didn't unfollow user");
+	        }
+	    });
+
+	});
+	
 
 	//-----------------PROFILE-TAB-------------------------------------------------------------------------------//
 

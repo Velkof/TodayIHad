@@ -55,7 +55,7 @@ namespace TodayIHad.WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,CaloriesKcal,ProteinGr,FatGr,CarbsGr," +
+        public ActionResult Create([Bind(Include = "Id,Name,Calories,ProteinGr,FatGr,CarbsGr," +
                                                    "FiberGr,SugarGr,SodiumMg,FatSatGr,FatMonoGr," +
                                                    "FatPolyGr,CholesterolMg")] Food food, 
                                                     double gramsTotal, string foodUnits)
@@ -107,7 +107,7 @@ namespace TodayIHad.WebApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,CaloriesKcal,ProteinGr,FatGr,CarbsGr," + 
+        public ActionResult Edit([Bind(Include = "Id,Name,Calories,ProteinGr,FatGr,CarbsGr," + 
                                                  "FiberGr,SugarGr,SodiumMg,FatSatGr,FatMonoGr," + 
                                                  "FatPolyGr,CholesterolMg,IsDefault")] Food food, 
                                                  double gramsTotal, string foodUnits)
@@ -138,13 +138,7 @@ namespace TodayIHad.WebApp.Controllers
             }
 
             return View(food);
-            //if (ModelState.IsValid)
-            //{
-            //    db.Entry(food).State = EntityState.Modified;
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
-            //return View(food);
+
         }
 
         // GET: Foods/Delete/5
@@ -187,9 +181,6 @@ namespace TodayIHad.WebApp.Controllers
 
             return Json(new { error = true });
         }
-
-
- 
 
         protected override void Dispose(bool disposing)
         {

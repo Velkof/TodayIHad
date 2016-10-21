@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNet.Identity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -27,9 +26,17 @@ namespace TodayIHad.Repositories.Repositories
             return true;
         }
 
-        public bool Delete(string followerId)
+        public bool Delete(string followedUserId)
         {
-            throw new NotImplementedException();
+            var userId = HttpContext.Current.User.Identity.GetUserId();
+
+            var followedUser = db.FollowersToFolloweds.Where(x=>x.FollowerId == userId).FirstOrDefault(x => x.FollowedId == followedUserId);
+                
+            db.FollowersToFolloweds.Remove(followedUser);
+
+            db.SaveChanges();
+            return true;
+
         }
 
         public List<FollowersToFollowed> GetAll()
@@ -42,6 +49,13 @@ namespace TodayIHad.Repositories.Repositories
             var userId = HttpContext.Current.User.Identity.GetUserId();
 
             return GetAll().Where(x => x.FollowerId == userId).ToList();
+        }
+
+        public List<FollowersToFollowed> GetAllThatFollowUser()
+        {
+            var userId = HttpContext.Current.User.Identity.GetUserId();
+
+            return GetAll().Where(x => x.FollowedId == userId).ToList();
         }
     }
 }

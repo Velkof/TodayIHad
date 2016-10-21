@@ -176,6 +176,14 @@
     <Compile Include="Migrations\201610192106466_AddedValidationForFoodUnitEntity.Designer.cs">
       <DependentUpon>201610192106466_AddedValidationForFoodUnitEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610201711303_AddedValidationToLoggedFoodEntity.cs" />
+    <Compile Include="Migrations\201610201711303_AddedValidationToLoggedFoodEntity.Designer.cs">
+      <DependentUpon>201610201711303_AddedValidationToLoggedFoodEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610211617459_UpdateUserScoreEntity1.cs" />
+    <Compile Include="Migrations\201610211617459_UpdateUserScoreEntity1.Designer.cs">
+      <DependentUpon>201610211617459_UpdateUserScoreEntity1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FollowersToFollowedRepository.cs" />
@@ -287,6 +295,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610192106466_AddedValidationForFoodUnitEntity.resx">
       <DependentUpon>201610192106466_AddedValidationForFoodUnitEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610201711303_AddedValidationToLoggedFoodEntity.resx">
+      <DependentUpon>201610201711303_AddedValidationToLoggedFoodEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610211617459_UpdateUserScoreEntity1.resx">
+      <DependentUpon>201610211617459_UpdateUserScoreEntity1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

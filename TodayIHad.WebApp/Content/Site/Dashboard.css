@@ -145,7 +145,7 @@ textarea {
     outline: none;
 }
 
-#tabs-1 {
+#tabs-1, #tabs-2, #tabs-3, #tabs-4 {
     padding: 5px 7px 7px 5px;
 }
 
@@ -362,6 +362,7 @@ textarea {
 }
 #tableScoreInfoCollapsed tr td{
     border: 0px;
+    padding: 5px 0px;
 }
 
 #scoreInfoFull {
@@ -610,7 +611,7 @@ textarea {
     background-color: transparent;
 }
 
-#rankContainer{
+#rankSidebarContainer{
     margin-top: 7px;
     border: 1px solid red;
     height: 200px;
@@ -703,6 +704,12 @@ footer {
         padding-right: 0px;
     }
 
+    #rankSidebarContainer {
+        padding-left: 0px;
+        padding-right: 0px;
+        display:none;
+    }
+
 
     #infoTableLogFood {
         width: 90%;
@@ -727,8 +734,13 @@ footer {
     #scoreInfoFull {
         padding-left: 0px;
     }    
-    #calendarContainer, #dateBrowser, #rankContainer {
+    #calendarContainer, #dateBrowser {
         padding-left: 10px;
+    }
+
+    #rankSidebarContainer {
+        padding-left: 10px;
+        display: none;
     }
 
     #nothingHere {
@@ -748,7 +760,75 @@ footer {
 }
 
 
+/*--------------------------------SCORES-TAB-------------------------------------*/
 
 
 
 
+.form-control-inline {
+    min-width: 0;
+    width: auto;
+    display: inline;
+}
+
+.removeFollowed a {
+    color:#337ab7;
+}
+#rankAndFollowContainer {
+    padding: 0px;
+}
+
+#followContainer{
+    overflow: hidden;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+    -moz-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+    box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+    margin-top: 10px;
+    padding-top: 7px;
+}
+
+#followContainer:hover {
+    -webkit-box-shadow: 0px 1px 1px 1px #a4a8a1;
+    -moz-box-shadow: 0px 1px 1px 1px #a4a8a1;
+    box-shadow: 0px 1px 1px 1px #a4a8a1;
+}
+.containerLabel{
+    padding: .3em 0em .7em .5em;
+    font-size: 1.3em;
+    color: #3A8C37;
+}
+
+#followContainer > div {
+    padding: 5px 0px 5px 15px;
+}
+
+#followContainer td {
+    border: 0px;
+}
+
+
+
+
+/* Extra small devices (phones, up to 480px) */
+
+@media screen and (max-width: 480px) {
+
+    #followUserForm #followUserInput {
+        max-width: 70%;
+    }
+}
+@media screen and (max-width: 767px) {
+
+
+}
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991px) {
+
+}
+/* tablets/desktops and up ----------- */
+@media (min-width: 992px) and (max-width: 1199px) {
+}
+/* large desktops and up ----------- */
+@media screen and (min-width: 1200px) {
+}

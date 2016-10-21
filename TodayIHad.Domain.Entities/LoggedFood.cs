@@ -3,16 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TodayIHad.Domain.Entities
 {
+
+    [MetadataType(typeof(LoggedFoodMetadata))]
     public class LoggedFood
     {
         public int Id { get; set; }
 
-        [MaxLength(200)]
         public string Name { get; set; }
-
         public int Amount { get; set; }
-
-        [MaxLength(84)]
         public string Unit { get; set; }
 
         public double? Calories { get; set; }
@@ -40,6 +38,63 @@ namespace TodayIHad.Domain.Entities
         public virtual string UserId { get; set; }
         //public virtual User User { get; set; }
           
+
+    }
+
+    public class LoggedFoodMetadata
+    {
+        [Required]
+        [StringLength(200, MinimumLength = 2)]
+        [RegularExpression("^[a-zA-Z0-9-_(),.%\\/]*$")]
+        public string Name { get; set; }
+
+        [Required]
+        [Range(0, 999, ErrorMessage = "Calories must be between {1} and {2}")]
+        public int Amount { get; set; }
+
+
+        [Required]
+        [StringLength(84, MinimumLength = 2)]
+        [RegularExpression("^[a-zA-Z0-9-_(),.%\\/]*$")]
+        public string Unit { get; set; }
+
+        [Required]
+        [Range(0, 99999)]
+        public double? Calories { get; set; }
+
+        [Required]
+        [Range(0, 99999)]
+        public double? ProteinGr { get; set; }
+
+
+        [Required]
+        [Range(0, 99999)]
+        public double? FatGr { get; set; }
+
+        [Required]
+        [Range(0, 99999)]
+        public double? CarbsGr { get; set; }
+
+        [Range(0, 99999)]
+        public double? FiberGr { get; set; }
+
+        [Range(0, 99999)]
+        public double? SugarGr { get; set; }
+
+        [Range(0, 99999)]
+        public double? SodiumMg { get; set; }
+
+        [Range(0, 99999)]
+        public double? FatSatGr { get; set; }
+
+        [Range(0, 99999)]
+        public double? FatMonoGr { get; set; }
+
+        [Range(0, 99999)]
+        public double? FatPolyGr { get; set; }
+
+        [Range(0, 99999)]
+        public double? CholesterolMg { get; set; }
 
     }
 }

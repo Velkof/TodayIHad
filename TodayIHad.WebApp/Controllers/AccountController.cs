@@ -178,6 +178,7 @@ namespace TodayIHad.WebApp.Controllers
                     var userScore = new UserScore();
                     userScore.UserId = user.Id;
                     userScore.UserEmail = user.Email;
+                    userScore.UserName = user.UserName;
                     _userScoreRepository.Create(userScore);
 
                     return RedirectToAction("Index", "Dashboard");

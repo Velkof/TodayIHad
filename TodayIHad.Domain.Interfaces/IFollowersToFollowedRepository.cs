@@ -8,6 +8,7 @@ namespace TodayIHad.Domain.Interfaces
         List<FollowersToFollowed> GetAll();
 
         List<FollowersToFollowed> GetAllFollowedByUser();
+        List<FollowersToFollowed> GetAllThatFollowUser();
 
         bool Create(string followedUserId);
         bool Delete(string followerId);
