@@ -158,15 +158,6 @@ textarea {
     height: 300px;
     border-radius: 2px;
     margin-top: 10px;
-    -webkit-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-    -moz-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-    box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-}
-
-.hasDatepicker:hover {
-    -webkit-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
-    -moz-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
-    box-shadow: 0px 1px 1px 1.5px #c3c3c3;
 }
 
 .ui-datepicker-inline.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix.ui-corner-all {
@@ -197,12 +188,6 @@ textarea {
     border-radius: 2px;
  }
 
-
-#datepicker a.ui-state-default:hover {
-    -webkit-box-shadow: 0px 1px 1px 1px #a4a8a1;
-    -moz-box-shadow: 0px 1px 1px 1px #a4a8a1;
-    box-shadow: 0px 1px 1px 1px #a4a8a1;
-}
 
 #datepicker a.ui-state-default.ui-state-active {
     border: 1px solid green;
@@ -238,6 +223,31 @@ textarea {
 
 .gi-5x {
     font-size: 5em;
+}
+
+
+.cardShadow {
+    -webkit-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+    -moz-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+    box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+}
+
+.cardShadow:hover{
+   -webkit-box-shadow: 0px 1px 1px 1px #a4a8a1;
+    -moz-box-shadow: 0px 1px 1px 1px #a4a8a1;
+    box-shadow: 0px 1px 1px 1px #a4a8a1;
+}
+
+.cardLabelGreen {
+    padding: .3em 0em .7em .5em;
+    font-size: 1.3em;
+    color: #3A8C37;
+}
+
+.cardLabelRed{
+    padding: .3em 0em .7em .5em;
+    font-size: 1.3em;
+    color: red;
 }
 
 .navElementVisibleOnlyOnMobile {
@@ -417,9 +427,6 @@ textarea {
     -webkit-min-height: 70px;
     min-height: 70px;
     border-radius: 2px;
-    -webkit-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-    -moz-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-    box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
     margin-top: 10px;
 }
 
@@ -429,26 +436,6 @@ textarea {
 
 #editLoggedFood {
     overflow: hidden;
-}
-
-.loggedFoodCompact:hover, #logFood:hover, #editLoggedFood:hover {
-    -webkit-box-shadow: 0px 1px 1px 1px #a4a8a1;
-    -moz-box-shadow: 0px 1px 1px 1px #a4a8a1;
-    box-shadow: 0px 1px 1px 1px #a4a8a1;
-}
-
-
-#nameLogFoodDiv {
-    padding: .3em 0em .7em .5em;
-    font-size: 1.3em;
-    color: red;
-}
-
-
-.loggedFoodNameCompact {
-    padding: .3em 0em .7em .5em;
-    font-size: 1.3em;
-    color: #3A8C37;
 }
 
 
@@ -567,9 +554,14 @@ textarea {
 #date, #prevDate, #nextDate {
     height: 100%;
     outline-color: lightgray;
-    -webkit-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-    -moz-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-    box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
+}
+
+#date:hover, #prevDate:hover, #nextDate:hover {
+    background-color: transparent;
+}
+
+#date:focus, #prevDate:focus, #nextDate:focus {
+    background-color: transparent;
 }
 
 #date {
@@ -600,16 +592,7 @@ textarea {
     display: none;
 }
 
-#date:hover, #prevDate:hover, #nextDate:hover {
-    -webkit-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
-    -moz-box-shadow: 0px 1px 1px 1.5px #c3c3c3;
-    box-shadow: 0px 1px 1px 1.5px #c3c3c3;
-    background-color: transparent;
-}
 
-#date:focus, #prevDate:focus, #nextDate:focus {
-    background-color: transparent;
-}
 
 #rankSidebarContainer{
     margin-top: 7px;
@@ -781,22 +764,8 @@ footer {
 #followContainer{
     overflow: hidden;
     border-radius: 2px;
-    -webkit-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-    -moz-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-    box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
     margin-top: 10px;
     padding-top: 7px;
-}
-
-#followContainer:hover {
-    -webkit-box-shadow: 0px 1px 1px 1px #a4a8a1;
-    -moz-box-shadow: 0px 1px 1px 1px #a4a8a1;
-    box-shadow: 0px 1px 1px 1px #a4a8a1;
-}
-.containerLabel{
-    padding: .3em 0em .7em .5em;
-    font-size: 1.3em;
-    color: #3A8C37;
 }
 
 #followContainer > div {

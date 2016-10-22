@@ -54,12 +54,12 @@
     <div id="tabs-1">
         <div id="sidebarContainer" class="col-md-4 col-md-push-8">
             <div id="dateBrowser" class="col-xs-12">
-                <button id="prevDate" class="col-xs-2 btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span></button>
-                <button id="date" class="col-xs-7 btn btn-default"><span id="dateValue"></span></button>
-                <button id="nextDate" class="col-xs-2 btn btn-default"><span class="glyphicon glyphicon-chevron-right"></span></button>
+                <button id="prevDate" class="col-xs-2 btn btn-default cardShadow"><span class="glyphicon glyphicon-chevron-left"></span></button>
+                <button id="date" class="col-xs-7 btn btn-default cardShadow"><span id="dateValue"></span></button>
+                <button id="nextDate" class="col-xs-2 btn btn-default cardShadow"><span class="glyphicon glyphicon-chevron-right"></span></button>
             </div>
             <div id="calendarContainer" class="col-xs-12">
-                <div id="datepicker"></div>
+                <div id="datepicker" class="cardShadow"></div>
             </div>
             <div id="rankSidebarContainer" class="rankContainer col-xs-12">
 
@@ -77,8 +77,8 @@
     <div id="tabs-3">
 
         <div id="rankAndFollowContainer" class="col-xs-12 col-md-6">
-            <div id="followContainer">
-                <span class="containerLabel">Friends</span>
+            <div id="followContainer" class="cardShadow">
+                <span class="containerLabel cardLabelGreen">Friends</span>
                 <div>
                     <label>You Follow</label>
                     <table id="followedTable" class="table">
@@ -96,7 +96,7 @@
                 </div>
             </div>
 
-            <div class="rankContainer col-xs-12">
+            <div class="rankContainer col-xs-12  cardShadow">
 
             </div>
         </div>
@@ -164,13 +164,13 @@
     <script id="newLoggedFoodTemplate" type="text/mustachetemplates">
 
 
-        <div class='loggedFoodCompact newLoggedFoodCompact'>
+        <div class='loggedFoodCompact newLoggedFoodCompact cardShadow'>
 
             <span class='hiddenFoodIdCompact' style='display:none;'> {{FoodId}} </span>
             <span class='hiddenLoggedFoodIdCompact' style='display:none;'> {{Id }}</span>
             <span class='hiddenDateCreatedCompact' style='display:none;'> {{DateCreated}} </span>
             <span id='hiddenRowNumberCompact' style='display:none;'></span>
-            <div class='loggedFoodNameCompact newLoggedFoodNameCompact'> {{Name}} </div>
+            <div class='loggedFoodNameCompact newLoggedFoodNameCompact cardLabelGreen'> {{Name}} </div>
             <div class='loggedFoodInfoCompact'>
                 Calories: <span class='loggedFoodCaloriesCompact'> {{Calories}} </span>
                 | Quantity: <span class='loggedFoodQuantityCompact'> {{Amount}} </span>
@@ -182,12 +182,12 @@
 
     <script id="loggedFoodTemplate" type="text/mustachetemplates">
 
-        <div class='loggedFoodCompact'>
+        <div class='loggedFoodCompact cardShadow'>
             <span class='hiddenFoodIdCompact' style='display:none;'> {{FoodId}} </span>
             <span class='hiddenLoggedFoodIdCompact' style='display:none;'> {{Id}} </span>
             <span class='hiddenDateCreatedCompact' style='display:none;'>  {{DateCreated}} </span>
             <span id='hiddenRowNumberCompact' style='display:none;'></span>
-            <div class='loggedFoodNameCompact'> {{Name}} </div>
+            <div class='loggedFoodNameCompact cardLabelGreen'> {{Name}} </div>
             <div class='loggedFoodInfoCompact'>
                 Calories: <span class='loggedFoodCaloriesCompact'> {{Calories}} </span>
                 | Quantity: <span class='loggedFoodQuantityCompact'> {{Amount }}</span>
@@ -199,7 +199,7 @@
 
     <script id="logFoodTemplate" type="text/mustachetemplates">
 
-        <div id="logFood">
+        <div id="logFood" class="cardShadow">
 
             <span id='hiddenIdLogFood' style='display:none;'>{{Id}}</span>
 
@@ -258,12 +258,12 @@
     </script>
 
     <script id="editLoggedFoodTemplate" type="text/mustachetemplates">
-        <div id="editLoggedFood">
+        <div id="editLoggedFood" class="cardShadow">
 
             <span id='hiddenIdLogFood' style='display:none;'>{{loggedFood.FoodId}}</span>
             <span class='hiddenLoggedFoodIdFull' style='display:none'>{{loggedFood.Id}}</span>
             <span id='hiddenDateCreatedLoggedFood' style='display:none'></span>
-            <div id="nameLogFoodDiv">
+            <div id="nameLogFoodDiv" class="cardLabelRed">
                 <span id="nameLogFood">{{loggedFood.Name}}</span>
             </div>
             <div id="infoContainerLogFood" class="col-xs-12  col-sm-7">

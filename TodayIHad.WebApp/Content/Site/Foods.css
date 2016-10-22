@@ -35,11 +35,7 @@
     padding-right: 15px;
 }
 
-#addFoodUnit{
-    -webkit-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-    -moz-box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-    box-shadow: 0px .5px .5px .5px rgba(180,180,150,1);
-    
+#addFoodUnit{    
     margin-left: 0px;
     margin-right: 0px;
     border-radius: 2px;
@@ -47,19 +43,6 @@
 
 }
 
-#addFoodUnit:hover {
-    -webkit-box-shadow: 0px 1px 1px 1px #a4a8a1;
-    -moz-box-shadow: 0px 1px 1px 1px #a4a8a1;
-    box-shadow: 0px 1px 1px 1px #a4a8a1;
-}
-
-
-
-#addNewUnitHeading{
-    padding: .3em 0em .7em 0.5em;
-    font-size: 1.3em;
-    color: red;
-}
 
 #continueBtn {
     float: right;

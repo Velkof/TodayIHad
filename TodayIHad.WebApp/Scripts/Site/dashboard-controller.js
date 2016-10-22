@@ -663,6 +663,12 @@
 		});
 	};
 
+	$("#foodLogTab").on("click", function (e) {
+		e.preventDefault();
+	    $("#NoSuchUserWarning").remove();
+
+	});
+
 
 
 	//-----------------STATS-TAB----------------------------------------------------------------------------------//
@@ -672,6 +678,8 @@
 
 		e.preventDefault();
 		$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
+		$("#NoSuchUserWarning").remove();
+
 
 
 	});
@@ -702,6 +710,7 @@
 
 				},
 				error: function () {
+				    $("#NoSuchUserWarning").remove();
 					$("#followUserForm").append("<p id='NoSuchUserWarning' class='validationMsg'>No such user. Did you enter the correct email address?</p>");
 				}
 			});
@@ -756,6 +765,7 @@
 
 		e.preventDefault();
 		$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
+	    $("#NoSuchUserWarning").remove();
 
 	});
 
