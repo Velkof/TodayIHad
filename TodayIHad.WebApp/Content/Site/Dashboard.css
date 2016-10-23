@@ -254,7 +254,6 @@ textarea {
     display: none !important;
 }
 
-
 #searchContainer {
     position: relative;
 }
@@ -540,7 +539,7 @@ textarea {
     overflow: hidden;
 }
 
-#calendarContainer, #dateBrowser , #rankContainer{
+#calendarContainer, #dateBrowser , #rankSidebarContainer{
     padding-right: 0px;
 }
 
@@ -591,15 +590,10 @@ textarea {
 #datepicker {
     display: none;
 }
-
-
-
-#rankSidebarContainer{
-    margin-top: 7px;
-    border: 1px solid red;
-    height: 200px;
+#rankTableDiv {
+    min-height: 200px;
+    margin-top: 10px;
 }
-
 
 footer {
     padding-top: 100px;
@@ -682,7 +676,7 @@ footer {
         font-size: .86em;
     }
 
-    #calendarContainer, #dateBrowser, #rankContainer {
+    #calendarContainer, #dateBrowser {
         padding-left: 0px;
         padding-right: 0px;
     }
@@ -776,7 +770,19 @@ footer {
     border: 0px;
 }
 
+.rankContainer {
+    margin-top: 10px;
+}
+#rankMainContainer {
+    padding: 0px;
+}
+.rankTableDiv {
+    padding-top:7px;
+}
 
+.rankTable tbody tr td {
+    border:0px;
+}
 
 
 /* Extra small devices (phones, up to 480px) */
@@ -801,3 +807,4 @@ footer {
 /* large desktops and up ----------- */
 @media screen and (min-width: 1200px) {
 }
+

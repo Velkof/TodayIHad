@@ -3,6 +3,7 @@
 
 	var selectedDates = [];
 	getUserScoreInfo();
+	getFollowedAndFollowers();
 
 	$("#tabs").tabs();
 	$("#tabs").css("display", "block");
@@ -691,9 +692,6 @@
 
 		e.preventDefault();
 		$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
-		$("#rankTableContainer tbody").empty();
-		getFollowedAndFollowers();
-
 
 
 		$("#btnFollowUser").on("click", function () { 
@@ -725,9 +723,12 @@
 			success: function (data) {
 			    $("#followedTable tbody").empty();
 			    $("#followersTable tbody").empty();
+			    $(".rankTable tbody").empty();
 
 			    $.each(data.data.scoresOfFollowedUsers, function (i, item) {
 				    $("#followedTable tbody").append("<tr><td id='hiddenFollowedEmail' style='display:none;'>"+item.UserEmail+"</td><td>" + item.UserName + "</td><td class='removeFollowed'><a href='#'>Unfollow</a></td></tr>");
+
+				    $(".rankTable").append("<tr><td>" + item.UserName + "</td><td>" + item.Score + "</td></tr>");
 			    });
 			    $.each(data.data.scoresOfFollowers, function (i, item) {
 			        $("#followersTable tbody").append("<tr><td>" + item.UserName + "</td></tr>");

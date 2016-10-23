@@ -62,7 +62,15 @@
                 <div id="datepicker" class="cardShadow"></div>
             </div>
             <div id="rankSidebarContainer" class="rankContainer col-xs-12">
+                <div class="rankTableDiv cardShadow">
+                    <span class="rankLabel cardLabelGreen">Leaderboard</span>
+                    <table class="table"><tr><td>Last 7 Days</td><td>All Time</td></tr></table>
+                    <table class="rankTable table">
+                        <thead><tr><th>Name</th><th>Score</th></tr></thead>
+                        <tbody></tbody>
 
+                    </table>
+                </div>
             </div>
         </div>
 
@@ -76,8 +84,20 @@
     </div>
     <div id="tabs-3">
 
-        <div id="rankAndFollowContainer" class="col-xs-12 col-md-6">
-            <div id="followContainer" class="cardShadow">
+        <div id="rankAndFollowContainer" class="col-xs-12 col-md-4">
+
+            <div id="rankMainContainer" class="rankContainer col-xs-12">
+                <div class="rankTableDiv cardShadow">
+                    <span class="rankLabel cardLabelGreen">Leaderboard</span>
+                    <table class="rankTable table">
+                        <thead><tr><th>Name</th><th>Score</th></tr></thead>
+                        <tbody></tbody>
+
+                    </table>
+                </div>
+            </div>
+
+            <div id="followContainer" class="cardShadow col-xs-12">
                 <span class="containerLabel cardLabelGreen">Friends</span>
                 <div>
                     <label>You Follow</label>
@@ -96,16 +116,12 @@
                 </div>
             </div>
 
-            <div class="rankContainer col-xs-12  cardShadow">
 
-            </div>
         </div>
         <div id="tabs-4">
             Profile...(adjust weight and other measurements)
         </div>
-
     </div>
-
 </div>
 
     <script id="scoreCollapsedTemplate" type="text/mustachetemplates">
@@ -130,9 +146,7 @@
                 </td>
             </tr>
         </table>
-
     </script>
-
 
     <script id="scoreFullTemplate" type="text/mustachetemplates">
         <div class="col-xs-12">
@@ -204,7 +218,7 @@
             <span id='hiddenIdLogFood' style='display:none;'>{{Id}}</span>
 
             <div id="nameLogFoodDiv">
-                <span id="nameLogFood">{{Name}}</span>
+                <span id="nameLogFood" class="cardLabelRed">{{Name}}</span>
             </div>
             <div id="infoContainerLogFood" class="col-xs-12  col-sm-7">
                 <table id="infoTableLogFood">
