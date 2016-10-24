@@ -311,21 +311,21 @@
 
 	function calculatePercentages(carbs, protein, fat) {
 
-	    if (carbs == 0 && protein == 0 && fat == 0) {
-	        var percentages = {
-	            Carbs: 0,
-	            Protein: 0,
-	            Fat: 0
-	        }
-	    } else {
-	        var totalCalories = carbs * 4 + fat * 8.8 + protein * 4;
+		if (carbs == 0 && protein == 0 && fat == 0) {
+			var percentages = {
+				Carbs: 0,
+				Protein: 0,
+				Fat: 0
+			}
+		} else {
+			var totalCalories = carbs * 4 + fat * 8.8 + protein * 4;
 
-	        var percentages = {
-	            Carbs: (carbs * 4 / (totalCalories / 100)).toFixed(1),
-	            Protein: (protein * 4 / (totalCalories / 100)).toFixed(1),
-	            Fat: (fat * 8.8 / (totalCalories / 100)).toFixed(1)
-	        }
-	    }
+			var percentages = {
+				Carbs: (carbs * 4 / (totalCalories / 100)).toFixed(1),
+				Protein: (protein * 4 / (totalCalories / 100)).toFixed(1),
+				Fat: (fat * 8.8 / (totalCalories / 100)).toFixed(1)
+			}
+		}
 		return percentages;
 	};
 
@@ -418,7 +418,7 @@
 		var divId = "#" + $(this).parent().parent().attr("id");
 
 		var foodNutrients = {
-		    calsAmount: $(divId + " #calsAmountLogFood").data("calsamountlogfood"),
+			calsAmount: $(divId + " #calsAmountLogFood").data("calsamountlogfood"),
 			fatAmount: $(divId + " #fatAmountLogFood").data("fatamountlogfood"),
 			satFatAmount: $(divId + " #satFatAmountLogFood").data("satfatamountlogfood"),
 			monoFatAmount: $(divId + " #monoFatAmountLogFood").data("monofatamountlogfood"),
@@ -435,11 +435,11 @@
 								  * $(divId + " #quantityLogFood").val() / 100;
 
 		for (var i in foodNutrients) {
-		    if (foodNutrients[i] == "") {
-		    } else if (i == "calsAmount") {
-		        $(divId + " #" + i + "LogFood").text((grams * foodNutrients[i]).toFixed(0));
-		    }
-		    else {
+			if (foodNutrients[i] == "") {
+			} else if (i == "calsAmount") {
+				$(divId + " #" + i + "LogFood").text((grams * foodNutrients[i]).toFixed(0));
+			}
+			else {
 				$(divId + " #" + i + "LogFood").text((grams * foodNutrients[i]).toFixed(1));
 			}
 
@@ -666,7 +666,7 @@
 
 	$("#foodLogTab").on("click", function (e) {
 		e.preventDefault();
-	    $("#NoSuchUserWarning").remove();
+		$("#NoSuchUserWarning").remove();
 
 	});
 
@@ -695,20 +695,20 @@
 
 
 		$("#btnFollowUser").on("click", function () { 
-		    var followedUserEmail = $("#followUserInput").val();
-		    $("#NoSuchUserWarning").remove();
-		    $("#followUserInput").val("");
+			var followedUserEmail = $("#followUserInput").val();
+			$("#NoSuchUserWarning").remove();
+			$("#followUserInput").val("");
 
 			$.ajax({
 				type: "POST",
 				url: "/DashBoard/AddFollowed",
 				data: { followedUserEmail: followedUserEmail },
 				success: function (data) {
-				    getFollowedAndFollowers();
+					getFollowedAndFollowers();
 
 				},
 				error: function () {
-				    $("#NoSuchUserWarning").remove();
+					$("#NoSuchUserWarning").remove();
 					$("#followUserForm").append("<p id='NoSuchUserWarning' class='validationMsg'>No such user. Did you enter the correct email address?</p>");
 				}
 			});
@@ -721,40 +721,51 @@
 			type: "POST",
 			url: "/DashBoard/GetFollowedAndFollowers",
 			success: function (data) {
-			    $("#followedTable tbody").empty();
-			    $("#followersTable tbody").empty();
-			    $(".rankTable tbody").empty();
+				$("#followedTable tbody").empty();
+				$("#followersTable tbody").empty();
+				$(".rankTable tbody").empty();
 
-			    $.each(data.data.scoresOfFollowedUsers, function (i, item) {
-				    $("#followedTable tbody").append("<tr><td id='hiddenFollowedEmail' style='display:none;'>"+item.UserEmail+"</td><td>" + item.UserName + "</td><td class='removeFollowed'><a href='#'>Unfollow</a></td></tr>");
+				var userArraySortedByScore = [];
 
-				    $(".rankTable").append("<tr><td>" + item.UserName + "</td><td>" + item.Score + "</td></tr>");
-			    });
-			    $.each(data.data.scoresOfFollowers, function (i, item) {
-			        $("#followersTable tbody").append("<tr><td>" + item.UserName + "</td></tr>");
-			    });
+				var user = {
+					
+				}
+				data.data.scoresOfFollowedUsers.sort(function (a, b) {
+				    return b.SevenDayScore - a.SevenDayScore;
+
+				});
+				$.each(data.data.scoresOfFollowedUsers, function (i, item) {
+					$("#followedTable tbody").append("<tr><td id='hiddenFollowedEmail' style='display:none;'>"+item.UserEmail+"</td><td>" + item.UserName + "</td><td class='removeFollowed'><a href='#'>Unfollow</a></td></tr>");
+
+					$(".rankTable tbody").append("<tr><td>" + item.UserName + "</td><td>" + item.SevenDayScore + "</td></tr>");
+									 
+				   });
+
+				$.each(data.data.scoresOfFollowers, function (i, item) {
+					$("#followersTable tbody").append("<tr><td>" + item.UserName + "</td></tr>");
+				});
 			},
 		});
 	}
 
 	$("#followedTable").on("click", ".removeFollowed", function (e) {
 
-	    e.preventDefault();
-	    var followedUserEmail = $("#hiddenFollowedEmail").text();
-	    var currentRow = $(this).parent();
-	    $("#NoSuchUserWarning").remove();
+		e.preventDefault();
+		var followedUserEmail = $("#hiddenFollowedEmail").text();
+		var currentRow = $(this).parent();
+		$("#NoSuchUserWarning").remove();
 
-	    $.ajax({
-	        type: "POST",
-	        url: "/Dashboard/RemoveFollowed",
-	        data: {followedUserEmail: followedUserEmail},
-	        success: function (data) {
-	            currentRow.remove();
-	        },
-	        error: function () {
-	            alert("didn't unfollow user");
-	        }
-	    });
+		$.ajax({
+			type: "POST",
+			url: "/Dashboard/RemoveFollowed",
+			data: {followedUserEmail: followedUserEmail},
+			success: function (data) {
+				currentRow.remove();
+			},
+			error: function () {
+				alert("didn't unfollow user");
+			}
+		});
 
 	});
 	
@@ -766,7 +777,7 @@
 
 		e.preventDefault();
 		$(".newLoggedFoodCompact").removeClass("newLoggedFoodCompact");
-	    $("#NoSuchUserWarning").remove();
+		$("#NoSuchUserWarning").remove();
 
 	});
 

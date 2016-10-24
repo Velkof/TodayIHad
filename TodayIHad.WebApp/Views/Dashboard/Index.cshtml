@@ -63,12 +63,12 @@
             </div>
             <div id="rankSidebarContainer" class="rankContainer col-xs-12">
                 <div class="rankTableDiv cardShadow">
-                    <span class="rankLabel cardLabelGreen">Leaderboard</span>
-                    <table class="table"><tr><td>Last 7 Days</td><td>All Time</td></tr></table>
+                    <span class="rankLabel cardLabelOrange">Leaderboard</span>
                     <table class="rankTable table">
-                        <thead><tr><th>Name</th><th>Score</th></tr></thead>
+                        <thead>
+                            <tr class="rankTabs"><td class="last7Days chosenRankTab">Last 7 Days</td><td class="allTime">All Time</td></tr>
+                        </thead>
                         <tbody></tbody>
-
                     </table>
                 </div>
             </div>
@@ -80,25 +80,14 @@
     </div>
 
     <div id="tabs-2">
-        Stats will be here...
+        Coming soon.
     </div>
     <div id="tabs-3">
 
         <div id="rankAndFollowContainer" class="col-xs-12 col-md-4">
-
-            <div id="rankMainContainer" class="rankContainer col-xs-12">
-                <div class="rankTableDiv cardShadow">
-                    <span class="rankLabel cardLabelGreen">Leaderboard</span>
-                    <table class="rankTable table">
-                        <thead><tr><th>Name</th><th>Score</th></tr></thead>
-                        <tbody></tbody>
-
-                    </table>
-                </div>
-            </div>
-
             <div id="followContainer" class="cardShadow col-xs-12">
                 <span class="containerLabel cardLabelGreen">Friends</span>
+                <br/>
                 <div>
                     <label>You Follow</label>
                     <table id="followedTable" class="table">
@@ -115,270 +104,283 @@
                     </div>
                 </div>
             </div>
+            <div id="rankMainContainer" class="rankContainer col-xs-12">
+                <div class="rankTableDiv cardShadow">
+                    <span class="rankLabel cardLabelOrange">Leaderboard</span>
+                    <table class="rankTable table">
+                        <thead>
+                            <tr class="rankTabs"><td class="last7Days chosenRankTab">Last 7 Days</td><td class="allTime">All Time</td></tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+           
 
 
         </div>
         <div id="tabs-4">
-            Profile...(adjust weight and other measurements)
+            Coming soon.
         </div>
     </div>
 </div>
 
-    <script id="scoreCollapsedTemplate" type="text/mustachetemplates">
+<script id="scoreCollapsedTemplate" type="text/mustachetemplates">
 
-        <table id="tableScoreInfoCollapsed" class="table">
-            <tr>
-                <td>
-                    <img src="/Content/Images/score_24x24.png" />
-                    <span class="scoreValue"> {{Score}}</span>
-                </td>
-                <td>
-                    <img src="/Content/Images/streak_24x24.png" />
-                    <span class="streakValue"> {{Streak}}</span>
-                </td>
-                <td>
-                    <img src="/Content/Images/level_24x24.png" />
-                    <span class="levelValue">{{Level}}/15</span>
-                </td>
-                <td>
-                    <img src="/Content/Images/rank_24x24.png" />
-                    <span class="rankValue"> {{Rank}}/2</span>
-                </td>
-            </tr>
-        </table>
-    </script>
-
-    <script id="scoreFullTemplate" type="text/mustachetemplates">
-        <div class="col-xs-12">
-
-            <div class="col-xs-6">
-                <strong>Score</strong><br />
+    <table id="tableScoreInfoCollapsed" class="table">
+        <tr>
+            <td>
                 <img src="/Content/Images/score_24x24.png" />
-                <span class="scoreValue">{{Score}}</span>
-            </div>
-            <div class="col-xs-6">
-                <strong>Streak</strong><br />
+                <span class="scoreValue"> {{Score}}</span>
+            </td>
+            <td>
                 <img src="/Content/Images/streak_24x24.png" />
-                <span class="streakValue">{{Streak}}</span>
-            </div>
-            <div class="col-xs-6">
-                <strong>Level </strong><br />
+                <span class="streakValue"> {{Streak}}</span>
+            </td>
+            <td>
                 <img src="/Content/Images/level_24x24.png" />
-                <span class="levelValue">{{Level}}</span>/15
-            </div>
-            <div class="col-xs-6">
-                <strong>Rank </strong><br />
-                <img src="/Content/Images/rank_24x24.png" />
-                <span class="rankValue">1/2</span>
+                <span class="levelValue">{{Level}}/15</span>
+            </td>
+            <td>
+                <img src="/Content/Images/active_24x24.png" />
+                <span class="rankValue"> {{ActiveDays}}</span>
+            </td>
+        </tr>
+    </table>
+</script>
+
+<script id="scoreFullTemplate" type="text/mustachetemplates">
+    <div class="col-xs-12">
+
+        <div class="col-xs-6">
+            <strong>Score</strong><br />
+            <img src="/Content/Images/score_24x24.png" />
+            <span class="scoreValue">{{Score}}</span> pts
+        </div>
+        <div class="col-xs-6">
+            <strong>Streak</strong><br />
+            <img src="/Content/Images/streak_24x24.png" />
+            <span class="streakValue">{{Streak}}</span> days
+        </div>
+        <div class="col-xs-6">
+            <strong>Level </strong><br />
+            <img src="/Content/Images/level_24x24.png" />
+            <span class="levelValue">{{Level}}</span>/15
+        </div>
+        <div class="col-xs-6">
+            <strong>Active</strong><br />
+            <img src="/Content/Images/active_24x24.png" />
+            <span class="activeValue">{{ActiveDays}}</span> days
+        </div>
+    </div>
+</script>
+
+
+<script id="newLoggedFoodTemplate" type="text/mustachetemplates">
+
+
+    <div class='loggedFoodCompact newLoggedFoodCompact cardShadow'>
+
+        <span class='hiddenFoodIdCompact' style='display:none;'> {{FoodId}} </span>
+        <span class='hiddenLoggedFoodIdCompact' style='display:none;'> {{Id }}</span>
+        <span class='hiddenDateCreatedCompact' style='display:none;'> {{DateCreated}} </span>
+        <span id='hiddenRowNumberCompact' style='display:none;'></span>
+        <div class='loggedFoodNameCompact newLoggedFoodNameCompact cardLabelGreen'> {{Name}} </div>
+        <div class='loggedFoodInfoCompact'>
+            Calories: <span class='loggedFoodCaloriesCompact'> {{Calories}} </span>
+            | Quantity: <span class='loggedFoodQuantityCompact'> {{Amount}} </span>
+            | Unit: <span class='loggedFoodUnitCompact'> {{Unit}} </span>
+        </div>
+    </div>
+
+</script>
+
+<script id="loggedFoodTemplate" type="text/mustachetemplates">
+
+    <div class='loggedFoodCompact cardShadow'>
+        <span class='hiddenFoodIdCompact' style='display:none;'> {{FoodId}} </span>
+        <span class='hiddenLoggedFoodIdCompact' style='display:none;'> {{Id}} </span>
+        <span class='hiddenDateCreatedCompact' style='display:none;'>  {{DateCreated}} </span>
+        <span id='hiddenRowNumberCompact' style='display:none;'></span>
+        <div class='loggedFoodNameCompact cardLabelGreen'> {{Name}} </div>
+        <div class='loggedFoodInfoCompact'>
+            Calories: <span class='loggedFoodCaloriesCompact'> {{Calories}} </span>
+            | Quantity: <span class='loggedFoodQuantityCompact'> {{Amount }}</span>
+            | Unit: <span class='loggedFoodUnitCompact'> {{Unit}} </span>
+        </div>
+    </div>
+</script>
+
+
+<script id="logFoodTemplate" type="text/mustachetemplates">
+
+    <div id="logFood" class="cardShadow">
+
+        <span id='hiddenIdLogFood' style='display:none;'>{{Id}}</span>
+
+        <div id="nameLogFoodDiv">
+            <span id="nameLogFood" class="cardLabelRed">{{Name}}</span>
+        </div>
+        <div id="infoContainerLogFood" class="col-xs-12  col-sm-7">
+            <table id="infoTableLogFood">
+                <tr><th>Info</th></tr>
+                <tr>
+                    <td class="labelPrimLogFoodInfo">Fat: </td>
+                    <td class="valuesInfoTable"><span id="fatAmountLogFood" data-fatamountlogfood="{{FatGr}}">{{FatGr}}</span> g &nbsp;</td>
+                    <td class="labelPrimLogFoodInfo"> Prot: </td>
+                    <td class="valuesInfoTable"><span id="protAmountLogFood" data-protamountlogfood="{{ProteinGr}}">{{ProteinGr}}</span> g &nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="labelSecLogFoodInfo">Sat. </td>
+                    <td class="valuesInfoTable"><span id="satFatAmountLogFood" data-satfatamountlogfood="{{FatSatGr}}">{{FatSatGr}}</span> g &nbsp;</td>
+                    <td class="labelPrimLogFoodInfo"> Carb: </td>
+                    <td class="valuesInfoTable"><span id="carbsAmountLogFood" data-carbsamountlogfood="{{CarbsGr}}">{{CarbsGr}}</span> g &nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="labelSecLogFoodInfo">Mono. </td>
+                    <td class="valuesInfoTable"> <span id="monoFatAmountLogFood" data-monofatamountlogfood="{{FatMonoGr}}">{{FatMonoGr}}</span> g &nbsp;</td>
+                    <td class="labelSecLogFoodInfo">Fiber: </td>
+                    <td class="valuesInfoTable"><span id="fiberAmountLogFood" data-fiberamountlogfood="{{FiberGr}}">{{FiberGr}}</span> g &nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="labelSecLogFoodInfo">Poly.</td>
+                    <td class="valuesInfoTable"><span id="polyFatAmountLogFood" data-polyfatamountlogfood="{{FatPolyGr}}">{{FatPolyGr}}</span> g &nbsp;</td>
+                    <td class="labelSecLogFoodInfo">Sugar:</td>
+                    <td class="valuesInfoTable"><span id="sugarAmountLogFood" data-sugaramountlogfood="{{SugarGr}}">{{SugarGr}}</span> g &nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="labelPrimLogFoodInfo">Choles:</td>
+                    <td class="valuesInfoTable"><span id="cholesAmountLogFood" data-cholesamountlogfood="{{CholesterolMg}}">{{CholesterolMg}}</span> mg</td>
+                    <td class="labelPrimLogFoodInfo">Sodium:</td>
+                    <td class="valuesInfoTable"><span id="sodiumAmountLogFood" data-sodiumamountlogfood="{{SodiumMg}}">{{SodiumMg}}</span> mg</td>
+                </tr>
+            </table>
+            <div id="calsLogFood"><span id="calsAmountLogFood" data-calsamountlogfood="{{Calories}}">{{Calories}}</span> calories</div>
+        </div>
+        <div id="actionContainerLogFood" class="col-xs-12 col-sm-5">
+            <label>Unit</label>
+            <select class="form-control" id="unitsLogFood"></select> <br />
+            <label>Quantity</label>
+            <input type="number" class="form-control" id="quantityLogFood" value="" /><br /><br />
+            <div id="btnContainerLogFood">
+                <button class='btn btn-success saveBtn'>Save</button>
+                <button class='btn btn-default cancelBtn'>Cancel</button>
             </div>
         </div>
-    </script>
 
+    </div>
 
-    <script id="newLoggedFoodTemplate" type="text/mustachetemplates">
+</script>
 
+<script id="editLoggedFoodTemplate" type="text/mustachetemplates">
+    <div id="editLoggedFood" class="cardShadow">
 
-        <div class='loggedFoodCompact newLoggedFoodCompact cardShadow'>
-
-            <span class='hiddenFoodIdCompact' style='display:none;'> {{FoodId}} </span>
-            <span class='hiddenLoggedFoodIdCompact' style='display:none;'> {{Id }}</span>
-            <span class='hiddenDateCreatedCompact' style='display:none;'> {{DateCreated}} </span>
-            <span id='hiddenRowNumberCompact' style='display:none;'></span>
-            <div class='loggedFoodNameCompact newLoggedFoodNameCompact cardLabelGreen'> {{Name}} </div>
-            <div class='loggedFoodInfoCompact'>
-                Calories: <span class='loggedFoodCaloriesCompact'> {{Calories}} </span>
-                | Quantity: <span class='loggedFoodQuantityCompact'> {{Amount}} </span>
-                | Unit: <span class='loggedFoodUnitCompact'> {{Unit}} </span>
-            </div>
+        <span id='hiddenIdLogFood' style='display:none;'>{{loggedFood.FoodId}}</span>
+        <span class='hiddenLoggedFoodIdFull' style='display:none'>{{loggedFood.Id}}</span>
+        <span id='hiddenDateCreatedLoggedFood' style='display:none'></span>
+        <div id="nameLogFoodDiv" class="cardLabelRed">
+            <span id="nameLogFood">{{loggedFood.Name}}</span>
         </div>
+        <div id="infoContainerLogFood" class="col-xs-12  col-sm-7">
+            <table id="infoTableLogFood">
+                <tr><th>Info</th></tr>
+                <tr>
+                    <td class="labelPrimLogFoodInfo">Fat: </td>
+                    <td class="valuesInfoTable"><span id="fatAmountLogFood" data-fatamountlogfood="{{food.FatGr}}">{{loggedFood.FatGr}}</span>  g &nbsp;</td>
+                    <td class="labelPrimLogFoodInfo"> Prot: </td>
+                    <td class="valuesInfoTable"><span id="protAmountLogFood" data-protamountlogfood="{{food.ProteinGr}}">{{loggedFood.ProteinGr}}</span> g &nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="labelSecLogFoodInfo">Sat. </td>
+                    <td class="valuesInfoTable"><span id="satFatAmountLogFood" data-satfatamountlogfood="{{food.FatSatGr}}">{{loggedFood.FatSatGr}}</span> g &nbsp;</td>
+                    <td class="labelPrimLogFoodInfo"> Carb: </td>
+                    <td class="valuesInfoTable"><span id="carbsAmountLogFood" data-carbsamountlogfood="{{food.CarbsGr}}">{{loggedFood.CarbsGr}}</span> g &nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="labelSecLogFoodInfo">Mono. </td>
+                    <td class="valuesInfoTable"> <span id="monoFatAmountLogFood" data-monofatamountlogfood="{{food.FatMonoGr}}">{{loggedFood.FatMonoGr}}</span> g &nbsp;</td>
+                    <td class="labelSecLogFoodInfo">Fiber: </td>
+                    <td class="valuesInfoTable"><span id="fiberAmountLogFood" data-fiberamountlogfood="{{food.FiberGr}}">{{loggedFood.FiberGr}}</span> g &nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="labelSecLogFoodInfo">Poly.</td>
+                    <td class="valuesInfoTable"><span id="polyFatAmountLogFood" data-polyfatamountlogfood="{{food.FatPolyGr}}">{{loggedFood.FatPolyGr}}</span> g &nbsp;</td>
+                    <td class="labelSecLogFoodInfo">Sugar:</td>
+                    <td class="valuesInfoTable"><span id="sugarAmountLogFood" data-sugaramountlogfood="{{food.SugarGr}}">{{loggedFood.SugarGr}}</span> g &nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="labelPrimLogFoodInfo">Choles:</td>
+                    <td class="valuesInfoTable"><span id="cholesAmountLogFood" data-cholesamountlogfood="{{food.CholesterolMg}}">{{loggedFood.CholesterolMg}}</span> mg</td>
+                    <td class="labelPrimLogFoodInfo">Sodium:</td>
+                    <td class="valuesInfoTable"><span id="sodiumAmountLogFood" data-sodiumamountlogfood="{{food.SodiumMg}}">{{loggedFood.SodiumMg}}</span> mg</td>
+                </tr>
+            </table>
 
-    </script>
-
-    <script id="loggedFoodTemplate" type="text/mustachetemplates">
-
-        <div class='loggedFoodCompact cardShadow'>
-            <span class='hiddenFoodIdCompact' style='display:none;'> {{FoodId}} </span>
-            <span class='hiddenLoggedFoodIdCompact' style='display:none;'> {{Id}} </span>
-            <span class='hiddenDateCreatedCompact' style='display:none;'>  {{DateCreated}} </span>
-            <span id='hiddenRowNumberCompact' style='display:none;'></span>
-            <div class='loggedFoodNameCompact cardLabelGreen'> {{Name}} </div>
-            <div class='loggedFoodInfoCompact'>
-                Calories: <span class='loggedFoodCaloriesCompact'> {{Calories}} </span>
-                | Quantity: <span class='loggedFoodQuantityCompact'> {{Amount }}</span>
-                | Unit: <span class='loggedFoodUnitCompact'> {{Unit}} </span>
-            </div>
-        </div>
-    </script>
-
-
-    <script id="logFoodTemplate" type="text/mustachetemplates">
-
-        <div id="logFood" class="cardShadow">
-
-            <span id='hiddenIdLogFood' style='display:none;'>{{Id}}</span>
-
-            <div id="nameLogFoodDiv">
-                <span id="nameLogFood" class="cardLabelRed">{{Name}}</span>
-            </div>
-            <div id="infoContainerLogFood" class="col-xs-12  col-sm-7">
-                <table id="infoTableLogFood">
-                    <tr><th>Info</th></tr>
-                    <tr>
-                        <td class="labelPrimLogFoodInfo">Fat: </td>
-                        <td class="valuesInfoTable"><span id="fatAmountLogFood" data-fatamountlogfood="{{FatGr}}">{{FatGr}}</span> g &nbsp;</td>
-                        <td class="labelPrimLogFoodInfo"> Prot: </td>
-                        <td class="valuesInfoTable"><span id="protAmountLogFood" data-protamountlogfood="{{ProteinGr}}">{{ProteinGr}}</span> g &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="labelSecLogFoodInfo">Sat. </td>
-                        <td class="valuesInfoTable"><span id="satFatAmountLogFood" data-satfatamountlogfood="{{FatSatGr}}">{{FatSatGr}}</span> g &nbsp;</td>
-                        <td class="labelPrimLogFoodInfo"> Carb: </td>
-                        <td class="valuesInfoTable"><span id="carbsAmountLogFood" data-carbsamountlogfood="{{CarbsGr}}">{{CarbsGr}}</span> g &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="labelSecLogFoodInfo">Mono. </td>
-                        <td class="valuesInfoTable"> <span id="monoFatAmountLogFood" data-monofatamountlogfood="{{FatMonoGr}}">{{FatMonoGr}}</span> g &nbsp;</td>
-                        <td class="labelSecLogFoodInfo">Fiber: </td>
-                        <td class="valuesInfoTable"><span id="fiberAmountLogFood" data-fiberamountlogfood="{{FiberGr}}">{{FiberGr}}</span> g &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="labelSecLogFoodInfo">Poly.</td>
-                        <td class="valuesInfoTable"><span id="polyFatAmountLogFood" data-polyfatamountlogfood="{{FatPolyGr}}">{{FatPolyGr}}</span> g &nbsp;</td>
-                        <td class="labelSecLogFoodInfo">Sugar:</td>
-                        <td class="valuesInfoTable"><span id="sugarAmountLogFood" data-sugaramountlogfood="{{SugarGr}}">{{SugarGr}}</span> g &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="labelPrimLogFoodInfo">Choles:</td>
-                        <td class="valuesInfoTable"><span id="cholesAmountLogFood" data-cholesamountlogfood="{{CholesterolMg}}">{{CholesterolMg}}</span> mg</td>
-                        <td class="labelPrimLogFoodInfo">Sodium:</td>
-                        <td class="valuesInfoTable"><span id="sodiumAmountLogFood" data-sodiumamountlogfood="{{SodiumMg}}">{{SodiumMg}}</span> mg</td>
-                    </tr>
-                </table>
-                <div id="calsLogFood"><span id="calsAmountLogFood" data-calsamountlogfood="{{Calories}}">{{Calories}}</span> calories</div>
-            </div>
-            <div id="actionContainerLogFood" class="col-xs-12 col-sm-5">
-                <label>Unit</label>
-                <select class="form-control" id="unitsLogFood"></select> <br />
-                <label>Quantity</label>
-                <input type="number" class="form-control" id="quantityLogFood" value="" /><br /><br />
-                <div id="btnContainerLogFood">
-                    <button class='btn btn-success saveBtn'>Save</button>
-                    <button class='btn btn-default cancelBtn'>Cancel</button>
-                </div>
+            <div id="calsLogFood">
+                <span id="calsAmountLogFood" data-calsamountlogfood="{{food.Calories}}">{{loggedFood.Calories}} </span>  calories
             </div>
 
         </div>
-
-    </script>
-
-    <script id="editLoggedFoodTemplate" type="text/mustachetemplates">
-        <div id="editLoggedFood" class="cardShadow">
-
-            <span id='hiddenIdLogFood' style='display:none;'>{{loggedFood.FoodId}}</span>
-            <span class='hiddenLoggedFoodIdFull' style='display:none'>{{loggedFood.Id}}</span>
-            <span id='hiddenDateCreatedLoggedFood' style='display:none'></span>
-            <div id="nameLogFoodDiv" class="cardLabelRed">
-                <span id="nameLogFood">{{loggedFood.Name}}</span>
+        <div id="actionContainerLogFood" class="col-xs-12 col-sm-5">
+            <label>Unit</label>
+            <select class="form-control" id="unitsLogFood"></select> <br />
+            <label>Quantity</label>
+            <input type="number" class="form-control" id="quantityLogFood" value="{{loggedFood.Amount}}" /><br /><br />
+            <div id="btnContainerLogFood">
+                <button class='btn btn-success updateBtn'>Update</button>
+                <button class='btn btn-default cancelBtn'>Cancel</button>
+                <button class='btn btn-danger deleteBtn'>Delete</button>
             </div>
-            <div id="infoContainerLogFood" class="col-xs-12  col-sm-7">
-                <table id="infoTableLogFood">
-                    <tr><th>Info</th></tr>
-                    <tr>
-                        <td class="labelPrimLogFoodInfo">Fat: </td>
-                        <td class="valuesInfoTable"><span id="fatAmountLogFood" data-fatamountlogfood="{{food.FatGr}}">{{loggedFood.FatGr}}</span>  g &nbsp;</td>
-                        <td class="labelPrimLogFoodInfo"> Prot: </td>
-                        <td class="valuesInfoTable"><span id="protAmountLogFood" data-protamountlogfood="{{food.ProteinGr}}">{{loggedFood.ProteinGr}}</span> g &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="labelSecLogFoodInfo">Sat. </td>
-                        <td class="valuesInfoTable"><span id="satFatAmountLogFood" data-satfatamountlogfood="{{food.FatSatGr}}">{{loggedFood.FatSatGr}}</span> g &nbsp;</td>
-                        <td class="labelPrimLogFoodInfo"> Carb: </td>
-                        <td class="valuesInfoTable"><span id="carbsAmountLogFood" data-carbsamountlogfood="{{food.CarbsGr}}">{{loggedFood.CarbsGr}}</span> g &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="labelSecLogFoodInfo">Mono. </td>
-                        <td class="valuesInfoTable"> <span id="monoFatAmountLogFood" data-monofatamountlogfood="{{food.FatMonoGr}}">{{loggedFood.FatMonoGr}}</span> g &nbsp;</td>
-                        <td class="labelSecLogFoodInfo">Fiber: </td>
-                        <td class="valuesInfoTable"><span id="fiberAmountLogFood" data-fiberamountlogfood="{{food.FiberGr}}">{{loggedFood.FiberGr}}</span> g &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="labelSecLogFoodInfo">Poly.</td>
-                        <td class="valuesInfoTable"><span id="polyFatAmountLogFood" data-polyfatamountlogfood="{{food.FatPolyGr}}">{{loggedFood.FatPolyGr}}</span> g &nbsp;</td>
-                        <td class="labelSecLogFoodInfo">Sugar:</td>
-                        <td class="valuesInfoTable"><span id="sugarAmountLogFood" data-sugaramountlogfood="{{food.SugarGr}}">{{loggedFood.SugarGr}}</span> g &nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td class="labelPrimLogFoodInfo">Choles:</td>
-                        <td class="valuesInfoTable"><span id="cholesAmountLogFood" data-cholesamountlogfood="{{food.CholesterolMg}}">{{loggedFood.CholesterolMg}}</span> mg</td>
-                        <td class="labelPrimLogFoodInfo">Sodium:</td>
-                        <td class="valuesInfoTable"><span id="sodiumAmountLogFood" data-sodiumamountlogfood="{{food.SodiumMg}}">{{loggedFood.SodiumMg}}</span> mg</td>
-                    </tr>
-                </table>
-
-                <div id="calsLogFood">
-                    <span id="calsAmountLogFood" data-calsamountlogfood="{{food.Calories}}">{{loggedFood.Calories}} </span>  calories
-                </div>
-
-            </div>
-            <div id="actionContainerLogFood" class="col-xs-12 col-sm-5">
-                <label>Unit</label>
-                <select class="form-control" id="unitsLogFood"></select> <br />
-                <label>Quantity</label>
-                <input type="number" class="form-control" id="quantityLogFood" value="{{loggedFood.Amount}}" /><br /><br />
-                <div id="btnContainerLogFood">
-                    <button class='btn btn-success updateBtn'>Update</button>
-                    <button class='btn btn-default cancelBtn'>Cancel</button>
-                    <button class='btn btn-danger deleteBtn'>Delete</button>
-                </div>
-            </div>
-
         </div>
 
-    </script>
+    </div>
+
+</script>
 
 
-    <script id="fullDailyReportTemplate" type="text/mustachetemplates">
+<script id="fullDailyReportTemplate" type="text/mustachetemplates">
 
 
-        <table id="macroRatiosTableDailyReport" class="macroRatiosTable">
-            <tr>
-                <td id="carbsRatioDailyReport" class="carbsRatio"></td>
-                <td id="proteinRatioDailyReport" class="proteinRatio"></td>
-                <td id="fatRatioDailyReport" class="fatRatio"></td>
-            </tr>
-        </table>
+    <table id="macroRatiosTableDailyReport" class="macroRatiosTable">
+        <tr>
+            <td id="carbsRatioDailyReport" class="carbsRatio"></td>
+            <td id="proteinRatioDailyReport" class="proteinRatio"></td>
+            <td id="fatRatioDailyReport" class="fatRatio"></td>
+        </tr>
+    </table>
 
-        <table id="fullDailyReportTable">
-            <tr>
-                <td class="labelPrimLogFoodInfo">Fat: </td>
-                <td class="valuesInfoTable">{{Fat}} g &nbsp;</td>
-                <td class="labelPrimLogFoodInfo"> Prot: </td>
-                <td class="valuesInfoTable">{{Protein}} g &nbsp;</td>
-            </tr>
-            <tr>
-                <td class="labelSecLogFoodInfo">Sat. </td>
-                <td class="valuesInfoTable">{{FatSat}} g &nbsp;</td>
-                <td class="labelPrimLogFoodInfo"> Carb: </td>
-                <td class="valuesInfoTable">{{Carbs}} g &nbsp;</td>
-            </tr>
-            <tr>
-                <td class="labelSecLogFoodInfo">Mono. </td>
-                <td class="valuesInfoTable">{{FatMono}} g &nbsp;</td>
-                <td class="labelSecLogFoodInfo">Fiber: </td>
-                <td class="valuesInfoTable">{{Fiber}} g &nbsp;</td>
-            </tr>
-            <tr>
-                <td class="labelSecLogFoodInfo">Poly.</td>
-                <td class="valuesInfoTable">{{FatPoly}} g &nbsp;</td>
-                <td class="labelSecLogFoodInfo">Sugar:</td>
-                <td class="valuesInfoTable">{{Sugar}} g &nbsp;</td>
-            </tr>
-            <tr>
-                <td class="labelPrimLogFoodInfo">Choles:</td>
-                <td class="valuesInfoTable">{{Cholesterol}} mg</td>
-                <td class="labelPrimLogFoodInfo">Sodium:</td>
-                <td class="valuesInfoTable">{{Sodium}} mg</td>
-            </tr>
-        </table>
+    <table id="fullDailyReportTable">
+        <tr>
+            <td class="labelPrimLogFoodInfo">Fat: </td>
+            <td class="valuesInfoTable">{{Fat}} g &nbsp;</td>
+            <td class="labelPrimLogFoodInfo"> Prot: </td>
+            <td class="valuesInfoTable">{{Protein}} g &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="labelSecLogFoodInfo">Sat. </td>
+            <td class="valuesInfoTable">{{FatSat}} g &nbsp;</td>
+            <td class="labelPrimLogFoodInfo"> Carb: </td>
+            <td class="valuesInfoTable">{{Carbs}} g &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="labelSecLogFoodInfo">Mono. </td>
+            <td class="valuesInfoTable">{{FatMono}} g &nbsp;</td>
+            <td class="labelSecLogFoodInfo">Fiber: </td>
+            <td class="valuesInfoTable">{{Fiber}} g &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="labelSecLogFoodInfo">Poly.</td>
+            <td class="valuesInfoTable">{{FatPoly}} g &nbsp;</td>
+            <td class="labelSecLogFoodInfo">Sugar:</td>
+            <td class="valuesInfoTable">{{Sugar}} g &nbsp;</td>
+        </tr>
+        <tr>
+            <td class="labelPrimLogFoodInfo">Choles:</td>
+            <td class="valuesInfoTable">{{Cholesterol}} mg</td>
+            <td class="labelPrimLogFoodInfo">Sodium:</td>
+            <td class="valuesInfoTable">{{Sodium}} mg</td>
+        </tr>
+    </table>
 
-    </script>
+</script>

@@ -30,7 +30,7 @@ namespace TodayIHad.Domain.Entities
     {
         [Required(ErrorMessage = "Food name is required")]
         [StringLength(200, MinimumLength = 2, ErrorMessage = "Name must be between 2 and 200 characters")]
-        [RegularExpression("^[a-zA-Z0-9-_(),.%\\/]*$", ErrorMessage = "Name can contain only letters, numbers, and the symbols - , . _ / % ()")]
+        [RegularExpression("^[a-zA-Z0-9-_() ,.%\\/]*$", ErrorMessage = "Name can contain only letters, numbers, and the symbols - , . _ / % ()")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Calories is a required field")]

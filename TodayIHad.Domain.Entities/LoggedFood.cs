@@ -45,7 +45,7 @@ namespace TodayIHad.Domain.Entities
     {
         [Required]
         [StringLength(200, MinimumLength = 2)]
-        [RegularExpression("^[a-zA-Z0-9-_(),.%\\/]*$")]
+        [RegularExpression("^[a-zA-Z0-9-_() ,.%\\/]*$")]
         public string Name { get; set; }
 
         [Required]
@@ -55,7 +55,7 @@ namespace TodayIHad.Domain.Entities
 
         [Required]
         [StringLength(84, MinimumLength = 2)]
-        [RegularExpression("^[a-zA-Z0-9-_(),.%\\/]*$")]
+        [RegularExpression("^[a-zA-Z0-9-_() ,.%\\/]*$")]
         public string Unit { get; set; }
 
         [Required]

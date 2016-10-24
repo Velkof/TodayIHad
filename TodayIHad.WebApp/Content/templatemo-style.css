@@ -226,7 +226,7 @@ img {
     color: white;
 }
 
-#registerBtn {
+.registerBtn {
     background-color: gold;
     color:black;
 }
@@ -373,9 +373,12 @@ img {
 #download {
     padding-top: 80px;
     padding-bottom: 80px;
+    text-align:center;
+        background: #f8f8f8;
+
 }
 
-    #download h2 {
+    /*#download h2 {
         padding-bottom: 20px;
     }
 
@@ -384,7 +387,7 @@ img {
         font-weight: bold;
         margin-top: 20px;
         padding: 10px 40px 10px 40px;
-    }
+    }*/
 /* end download */
 
 /* start contact */
@@ -442,7 +445,7 @@ img {
 
 /* start footer */
 footer {
-    background: #fff;
+    background: #white;
     font-weight: 400;
     text-align: center;
     padding: 20px;
@@ -512,3 +515,4 @@ footer {
     margin-bottom: 20px;
     color: green;
 }
+

@@ -190,19 +190,21 @@ textarea {
 
 
 #datepicker a.ui-state-default.ui-state-active {
-    border: 1px solid green;
-    color: green;
+    border: 1px solid #faaf52;
     font-weight: bold;
+    color:#faaf52 !important;
 }
 
-#datepicker a.ui-state-default.ui-state-highlight {
-    border: 1px solid #a0951b;
-    color: #a0951b;
+
+#datepicker a.ui-state-default.ui-state-active {
+    border: 1px solid #cbb123;
     font-weight: bold;
+    color:#cbb123 !important;
 }
 
 .highlightedDates a {
-    background-color: #f7ffb3 !important;
+    background-color: #3A8C37 !important;
+    color: white !important;
 }
 
 
@@ -248,6 +250,12 @@ textarea {
     padding: .3em 0em .7em .5em;
     font-size: 1.3em;
     color: red;
+}
+
+.cardLabelOrange{
+    padding: .3em 0em .7em .5em;
+    font-size: 1.3em;
+    color: #ff8d00;
 }
 
 .navElementVisibleOnlyOnMobile {
@@ -494,6 +502,7 @@ textarea {
     border-bottom: 1px solid lightgray;
     padding: .2em 1em .2em 0em;
     font-size: .9em;
+    text-align: left;
 }
 
 .valuesInfoTable {
@@ -590,9 +599,31 @@ textarea {
 #datepicker {
     display: none;
 }
-#rankTableDiv {
+.rankTableDiv {
     min-height: 200px;
     margin-top: 10px;
+}
+
+.rankTable {
+    margin: 10px 20px 20px 10px;
+}
+
+.rankTable tbody:before {
+    content: "-";
+    display: block;
+    line-height: 1em;
+    color: transparent;
+}
+
+.rankTabs td {
+    color: #747070;
+    border-top:0px!important;
+}
+
+.chosenRankTab{
+    color: #747070 !important;
+    font-weight:bold;
+    border-bottom: 1px solid #ff8d00;
 }
 
 footer {
@@ -762,12 +793,15 @@ footer {
     padding-top: 7px;
 }
 
-#followContainer > div {
-    padding: 5px 0px 5px 15px;
-}
 
 #followContainer td {
     border: 0px;
+}
+
+.containerLabel {
+    color:brown;
+    padding-left:0px;
+    
 }
 
 .rankContainer {
@@ -807,4 +841,5 @@ footer {
 /* large desktops and up ----------- */
 @media screen and (min-width: 1200px) {
 }
+
 

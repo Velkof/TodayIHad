@@ -20,7 +20,7 @@ namespace TodayIHad.Domain.Entities
     {
         [Required(ErrorMessage = "Unit name is required")]
         [StringLength(84, MinimumLength = 2, ErrorMessage = "Name must be between 2 and 84 characters")]
-        [RegularExpression("^[a-zA-Z0-9-_(),.%\\/]*$", ErrorMessage = "Name can contain only letters, numbers, and the symbols - , . _ / % ()")]
+        [RegularExpression("^[a-zA-Z0-9-_() ,.%\\/]*$", ErrorMessage = "Name can contain only letters, numbers, and the symbols - , . _ / % ()")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Weight in grams is a required field")]

@@ -132,7 +132,7 @@
 	}
 
 	function NameNotInProperFormat (name) {
-		if (name.length >= 2 && name.length <= 200 && /^[a-zA-Z0-9-_(),.%/]*$/.test(name))
+		if (name.length >= 2 && name.length <= 200 && /^[a-zA-Z0-9-_() ,.%/]*$/.test(name))
 			return false;
 		else
 			return true;
@@ -174,7 +174,7 @@
 		}
 		else if (name.length < 2 || name.length > 84 || name == "") {
 			$("#nameAddUnit").after("<p id='validMsgUnitName' class='validationMsg'>Name must be between 2 and 84 characters</p>");
-		} else if (/^[a-zA-Z0-9-_(),.%/]*$/.test(name) == false) {
+		} else if (/^[a-zA-Z0-9-_() ,.%/]*$/.test(name) == false) {
 			$("#nameAddUnit").after("<p id='validMsgUnitName' class='validationMsg'>Name can contain only letters, numbers, and - , . _ / % ()</p>");
 		}
 		else {
