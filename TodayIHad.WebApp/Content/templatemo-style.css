@@ -222,6 +222,10 @@ img {
     padding-top:80px;
 }
 
+.underline {
+    text-decoration: underline !important;
+}
+
 #loginBtn {
     color: white;
 }

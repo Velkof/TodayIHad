@@ -13,7 +13,7 @@ namespace TodayIHad.Repositories
         public bool Create(UserScore userScore)
         {
             userScore.DateCreated = DateTime.Now;
-            userScore.DateUpdated = DateTime.Now;
+            userScore.DateUpdated = DateTime.Now.AddDays(-1);
             userScore.ActiveDays = 0;
             userScore.Streak = 0;
             userScore.Level = 0;
