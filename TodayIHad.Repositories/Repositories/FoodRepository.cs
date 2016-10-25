@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using TodayIHad.Domain.Entities;
 using TodayIHad.Domain.Interfaces;
 
@@ -38,6 +40,23 @@ namespace TodayIHad.Repositories.Repositories
         {
             return db.Foods.ToList();
         }
+
+        public List<Food> GetAllCreatedByCurrentUser()
+        {
+            var userId = HttpContext.Current.User.Identity.GetUserId();
+            List<UsersToFood> usersToFoodsForCurrentUser = db.UsersToFoods.Where(x => x.UserId == userId).ToList();
+
+            List<Food> foodsCreatedByUser = new List<Food>();
+
+            foreach (var u in usersToFoodsForCurrentUser)
+            {
+                Food food = db.Foods.FirstOrDefault(x => x.Id == u.FoodId);
+                foodsCreatedByUser.Add(food);
+            }
+
+            return foodsCreatedByUser;
+        }
+
 
         public Food GetById(int id)
         {

@@ -356,7 +356,7 @@
 
 	//Get clicked food from search list in the logfood div
 	$("#foodSearchUL").on("click", "li", function () {
-		var selectedFoodName = $(this).html();
+		var selectedFoodName = $(this).text();
 		var selectedFood = this;
 		$.ajax({
 			type: "POST",
@@ -734,8 +734,12 @@
 				    return b.SevenDayScore - a.SevenDayScore;
 
 				});
+
 				$.each(data.data.scoresOfFollowedUsers, function (i, item) {
-					$("#followedTable tbody").append("<tr><td id='hiddenFollowedEmail' style='display:none;'>"+item.UserEmail+"</td><td>" + item.UserName + "</td><td class='removeFollowed'><a href='#'>Unfollow</a></td></tr>");
+
+				    if (item.UserEmail !== data.data.currentUserScore.UserEmail) {
+				        $("#followedTable tbody").append("<tr><td style='display:none;'>" + item.UserEmail + "</td><td>" + item.UserName + "</td><td class='removeFollowed'><a href='#'>Unfollow</a></td></tr>");
+				    }
 
 					$(".rankTable tbody").append("<tr><td>" + item.UserName + "</td><td>" + item.SevenDayScore + "</td></tr>");
 									 
@@ -751,7 +755,7 @@
 	$("#followedTable").on("click", ".removeFollowed", function (e) {
 
 		e.preventDefault();
-		var followedUserEmail = $("#hiddenFollowedEmail").text();
+		var followedUserEmail = $(this).prev().text();
 		var currentRow = $(this).parent();
 		$("#NoSuchUserWarning").remove();
 

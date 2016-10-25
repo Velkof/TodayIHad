@@ -8,6 +8,7 @@ using TodayIHad.Domain.Interfaces;
 using TodayIHad.Repositories;
 using TodayIHad.Repositories.Repositories;
 
+
 namespace TodayIHad.WebApp.Controllers
 {
     [Authorize]
@@ -34,8 +35,13 @@ namespace TodayIHad.WebApp.Controllers
         {
             if (searchFoodString != "")
             {
-                 var model = db.Foods.Where(n => n.Name.Contains(searchFoodString)).ToList();
-                 return Json(new { data = model });
+                List<Food> createdByUser = _foodRepository.GetAllCreatedByCurrentUser();
+                List<Food> defaultFoods = db.Foods.Where(x => x.IsDefault == 0).ToList();
+
+
+                var result = createdByUser.Concat(defaultFoods).Where(n => n.Name.Contains(searchFoodString)).ToList();
+
+                return Json(new { data = result });
             }
             return Json(new { data = false });
         }
@@ -55,12 +61,6 @@ namespace TodayIHad.WebApp.Controllers
                 return Json(new { data = data });
             }
             return Json(new {error = true});
-        }
-
-        protected JsonResult RespondWithItem (LoggedFood loggedFood)
-        {
-
-            return Json(new { data = loggedFood });
         }
 
 
@@ -290,7 +290,11 @@ namespace TodayIHad.WebApp.Controllers
                 scoresOfFollowers.Add(userScoreOfFollower);
             }
 
-            var data = new { scoresOfFollowedUsers, scoresOfFollowers };
+            string userId = User.Identity.GetUserId();
+            var currentUserScore = _userScoreRepository.GetForCurrentUser(userId);
+            scoresOfFollowedUsers.Add(currentUserScore);
+
+           var data = new { scoresOfFollowedUsers, scoresOfFollowers, currentUserScore };
 
 
             return Json(new { data = data });            

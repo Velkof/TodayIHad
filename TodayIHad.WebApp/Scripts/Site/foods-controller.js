@@ -36,7 +36,13 @@
 
 	function GetUnitsForFood() {
 
-		var foodId = $("#editFoodId").val();
+	    var foodId = $("#editFoodId").val();
+
+	    if (!foodId)
+	    {
+	        return;
+	    }
+        
 
 		$.ajax({
 			type: "POST",

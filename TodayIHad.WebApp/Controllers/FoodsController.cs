@@ -24,7 +24,7 @@ namespace TodayIHad.WebApp.Controllers
         // GET: Foods
         public ActionResult Index()
         {
-            ViewBag.ListOfFoods  = _foodRepository.GetAll().OrderByDescending(x => x.Id);
+            ViewBag.ListOfFoods  = _foodRepository.GetAllCreatedByCurrentUser().OrderByDescending(x => x.Id);
 
             return View();
         }
