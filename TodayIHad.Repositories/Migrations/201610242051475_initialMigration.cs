@@ -3,48 +3,79 @@ namespace TodayIHad.Repositories.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init : DbMigration
+    public partial class initialMigration : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.FollowersToFolloweds",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        FollowerId = c.String(),
+                        FollowedId = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
             CreateTable(
                 "dbo.Foods",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        Calories_kcal = c.Int(nullable: false),
-                        Protein_gr = c.Single(nullable: false),
-                        Fat_gr = c.Single(nullable: false),
-                        Carbs_gr = c.Single(nullable: false),
-                        Fiber_gr = c.Single(nullable: false),
-                        Sugar_gr = c.Single(nullable: false),
-                        Sodium_mg = c.Int(nullable: false),
-                        Fat_Sat_gr = c.Single(nullable: false),
-                        Fat_Mono_gr = c.Single(nullable: false),
-                        Fat_Poly_gr = c.Single(nullable: false),
-                        Cholesterol_mg = c.Int(nullable: false),
-                        User_Id = c.String(maxLength: 128),
+                        Name = c.String(nullable: false, maxLength: 200),
+                        Calories = c.Double(nullable: false),
+                        ProteinGr = c.Double(nullable: false),
+                        FatGr = c.Double(nullable: false),
+                        CarbsGr = c.Double(nullable: false),
+                        FiberGr = c.Double(),
+                        SugarGr = c.Double(),
+                        SodiumMg = c.Double(),
+                        FatSatGr = c.Double(),
+                        FatMonoGr = c.Double(),
+                        FatPolyGr = c.Double(),
+                        CholesterolMg = c.Double(),
+                        IsDefault = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
-                .Index(t => t.User_Id);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.FoodsUnits",
+                "dbo.FoodUnits",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        Seq = c.String(),
-                        Amount = c.Single(nullable: false),
-                        GramWeight = c.Single(nullable: false),
-                        UserFoodId = c.Int(nullable: false),
-                        Food_Id = c.Int(),
+                        Name = c.String(nullable: false, maxLength: 84),
+                        GramWeight = c.Double(nullable: false),
+                        FoodId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.LoggedFoods",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 200),
+                        Amount = c.Int(nullable: false),
+                        Unit = c.String(nullable: false, maxLength: 84),
+                        Calories = c.Double(nullable: false),
+                        ProteinGr = c.Double(nullable: false),
+                        FatGr = c.Double(nullable: false),
+                        CarbsGr = c.Double(nullable: false),
+                        FiberGr = c.Double(),
+                        SugarGr = c.Double(),
+                        SodiumMg = c.Double(),
+                        FatSatGr = c.Double(),
+                        FatMonoGr = c.Double(),
+                        FatPolyGr = c.Double(),
+                        CholesterolMg = c.Double(),
+                        DateCreated = c.DateTime(nullable: false),
+                        DateUpdated = c.DateTime(nullable: false),
+                        FoodId = c.Int(nullable: false),
+                        UserId = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Foods", t => t.Food_Id)
-                .Index(t => t.Food_Id);
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -105,23 +136,6 @@ namespace TodayIHad.Repositories.Migrations
                 .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.EnteredFoods",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        FoodId = c.Int(nullable: false),
-                        Amount = c.Int(nullable: false),
-                        Unit = c.String(),
-                        DateCreated = c.DateTime(nullable: false),
-                        DateUpdated = c.DateTime(nullable: false),
-                        UserId = c.String(maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .Index(t => t.UserId);
-            
-            CreateTable(
                 "dbo.AspNetUserLogins",
                 c => new
                     {
@@ -133,34 +147,64 @@ namespace TodayIHad.Repositories.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.UserScores",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Score = c.Int(nullable: false),
+                        Level = c.Int(nullable: false),
+                        Streak = c.Int(nullable: false),
+                        ActiveDays = c.Int(nullable: false),
+                        SevenDayScore = c.Int(nullable: false),
+                        SevenDayScoreLastReset = c.DateTime(nullable: false),
+                        DateCreated = c.DateTime(nullable: false),
+                        DateUpdated = c.DateTime(nullable: false),
+                        UserId = c.String(),
+                        UserEmail = c.String(),
+                        UserName = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.UsersToFoods",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        DateCreated = c.DateTime(nullable: false),
+                        DateUpdated = c.DateTime(nullable: false),
+                        UserId = c.String(),
+                        FoodId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Foods", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.EnteredFoods", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.LoggedFoods", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.FoodsUnits", "Food_Id", "dbo.Foods");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
-            DropIndex("dbo.EnteredFoods", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.FoodsUnits", new[] { "Food_Id" });
-            DropIndex("dbo.Foods", new[] { "User_Id" });
+            DropIndex("dbo.LoggedFoods", new[] { "UserId" });
+            DropTable("dbo.UsersToFoods");
+            DropTable("dbo.UserScores");
             DropTable("dbo.AspNetUserLogins");
-            DropTable("dbo.EnteredFoods");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.FoodsUnits");
+            DropTable("dbo.LoggedFoods");
+            DropTable("dbo.FoodUnits");
             DropTable("dbo.Foods");
+            DropTable("dbo.FollowersToFolloweds");
         }
     }
 }

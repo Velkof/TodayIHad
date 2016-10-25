@@ -7,13 +7,13 @@ namespace TodayIHad.Repositories.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UserScoreAddNextLevelProperty : IMigrationMetadata
+    public sealed partial class initialMigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UserScoreAddNextLevelProperty));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initialMigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201609261047066_UserScoreAddNextLevelProperty"; }
+            get { return "201610242051475_initialMigration"; }
         }
         
         string IMigrationMetadata.Source
