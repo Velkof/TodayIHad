@@ -41,6 +41,11 @@ namespace TodayIHad.Repositories.Repositories
             return db.Foods.ToList();
         }
 
+        public List<Food> GetDefaultFoods()
+        {
+            return db.Foods.Where(x => x.IsDefault == 0).ToList();
+        }
+
         public List<Food> GetAllCreatedByCurrentUser()
         {
             var userId = HttpContext.Current.User.Identity.GetUserId();
@@ -56,7 +61,6 @@ namespace TodayIHad.Repositories.Repositories
 
             return foodsCreatedByUser;
         }
-
 
         public Food GetById(int id)
         {

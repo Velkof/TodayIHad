@@ -14,7 +14,6 @@ namespace TodayIHad.WebApp.Controllers
     [Authorize]
     public class DashboardController : Controller
     {
-        Database db = new Database();
         private IFoodRepository _foodRepository = new FoodRepository();
         private IFoodUnitRepository _foodUnitRepository = new FoodUnitRepository();
         private ILoggedFoodRepository _loggedFoodRepository = new LoggedFoodRepository();
@@ -35,11 +34,11 @@ namespace TodayIHad.WebApp.Controllers
         {
             if (searchFoodString != "")
             {
+            
                 List<Food> createdByUser = _foodRepository.GetAllCreatedByCurrentUser();
-                List<Food> defaultFoods = db.Foods.Where(x => x.IsDefault == 0).ToList();
+                List<Food> defaultFoods = _foodRepository.GetDefaultFoods();
 
-
-                var result = createdByUser.Concat(defaultFoods).Where(n => n.Name.Contains(searchFoodString)).ToList();
+                var result = createdByUser.Concat(defaultFoods).Where(n => n.Name.ToUpper().Contains(searchFoodString.ToUpper())).ToList();
 
                 return Json(new { data = result });
             }
@@ -55,7 +54,7 @@ namespace TodayIHad.WebApp.Controllers
             var food = _foodRepository.GetById(loggedFoodFoodId);
             var foodUnits = _foodUnitRepository.GetAllForCurrentFood(loggedFoodFoodId);
 
-            if (loggedFood != null && foodUnits != null)
+            if (loggedFood != null && foodUnits != null && food != null)
             {
                 var data = new {loggedFood, food, foodUnits };
                 return Json(new { data = data });
@@ -112,30 +111,9 @@ namespace TodayIHad.WebApp.Controllers
        public JsonResult LogFood(LoggedFood loggedFood)
         {
 
-            var newLoggedFood = new LoggedFood();
-
             if (ModelState.IsValid)
             {
-                newLoggedFood.Name = loggedFood.Name;
-                newLoggedFood.Amount = loggedFood.Amount;
-                newLoggedFood.Unit = loggedFood.Unit;
-                newLoggedFood.Calories = loggedFood.Calories;
-                newLoggedFood.FoodId = loggedFood.FoodId;
-                newLoggedFood.DateCreated = loggedFood.DateCreated;
-                newLoggedFood.DateUpdated = loggedFood.DateUpdated;
-                newLoggedFood.FatGr = loggedFood.FatGr;
-                newLoggedFood.FatSatGr = loggedFood.FatSatGr;
-                newLoggedFood.FatMonoGr = loggedFood.FatMonoGr;
-                newLoggedFood.FatPolyGr = loggedFood.FatPolyGr;
-                newLoggedFood.CarbsGr = loggedFood.CarbsGr;
-                newLoggedFood.FiberGr = loggedFood.FiberGr;
-                newLoggedFood.SugarGr = loggedFood.SugarGr;
-                newLoggedFood.ProteinGr = loggedFood.ProteinGr;
-                newLoggedFood.SodiumMg = loggedFood.SodiumMg;
-                newLoggedFood.CholesterolMg = loggedFood.CholesterolMg;
-
-
-                _loggedFoodRepository.Create(newLoggedFood);
+                _loggedFoodRepository.Create(loggedFood);
 
                 return Json(new {success = true });
             }
@@ -147,31 +125,9 @@ namespace TodayIHad.WebApp.Controllers
         [HttpPost]
         public JsonResult UpdateLoggedFood(LoggedFood loggedFood)
         {
-
-            var updatedLoggedFood = new LoggedFood();
-
             if (ModelState.IsValid)
             {
-                updatedLoggedFood.Id = loggedFood.Id;
-                updatedLoggedFood.Name = loggedFood.Name;
-                updatedLoggedFood.Amount = loggedFood.Amount;
-                updatedLoggedFood.Unit = loggedFood.Unit;
-                updatedLoggedFood.Calories = loggedFood.Calories;
-                updatedLoggedFood.FoodId = loggedFood.FoodId;
-                updatedLoggedFood.DateUpdated = loggedFood.DateUpdated;
-                updatedLoggedFood.FatGr = loggedFood.FatGr;
-                updatedLoggedFood.FatSatGr = loggedFood.FatSatGr;
-                updatedLoggedFood.FatMonoGr = loggedFood.FatMonoGr;
-                updatedLoggedFood.FatPolyGr = loggedFood.FatPolyGr;
-                updatedLoggedFood.CarbsGr = loggedFood.CarbsGr;
-                updatedLoggedFood.FiberGr = loggedFood.FiberGr;
-                updatedLoggedFood.SugarGr = loggedFood.SugarGr;
-                updatedLoggedFood.ProteinGr = loggedFood.ProteinGr;
-                updatedLoggedFood.SodiumMg = loggedFood.SodiumMg;
-                updatedLoggedFood.CholesterolMg = loggedFood.CholesterolMg;
-
-
-                _loggedFoodRepository.Update(updatedLoggedFood);
+                _loggedFoodRepository.Update(loggedFood);
 
                 return Json(new { success = true });
             }
@@ -189,9 +145,7 @@ namespace TodayIHad.WebApp.Controllers
 
                 return Json(new {success = true});
             }
-
             return Json(new {error = true });
-
         }
 
         [HttpPost]

@@ -356,8 +356,10 @@
 
 	//Get clicked food from search list in the logfood div
 	$("#foodSearchUL").on("click", "li", function () {
+	    
 		var selectedFoodName = $(this).text();
 		var selectedFood = this;
+
 		$.ajax({
 			type: "POST",
 			url: "/Dashboard/GetSelectedFood",
@@ -373,6 +375,7 @@
 				$("#btnContainerLogFood").empty();
 				$("#foodSearchUL").empty();
 				$("#unitsLogFood").empty();
+
 
 
 				$("#btnContainerLogFood").append("<button class='btn btn-success saveBtn'>Save</button>");
@@ -402,7 +405,7 @@
 
 				$('html,body').animate({
 					scrollTop: $("#loggedFoodsContainer").offset().top - 65
-				},'slow');
+				}, 'slow');
 
 			},
 			error: function () {

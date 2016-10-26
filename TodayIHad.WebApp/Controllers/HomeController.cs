@@ -6,6 +6,7 @@ namespace TodayIHad.WebApp.Controllers
     {
         public ActionResult Index()
         {
+
             return View();
         }
 

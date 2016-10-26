@@ -7,8 +7,9 @@ namespace TodayIHad.Domain.Interfaces
     {
         List<Food> GetAll();
         Food GetById(int id);
+        List<Food> GetDefaultFoods();
         List<Food> GetAllCreatedByCurrentUser();
-        
+
         bool Create(Food food);
         bool Update(Food food);
         bool Delete(int id);
