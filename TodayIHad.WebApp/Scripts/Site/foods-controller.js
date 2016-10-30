@@ -118,17 +118,20 @@
 		}
 	});
 
-	$("#userFoodAmount, #userFoodUnit").on("change", function(){
-
-		var amount = $("#userFoodAmount").val();
-		var gramWeight = $("#userFoodUnit").find(":selected").data('gramweight');
-		var gramsTotal = gramWeight * amount;
-		$("#gramsTotal").val(gramsTotal);
-		var selectedFoodUnit = $("#userFoodUnit option:selected").val();
-		$("#createFoodPerAmount").html("<strong>" + amount + " x " + selectedFoodUnit + " or " + gramsTotal.toFixed(0) + " grams.</strong>");
-
-
+	$("#userFoodAmount, #userFoodUnit").on("change", function(){	
+	    createFoodPerAmount();
 	});
+
+
+	function createFoodPerAmount() {
+	    var amount = $("#userFoodAmount").val();
+	    var gramWeight = $("#userFoodUnit").find(":selected").data('gramweight');
+	    var gramsTotal = gramWeight * amount;
+	    $("#gramsTotal").val(gramsTotal);
+	    var selectedFoodUnit = $("#userFoodUnit option:selected").val();
+	    $("#createFoodPerAmount").html("<strong>" + amount + " x " + selectedFoodUnit + " or " + gramsTotal.toFixed(0) + " grams.</strong>");
+
+	}
 
 	function NumNotInRange (num){
 		if (num >= 0 && num <= 99999)
@@ -188,6 +191,7 @@
 			$("#userFoodUnit").append('<option value="' + name + '" id="option' + unitId + '" data-gramweight="' + gramWeight + '" selected>' + name + '</option>');
 
 			$("#userFoodAmount").val(1);
+			createFoodPerAmount();
 		}
 	});
 
@@ -205,6 +209,7 @@
 
 			$("#" + checkBoxId).parent().parent().remove();
 			$("#option" + checkBoxId).remove();
+			createFoodPerAmount();
 		});
 
 	});

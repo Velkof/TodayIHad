@@ -49,7 +49,7 @@ namespace TodayIHad.WebApp.Controllers
         [HttpPost] 
         public JsonResult GetLoggedFood (int loggedFoodFoodId, DateTime dateCreated)
         {
-            var loggedFood = _loggedFoodRepository.GetAllForCurrentUser().Where(x => x.DateCreated == dateCreated).FirstOrDefault(n => n.FoodId == loggedFoodFoodId);
+            var loggedFood = _loggedFoodRepository.GetAllForCurrentUser().Where(x => x.DateCreated.AddHours(1) == dateCreated).FirstOrDefault(n => n.FoodId == loggedFoodFoodId);
 
             var food = _foodRepository.GetById(loggedFoodFoodId);
             var foodUnits = _foodUnitRepository.GetAllForCurrentFood(loggedFoodFoodId);
